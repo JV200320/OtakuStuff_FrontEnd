@@ -56,6 +56,7 @@ border: 2px solid #FF6B4F;
 color: #FF6B4F;
 background-color: transparent;
 border-radius: 6px;
+padding: 5px;
 &:focus{
   outline: none;
 }
