@@ -90,3 +90,7 @@ border-radius: 6px;
   }
 }
 `
+
+export const DivMobile = styled.div`
+z-index: 10;
+`

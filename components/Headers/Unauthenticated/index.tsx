@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { Navbar, Brand, Botao, Search, Toggle, BotaoMobile, SearchMobile } from "../../../styles/UnauthenticatedHeader/UnauthenticatedHeader"
+import { Navbar, Brand, Botao, Search, Toggle, BotaoMobile, SearchMobile, DivMobile } from "../../../styles/UnauthenticatedHeader/UnauthenticatedHeader"
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faFilter, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -56,7 +56,7 @@ export const UnauthenticatedHeader: React.FC = () => {
       </Row>
 
       {/*Mobile Menu*/}
-      <div className={`d-lg-none d-${showMenu} flex-column justify-content-center position-absolute top-0 w-100 bg-dark`}>
+      <DivMobile className={`d-lg-none d-${showMenu} flex-column justify-content-center position-absolute top-0 w-100 p-2 bg-dark`}>
         <Toggle className="position-absolute top-0 end-0">
           <FontAwesomeIcon icon={faTimes} color="#FF6B4F" onClick={() => setShowMenu("none")} />
         </Toggle>
@@ -70,7 +70,7 @@ export const UnauthenticatedHeader: React.FC = () => {
             Cadastrar
           </BotaoMobile>
         </Link>
-        <div className="d-lg-none d-flex justify-content-center">
+        <div className="d-lg-none d-flex justify-content-center z-index-3">
           <BotaoMobile>
             <FontAwesomeIcon icon={faFilter} color="#FF6B4F" className="me-2" />
           </BotaoMobile>
@@ -79,7 +79,7 @@ export const UnauthenticatedHeader: React.FC = () => {
             <FontAwesomeIcon icon={faSearch} color="#FF6B4F" className="ms-2" />
           </BotaoMobile>
         </div>
-      </div>
+      </DivMobile>
       {/*Mobile Menu*/}
     </Navbar>
   )

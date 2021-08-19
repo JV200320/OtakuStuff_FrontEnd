@@ -7,15 +7,15 @@ import styles from '../../styles/AnimeList/AnimeList.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAnimes } from '../../store/modules/animes/reducer'
 import AnimeService from '../../services/animes/getAnimes'
+import inputStyle from '../../styles/Shared/HiddenInputArrow/index.module.css'
 
-let page = 1
 
 export const Main = () => {
-
-
   const dispatch = useDispatch()
 
   const animes = useSelector(state => state.animes)
+
+  const [page, setPage] = React.useState(1)
 
   // Aparece ou não
   const show = ['d-none', '']
@@ -45,15 +45,20 @@ export const Main = () => {
     setDisplayFav(hide)
   }
 
-  const updateAnimesNext = async () => {
-    page += 1
+  const getPageAnime = async (page) => {
+    document.getElementById('page_input').blur()
     await AnimeService.getTopAnime({ page: page }).then(res => dispatch(setAnimes(res.data['animes'])))
+  }
+
+  const updateAnimesNext = async () => {
+    await AnimeService.getTopAnime({ page: page + 1 }).then(res => dispatch(setAnimes(res.data['animes'])))
     document.getElementById("testescroll").scrollTo(0, 0)
+    setPage(page + 1)
   }
 
   const updateAnimesBefore = async () => {
-    page > 1 ? page -= 1 : page
-    await AnimeService.getTopAnime({ page: page }).then(res => dispatch(setAnimes(res.data['animes'])))
+    page > 1 ? setPage(page - 1) : page
+    await AnimeService.getTopAnime({ page: page - 1 }).then(res => dispatch(setAnimes(res.data['animes'])))
     document.getElementById("testescroll").scrollTo(0, 0)
   }
 
@@ -68,7 +73,11 @@ export const Main = () => {
       } else {
         return (
           <div className="fixed-bottom offset-3 col-6 text-center text-light" style={{ backgroundColor: '#303030' }}>
-            <a onClick={() => updateAnimesBefore()}>Anterior</a> | {page} | <a onClick={() => updateAnimesNext()}>Próximo</a>
+            <a onClick={() => updateAnimesBefore()}>Anterior</a> |
+            <input type="number" id="page_input" value={page} onChange={e => setPage(Number(e.target.value))}
+              onKeyPress={(e) => e.key === 'Enter' && getPageAnime(page)}
+              className={`bg-transparent border-0 text-light text-center ${inputStyle.hidden_arrow}`} style={{ width: 30 }} />
+            | <a onClick={() => updateAnimesNext()}>Próximo</a>
           </div>
         )
       }

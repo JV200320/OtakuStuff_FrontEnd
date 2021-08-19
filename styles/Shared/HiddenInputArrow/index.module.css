@@ -1,0 +1,9 @@
+.hidden_arrow::-webkit-outer-spin-button,
+.hidden_arrow::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hidden_arrow {
+  -moz-appearance: textfield;
+}
