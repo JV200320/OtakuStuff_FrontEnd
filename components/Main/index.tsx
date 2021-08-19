@@ -2,8 +2,20 @@ import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { Favorites } from './Favorites'
 import { Friends } from './Friends'
+import { AnimeList } from './AnimeList'
+import styles from '../../styles/AnimeList/AnimeList.module.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { setAnimes } from '../../store/modules/animes/reducer'
+import AnimeService from '../../services/animes/getAnimes'
+
+let page = 1
 
 export const Main = () => {
+
+
+  const dispatch = useDispatch()
+
+  const animes = useSelector(state => state.animes)
 
   // Aparece ou não
   const show = ['d-none', '']
@@ -33,6 +45,35 @@ export const Main = () => {
     setDisplayFav(hide)
   }
 
+  const updateAnimesNext = async () => {
+    page += 1
+    await AnimeService.getTopAnime({ page: page }).then(res => dispatch(setAnimes(res.data['animes'])))
+    document.getElementById("testescroll").scrollTo(0, 0)
+  }
+
+  const updateAnimesBefore = async () => {
+    page > 1 ? page -= 1 : page
+    await AnimeService.getTopAnime({ page: page }).then(res => dispatch(setAnimes(res.data['animes'])))
+    document.getElementById("testescroll").scrollTo(0, 0)
+  }
+
+  const renderPageControl = () => {
+    if (animes.length >= 1) {
+      if (animes[0]['rank'] == '1') {
+        return (
+          <div className="fixed-bottom offset-3 col-6 text-center text-light" style={{ backgroundColor: '#303030' }}>
+            <span onClick={() => updateAnimesNext()}>Próximo</span>
+          </div>
+        )
+      } else {
+        return (
+          <div className="fixed-bottom offset-3 col-6 text-center text-light" style={{ backgroundColor: '#303030' }}>
+            <a onClick={() => updateAnimesBefore()}>Anterior</a> | {page} | <a onClick={() => updateAnimesNext()}>Próximo</a>
+          </div>
+        )
+      }
+    }
+  }
 
   return (
     <>
@@ -54,8 +95,9 @@ export const Main = () => {
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFav[1]}`}>
           <Favorites />
         </Col>
-        <Col lg={6} className={`d-flex justify-content-center align-items-center ${displayFeed[1]}`} style={{ backgroundColor: "#303030" }}>
-
+        <Col lg={6} id="testescroll" className={`d-flex align-items-center flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`} style={{ backgroundColor: "#303030", height: 863 }}>
+          <AnimeList />
+          {renderPageControl()}
         </Col>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>
           <Friends />
