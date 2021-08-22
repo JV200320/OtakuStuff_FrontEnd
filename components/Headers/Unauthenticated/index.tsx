@@ -4,10 +4,27 @@ import { Navbar, Brand, Botao, Search, Toggle, BotaoMobile, SearchMobile, DivMob
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faFilter, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux'
+import { setAnimes } from '../../../store/modules/animes/reducer'
+import AnimeService from '../../../services/animes/getAnimes'
 
 export const UnauthenticatedHeader: React.FC = () => {
 
+  const dispatch = useDispatch()
+
   const [showMenu, setShowMenu] = React.useState("none")
+  const [search, setSearch] = React.useState("")
+
+  const searchAnime = async () => {
+    let res;
+    if (search == '') {
+      res = await AnimeService.getTopAnime(null)
+      dispatch(setAnimes(res.data['animes']))
+      return
+    }
+    res = await AnimeService.searchAnime({ search: { q: search } })
+    dispatch(setAnimes(res.data['animes']))
+  }
 
   return (
     <Navbar>
@@ -29,8 +46,10 @@ export const UnauthenticatedHeader: React.FC = () => {
           <Botao>
             <FontAwesomeIcon icon={faFilter} color="#FF6B4F" className="me-2" />
           </Botao>
-          <Search placeholder="Procurar por algo..." />
-          <Botao>
+          <Search placeholder="Procurar por algo..." value={search}
+            onChange={e => setSearch(e.target.value)}
+            onKeyPress={e => e.key == "Enter" && searchAnime()} />
+          <Botao onClick={() => searchAnime()}>
             <FontAwesomeIcon icon={faSearch} color="#FF6B4F" className="ms-2" />
           </Botao>
         </Col>

@@ -3,9 +3,10 @@ import AnimeService from '../../../services/animes/getAnimes'
 import { AnimeComponent } from './AnimeComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAnimes } from '../../../store/modules/animes/reducer'
+import { Spinner } from 'react-bootstrap'
 
 
-export const AnimeList = () => {
+export const AnimeList = ({ isLoading, setLoading }) => {
 
   const dispatch = useDispatch()
 
@@ -17,6 +18,7 @@ export const AnimeList = () => {
     AnimeService.getTopAnime(null).then(res => {
       dispatch(setAnimes(res.data['animes']))
     })
+    setLoading(false)
   }, [])
 
   const renderContent = () => {
@@ -27,7 +29,7 @@ export const AnimeList = () => {
 
   return (
     <>
-      {renderContent()}
+      {isLoading ? <Spinner animation="border" variant="light" /> : renderContent()}
     </>
   )
 }

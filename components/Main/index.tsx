@@ -21,6 +21,9 @@ export const Main = () => {
   const show = ['d-none', '']
   const hide = ['d-block d-sm-block d-lg-none', 'd-none d-lg-flex']
 
+  // Estado de loading
+  const [Loading, setLoading] = React.useState(true)
+
   // Estados que controlam qual view apresentar
   const [displayFav, setDisplayFav] = React.useState(hide)
   const [displayFriends, setDisplayFriends] = React.useState(hide)
@@ -47,19 +50,45 @@ export const Main = () => {
 
   const getPageAnime = async (page) => {
     document.getElementById('page_input').blur()
-    await AnimeService.getTopAnime({ page: page }).then(res => dispatch(setAnimes(res.data['animes'])))
+    setLoading(true)
+    let res = await AnimeService.getTopAnime({ page: page })
+    if (res.data['animes'].length == 0) {
+      alert("Erro ao se comunicar com o servidor, tente novamente.")
+      setLoading(false)
+      return
+    }
+    dispatch(setAnimes(res.data['animes']))
+    setLoading(false)
   }
 
   const updateAnimesNext = async () => {
-    await AnimeService.getTopAnime({ page: page + 1 }).then(res => dispatch(setAnimes(res.data['animes'])))
+    setLoading(true)
+    let res = await AnimeService.getTopAnime({ page: page + 1 })
+    if (res.data['animes'].length == 0) {
+      alert("Erro ao se comunicar com o servidor, tente novamente.")
+      setLoading(false)
+      return
+    }
+    dispatch(setAnimes(res.data['animes']))
+    setLoading(false)
     document.getElementById("testescroll").scrollTo(0, 0)
     setPage(page + 1)
   }
 
   const updateAnimesBefore = async () => {
-    page > 1 ? setPage(page - 1) : page
-    await AnimeService.getTopAnime({ page: page - 1 }).then(res => dispatch(setAnimes(res.data['animes'])))
-    document.getElementById("testescroll").scrollTo(0, 0)
+    if (page > 1) {
+      setLoading(true)
+      let res = await AnimeService.getTopAnime({ page: page - 1 })
+      if (res.data['animes'].length == 0) {
+        alert("Erro ao se comunicar com o servidor, tente novamente.")
+        setLoading(false)
+        return
+      }
+      dispatch(setAnimes(res.data['animes']))
+      setLoading(false)
+      document.getElementById("testescroll").scrollTo(0, 0)
+      setPage(page - 1)
+    }
   }
 
   const renderPageControl = () => {
@@ -105,7 +134,7 @@ export const Main = () => {
           <Favorites />
         </Col>
         <Col lg={6} id="testescroll" className={`d-flex align-items-center flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`} style={{ backgroundColor: "#303030", height: 863 }}>
-          <AnimeList />
+          <AnimeList isLoading={Loading} setLoading={setLoading} />
           {renderPageControl()}
         </Col>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>
