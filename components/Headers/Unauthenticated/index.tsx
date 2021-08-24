@@ -64,7 +64,7 @@ export const UnauthenticatedHeader: React.FC = () => {
             </Link>
           </Col>
           <Col className="d-flex align-items-center justify-content-center" lg={6}>
-            <Link href="#Cadastrar">
+            <Link href="/SignUp">
               <Botao>
                 Cadastrar
               </Botao>
@@ -84,7 +84,7 @@ export const UnauthenticatedHeader: React.FC = () => {
             Entrar
           </BotaoMobile>
         </Link>
-        <Link href="#Cadastrar">
+        <Link href="/SignUp">
           <BotaoMobile>
             Cadastrar
           </BotaoMobile>
