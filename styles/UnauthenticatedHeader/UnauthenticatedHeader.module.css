@@ -1,9 +1,0 @@
-.none_md{
-  display: block;
-}
-
-@media(max-width: 1000px) {
-  .none_md {
-    display:none;
-  }
-}

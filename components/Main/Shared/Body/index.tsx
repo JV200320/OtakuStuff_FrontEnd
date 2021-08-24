@@ -1,5 +1,5 @@
 import React from 'react'
-import { Base } from '../../../../styles/Body/Body'
+import { Base } from './styles'
 
 export const Body = ({ children }) => {
   return (

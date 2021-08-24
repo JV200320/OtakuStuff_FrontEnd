@@ -3,12 +3,11 @@ import { Col, Row } from 'react-bootstrap'
 import { Favorites } from './Favorites'
 import { Friends } from './Friends'
 import { AnimeList } from './AnimeList'
-import styles from '../../styles/AnimeList/AnimeList.module.css'
+import styles from './styles.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAnimes } from '../../store/modules/animes/reducer'
 import AnimeService from '../../services/animes/getAnimes'
-import inputStyle from '../../styles/Shared/HiddenInputArrow/index.module.css'
-import { MainView } from '../../styles/MainView'
+import { MainView } from './styles'
 
 
 export const Main = () => {
@@ -107,7 +106,7 @@ export const Main = () => {
             <a onClick={() => updateAnimesBefore()}>Anterior</a> |
             <input type="number" id="page_input" value={page} onChange={e => setPage(Number(e.target.value))}
               onKeyPress={(e) => e.key === 'Enter' && getPageAnime(page)}
-              className={`bg-transparent border-0 text-light text-center ${inputStyle.hidden_arrow}`} style={{ width: 30 }} />
+              className={`bg-transparent border-0 text-light text-center ${styles.hidden_arrow}`} style={{ width: 30 }} />
             | <a onClick={() => updateAnimesNext()}>Próximo</a>
           </div>
         )

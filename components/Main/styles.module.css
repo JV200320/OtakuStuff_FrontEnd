@@ -1,3 +1,12 @@
+.hide_scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide_scrollbar {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
 .hidden_arrow::-webkit-outer-spin-button,
 .hidden_arrow::-webkit-inner-spin-button{
   -webkit-appearance: none;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { Navbar, Brand, Botao, Search, Toggle, BotaoMobile, SearchMobile, DivMobile } from "../../../styles/UnauthenticatedHeader/UnauthenticatedHeader"
+import { Navbar, Brand, Botao, Search, Toggle, BotaoMobile, SearchMobile, DivMobile } from "./styles"
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faFilter, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'

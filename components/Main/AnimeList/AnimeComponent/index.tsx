@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnimeDiv } from '../../../../styles/AnimeList/AnimeList'
+import { AnimeDiv } from './styles'
 import { Col, Row } from 'react-bootstrap'
 import Image from 'next/image'
 
