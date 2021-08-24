@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setAnimes } from '../../store/modules/animes/reducer'
 import AnimeService from '../../services/animes/getAnimes'
 import inputStyle from '../../styles/Shared/HiddenInputArrow/index.module.css'
+import { MainView } from '../../styles/MainView'
 
 
 export const Main = () => {
@@ -71,7 +72,7 @@ export const Main = () => {
     }
     dispatch(setAnimes(res.data['animes']))
     setLoading(false)
-    document.getElementById("testescroll").scrollTo(0, 0)
+    document.getElementById("mainView").scrollTo(0, 0)
     setPage(page + 1)
   }
 
@@ -86,12 +87,13 @@ export const Main = () => {
       }
       dispatch(setAnimes(res.data['animes']))
       setLoading(false)
-      document.getElementById("testescroll").scrollTo(0, 0)
+      document.getElementById("mainView").scrollTo(0, 0)
       setPage(page - 1)
     }
   }
 
   const renderPageControl = () => {
+    if (animes == null) return null
     if (animes.length >= 1) {
       if (animes[0]['rank'] == '1') {
         return (
@@ -133,10 +135,10 @@ export const Main = () => {
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFav[1]}`}>
           <Favorites />
         </Col>
-        <Col lg={6} id="testescroll" className={`d-flex align-items-center flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`} style={{ backgroundColor: "#303030", height: 863 }}>
+        <MainView lg={6} id="mainView" className={`d-flex align-items-center ${Loading ? 'justify-content-center' : ''} flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`}>
           <AnimeList isLoading={Loading} setLoading={setLoading} />
           {renderPageControl()}
-        </Col>
+        </MainView>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>
           <Friends />
         </Col>
