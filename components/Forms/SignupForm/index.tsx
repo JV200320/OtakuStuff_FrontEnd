@@ -27,7 +27,7 @@ export const SignUpForm: React.FC = () => {
     formData.append('password_confirmation', confirmPassword)
     formData.append('image', image)
     try {
-      let res = await UserService.signUp(formData)
+      await UserService.signUp(formData)
       toast.success('Conta criada com sucesso.')
       router.push('/')
     } catch (error) {

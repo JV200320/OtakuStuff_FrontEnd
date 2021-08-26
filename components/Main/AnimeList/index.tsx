@@ -4,7 +4,7 @@ import { AnimeComponent } from './AnimeComponent'
 import { Spinner } from 'react-bootstrap'
 
 
-export const AnimeList = ({ isLoading, setLoading, animes, setAnimes }) => {
+export const AnimeList = ({ Loading, setLoading, animes, setAnimes }) => {
 
   // TopAnime data
 
@@ -23,7 +23,7 @@ export const AnimeList = ({ isLoading, setLoading, animes, setAnimes }) => {
 
   return (
     <>
-      {isLoading ? <Spinner animation="border" variant="light" /> : renderContent()}
+      {Loading ? <Spinner animation="border" variant="light" /> : renderContent()}
     </>
   )
 }

@@ -134,7 +134,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, animes, setAnimes }
           <Favorites />
         </Col>
         <MainView lg={6} id="mainView" className={`d-flex align-items-center ${Loading ? 'justify-content-center' : ''} flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`}>
-          <AnimeList isLoading={Loading} setLoading={setLoading} animes={animes} setAnimes={setAnimes} />
+          <AnimeList Loading={Loading} setLoading={setLoading} animes={animes} setAnimes={setAnimes} />
           {renderPageControl()}
         </MainView>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>

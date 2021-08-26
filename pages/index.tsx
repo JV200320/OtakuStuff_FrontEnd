@@ -2,7 +2,7 @@ import React from 'react'
 import { UnauthenticatedHeader as Header } from '../components/Headers/Unauthenticated'
 import { Main } from '../components/Main'
 
-export default function HomeUnauthenticated() {
+export default function Home() {
 
   const [animes, setAnimes] = React.useState(null)
   const [Loading, setLoading] = React.useState(true)

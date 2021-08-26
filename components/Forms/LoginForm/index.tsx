@@ -18,7 +18,7 @@ export const LoginForm: React.FC = () => {
     formData.append('email', email)
     formData.append('password', password)
     try {
-      let res = await UserService.login(formData)
+      await UserService.login(formData)
       toast.success('Login realizado com sucesso.')
       router.push('/')
     } catch (error) {
