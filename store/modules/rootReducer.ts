@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import animes from './animes/reducer';
+import auth from './auth/reducer'
 
 export default combineReducers({
-    animes
+    auth
 });

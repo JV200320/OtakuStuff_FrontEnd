@@ -4,20 +4,18 @@ import { Favorites } from './Favorites'
 import { Friends } from './Friends'
 import { AnimeList } from './AnimeList'
 import styles from './styles.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { setAnimes } from '../../store/modules/animes/reducer'
 import AnimeService from '../../services/animes/getAnimes'
 import { MainView } from './styles'
+import Anime from '../../dtos/Animes'
 
 interface Props {
   Loading: boolean;
   setLoading: Function;
+  animes: Array<Anime>,
+  setAnimes: Function
 }
 
-export const Main: React.FC<Props> = ({ Loading, setLoading }) => {
-  const dispatch = useDispatch()
-
-  const animes = useSelector(state => state.animes)
+export const Main: React.FC<Props> = ({ Loading, setLoading, animes, setAnimes }) => {
 
   const [page, setPage] = React.useState(1)
 
@@ -58,7 +56,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading }) => {
       setLoading(false)
       return
     }
-    dispatch(setAnimes(res.data['animes']))
+    setAnimes(res.data['animes'])
     setLoading(false)
   }
 
@@ -70,7 +68,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading }) => {
       setLoading(false)
       return
     }
-    dispatch(setAnimes(res.data['animes']))
+    setAnimes(res.data['animes'])
     setLoading(false)
     document.getElementById("mainView").scrollTo(0, 0)
     setPage(page + 1)
@@ -85,7 +83,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading }) => {
         setLoading(false)
         return
       }
-      dispatch(setAnimes(res.data['animes']))
+      setAnimes(res.data['animes'])
       setLoading(false)
       document.getElementById("mainView").scrollTo(0, 0)
       setPage(page - 1)
@@ -95,7 +93,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading }) => {
   const renderPageControl = () => {
     if (animes == null) return null
     if (animes.length >= 1) {
-      if (animes[0]['rank'] == '1') {
+      if (animes[0]['rank'] == 1) {
         return (
           <div className="fixed-bottom offset-3 col-6 text-center text-light" style={{ backgroundColor: '#303030' }}>
             <span onClick={() => updateAnimesNext()}>Próximo</span>
@@ -136,7 +134,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading }) => {
           <Favorites />
         </Col>
         <MainView lg={6} id="mainView" className={`d-flex align-items-center ${Loading ? 'justify-content-center' : ''} flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`}>
-          <AnimeList isLoading={Loading} setLoading={setLoading} />
+          <AnimeList isLoading={Loading} setLoading={setLoading} animes={animes} setAnimes={setAnimes} />
           {renderPageControl()}
         </MainView>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>

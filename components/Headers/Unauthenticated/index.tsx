@@ -4,17 +4,14 @@ import { Navbar, Brand, Botao, Search, Toggle, BotaoMobile, SearchMobile, DivMob
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faFilter, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch } from 'react-redux'
-import { setAnimes } from '../../../store/modules/animes/reducer'
 import AnimeService from '../../../services/animes/getAnimes'
 
 interface Props {
-  setLoading: Function;
+  setLoading: Function,
+  setAnimes: Function
 }
 
-export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading }) => {
-
-  const dispatch = useDispatch()
+export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
   const [search, setSearch] = React.useState("")
@@ -24,12 +21,12 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading }) => {
     let res;
     if (search == '') {
       res = await AnimeService.getTopAnime(null)
-      dispatch(setAnimes(res.data['animes']))
+      setAnimes(res.data['animes'])
       setLoading(false)
       return
     }
     res = await AnimeService.searchAnime({ search: { q: search } })
-    dispatch(setAnimes(res.data['animes']))
+    setAnimes(res.data['animes'])
     setLoading(false)
   }
 

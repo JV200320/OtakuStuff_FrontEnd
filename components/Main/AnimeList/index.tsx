@@ -1,22 +1,16 @@
 import React from 'react'
 import AnimeService from '../../../services/animes/getAnimes'
 import { AnimeComponent } from './AnimeComponent'
-import { useDispatch, useSelector } from 'react-redux'
-import { setAnimes } from '../../../store/modules/animes/reducer'
 import { Spinner } from 'react-bootstrap'
 
 
-export const AnimeList = ({ isLoading, setLoading }) => {
-
-  const dispatch = useDispatch()
-
-  const animes = useSelector(state => state.animes)
+export const AnimeList = ({ isLoading, setLoading, animes, setAnimes }) => {
 
   // TopAnime data
 
   React.useEffect(() => {
     AnimeService.getTopAnime(null).then(res => {
-      dispatch(setAnimes(res.data['animes']))
+      setAnimes(res.data['animes'])
     })
     setLoading(false)
   }, [])
