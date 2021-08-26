@@ -4,6 +4,8 @@ import Head from 'next/dist/shared/lib/head';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../store';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -18,6 +20,7 @@ function MyApp({ Component, pageProps }) {
         <PersistGate loading={null} persistor={persistor}>
           <Component {...pageProps} />
         </PersistGate>
+        <ToastContainer />
       </Provider>
     </>
   )

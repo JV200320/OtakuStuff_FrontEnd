@@ -9,6 +9,9 @@ export const Brand = styled.span`
 color: #FF6B4F;
 font-size: 44px;
 font-family: 'Mouse Memoirs', sans-serif;
+&:hover{
+  cursor: pointer;
+}
 `
 
 export const Botao = styled.button`

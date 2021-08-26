@@ -8,7 +8,11 @@ import { useDispatch } from 'react-redux'
 import { setAnimes } from '../../../store/modules/animes/reducer'
 import AnimeService from '../../../services/animes/getAnimes'
 
-export const UnauthenticatedHeader: React.FC = () => {
+interface Props {
+  setLoading: Function;
+}
+
+export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading }) => {
 
   const dispatch = useDispatch()
 
@@ -16,14 +20,17 @@ export const UnauthenticatedHeader: React.FC = () => {
   const [search, setSearch] = React.useState("")
 
   const searchAnime = async () => {
+    setLoading(true)
     let res;
     if (search == '') {
       res = await AnimeService.getTopAnime(null)
       dispatch(setAnimes(res.data['animes']))
+      setLoading(false)
       return
     }
     res = await AnimeService.searchAnime({ search: { q: search } })
     dispatch(setAnimes(res.data['animes']))
+    setLoading(false)
   }
 
   return (
@@ -57,7 +64,7 @@ export const UnauthenticatedHeader: React.FC = () => {
         {/* Entrar e Cadastrar */}
         <Col lg={3} className="justify-content-center d-flex">
           <Col className="d-flex align-items-center justify-content-center" lg={6}>
-            <Link href="#Entrar">
+            <Link href="/Login">
               <Botao>
                 Entrar
               </Botao>
@@ -79,7 +86,7 @@ export const UnauthenticatedHeader: React.FC = () => {
         <Toggle className="position-absolute top-0 end-0">
           <FontAwesomeIcon icon={faTimes} color="#FF6B4F" onClick={() => setShowMenu("none")} />
         </Toggle>
-        <Link href="#Entrar">
+        <Link href="/Login">
           <BotaoMobile>
             Entrar
           </BotaoMobile>

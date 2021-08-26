@@ -45,7 +45,7 @@ export const StyledInput = styled(Form.Control)`
 background-color: transparent;
 border-color: #FF6B4F;
 text-align: center;
-width:75%;
+width: 65%;
 color: #FF6B4F;
 &:focus{
   color: #FF6B4F;

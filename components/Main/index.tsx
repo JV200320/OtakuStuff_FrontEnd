@@ -9,8 +9,12 @@ import { setAnimes } from '../../store/modules/animes/reducer'
 import AnimeService from '../../services/animes/getAnimes'
 import { MainView } from './styles'
 
+interface Props {
+  Loading: boolean;
+  setLoading: Function;
+}
 
-export const Main = () => {
+export const Main: React.FC<Props> = ({ Loading, setLoading }) => {
   const dispatch = useDispatch()
 
   const animes = useSelector(state => state.animes)
@@ -20,9 +24,6 @@ export const Main = () => {
   // Aparece ou não
   const show = ['d-none', '']
   const hide = ['d-block d-sm-block d-lg-none', 'd-none d-lg-flex']
-
-  // Estado de loading
-  const [Loading, setLoading] = React.useState(true)
 
   // Estados que controlam qual view apresentar
   const [displayFav, setDisplayFav] = React.useState(hide)
