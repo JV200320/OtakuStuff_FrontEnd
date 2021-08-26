@@ -1,10 +1,11 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { Navbar, Brand, Botao, Search, Toggle, BotaoMobile, SearchMobile, DivMobile } from "./styles"
+import { Navbar, Brand, Botao, Search, Toggle } from "./styles"
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faFilter, faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faFilter, faBars } from '@fortawesome/free-solid-svg-icons'
 import AnimeService from '../../../services/animes/getAnimes'
+import { MobileMenu } from './MobileMenu'
 
 interface Props {
   setLoading: Function,
@@ -79,30 +80,7 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
       </Row>
 
       {/*Mobile Menu*/}
-      <DivMobile className={`d-lg-none d-${showMenu} flex-column justify-content-center position-absolute top-0 w-100 p-2 bg-dark`}>
-        <Toggle className="position-absolute top-0 end-0">
-          <FontAwesomeIcon icon={faTimes} color="#FF6B4F" onClick={() => setShowMenu("none")} />
-        </Toggle>
-        <Link href="/Login">
-          <BotaoMobile>
-            Entrar
-          </BotaoMobile>
-        </Link>
-        <Link href="/SignUp">
-          <BotaoMobile>
-            Cadastrar
-          </BotaoMobile>
-        </Link>
-        <div className="d-lg-none d-flex justify-content-center z-index-3">
-          <BotaoMobile>
-            <FontAwesomeIcon icon={faFilter} color="#FF6B4F" className="me-2" />
-          </BotaoMobile>
-          <SearchMobile placeholder="Procurar por algo..." />
-          <BotaoMobile>
-            <FontAwesomeIcon icon={faSearch} color="#FF6B4F" className="ms-2" />
-          </BotaoMobile>
-        </div>
-      </DivMobile>
+      <MobileMenu showMenu={showMenu} setShowMenu={setShowMenu} />
       {/*Mobile Menu*/}
     </Navbar>
   )
