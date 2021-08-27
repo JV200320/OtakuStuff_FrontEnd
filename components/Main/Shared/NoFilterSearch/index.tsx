@@ -1,7 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { Col } from 'react-bootstrap'
 import { Lupa, Search } from './styles'
 
 interface SearchProps {

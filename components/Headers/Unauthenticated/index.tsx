@@ -1,11 +1,11 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { Navbar, Brand, Botao, Search, Toggle } from "./styles"
-import Link from 'next/link'
+import { Navbar, Brand, Toggle } from "./styles"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faFilter, faBars } from '@fortawesome/free-solid-svg-icons'
-import AnimeService from '../../../services/animes/getAnimes'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { MobileMenu } from './MobileMenu'
+import { Search } from './Search'
+import { Navigator } from './Navigator'
 
 interface Props {
   setLoading: Function,
@@ -15,21 +15,6 @@ interface Props {
 export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
-  const [search, setSearch] = React.useState("")
-
-  const searchAnime = async () => {
-    setLoading(true)
-    let res;
-    if (search == '') {
-      res = await AnimeService.getTopAnime(null)
-      setAnimes(res.data['animes'])
-      setLoading(false)
-      return
-    }
-    res = await AnimeService.searchAnime({ search: { q: search } })
-    setAnimes(res.data['animes'])
-    setLoading(false)
-  }
 
   return (
     <Navbar>
@@ -47,35 +32,10 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
         </Col>
         {/* Open Menu Icon */}
         {/* Search */}
-        <Col lg={6} className="justify-content-center d-flex align-items-center">
-          <Botao>
-            <FontAwesomeIcon icon={faFilter} color="#FF6B4F" className="me-2" />
-          </Botao>
-          <Search placeholder="Procurar por algo..." value={search}
-            onChange={e => setSearch(e.target.value)}
-            onKeyPress={e => e.key == "Enter" && searchAnime()} />
-          <Botao onClick={() => searchAnime()}>
-            <FontAwesomeIcon icon={faSearch} color="#FF6B4F" className="ms-2" />
-          </Botao>
-        </Col>
+        <Search setAnimes={setAnimes} setLoading={setLoading} />
         {/* Search */}
-        {/* Entrar e Cadastrar */}
-        <Col lg={3} className="justify-content-center d-flex">
-          <Col className="d-flex align-items-center justify-content-center" lg={6}>
-            <Link href="/Login">
-              <Botao>
-                Entrar
-              </Botao>
-            </Link>
-          </Col>
-          <Col className="d-flex align-items-center justify-content-center" lg={6}>
-            <Link href="/SignUp">
-              <Botao>
-                Cadastrar
-              </Botao>
-            </Link>
-          </Col>
-        </Col>
+        {/* Entrar e Cadastrar/Username */}
+        <Navigator />
         {/* Entrar e Cadastrar */}
       </Row>
 

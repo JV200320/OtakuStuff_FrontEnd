@@ -1,10 +1,11 @@
 import React from 'react'
 import { Body } from '../Shared/Body'
-import { NoFilterSearch } from '../Shared/Search'
+import { NoFilterSearch } from '../Shared/NoFilterSearch'
+import { useSelector } from 'react-redux'
 
 export const Friends = () => {
 
-  let logged = true
+  const logged = useSelector(state => state.auth)
 
   if (logged) {
     return (
@@ -14,12 +15,10 @@ export const Friends = () => {
     )
   }
   return (
-    <>
-      <Body>
-        <div className="h-100 p-2 d-flex align-items-center">
-          <h1 className="text-light text-center">Entre na sua conta ou se cadastre para ter acesso aos seus amigos.</h1>
-        </div>
-      </Body>
-    </>
+    <Body>
+      <div className="h-100 p-2 d-flex align-items-center">
+        <h1 className="text-light text-center">Entre na sua conta ou se cadastre para ter acesso aos seus amigos.</h1>
+      </div>
+    </Body>
   )
 }
