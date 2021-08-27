@@ -1,5 +1,8 @@
 import React from "react"
-import { MainDiv, Center, FormDiv, SubmitButton, StyledInput, HoverableImage, ImageFilter } from "./styles"
+import {
+  MainDiv, Center, FormDiv, SubmitButton, StyledInput,
+  HoverableImage, ImageFilter, ResponsiveRow
+} from "./styles"
 import { Row, Col, Form } from "react-bootstrap"
 import UserService from "../../../services/auth/user"
 import { useRouter } from "next/dist/client/router"
@@ -50,8 +53,8 @@ export const SignUpForm: React.FC = () => {
           <Row>
             <h1>Cadastrar</h1>
           </Row>
-          <Row className="w-100">
-            <Col className="justify-content-center align-items-center d-flex">
+          <ResponsiveRow className="w-100">
+            <Col className="justify-content-center align-items-center d-flex p-2">
               <HoverableImage src={imageToShow} onClick={() => fileField.current.click()}>
                 <ImageFilter>
                   {image ? null : <h1>Mudar Avatar</h1>}
@@ -86,7 +89,7 @@ export const SignUpForm: React.FC = () => {
 
               </Form>
             </Col>
-          </Row>
+          </ResponsiveRow>
           <Row className="w-100 d-flex justify-content-center">
             <SubmitButton onClick={() => handleSubmit()}>Cadastrar</SubmitButton>
           </Row>

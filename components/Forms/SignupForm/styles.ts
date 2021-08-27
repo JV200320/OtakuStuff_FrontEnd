@@ -90,3 +90,12 @@ border-radius: 50%;
   transition: 0.5s;
 }
 `
+
+export const ResponsiveRow = styled(Row)`
+display: flex;
+@media screen and (max-width:790px){
+  & {
+    flex-direction: column;
+  }
+}
+`
