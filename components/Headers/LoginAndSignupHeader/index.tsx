@@ -46,9 +46,9 @@ export const LoginAndSingupHeader: React.FC<Props> = ({ link }) => {
         <Toggle className="position-absolute top-0 end-0">
           <FontAwesomeIcon icon={faTimes} color="#FF6B4F" onClick={() => setShowMenu("none")} />
         </Toggle>
-        <Link href="#Entrar">
+        <Link href={link[0]}>
           <BotaoMobile>
-            Entrar
+            {link[1]}
           </BotaoMobile>
         </Link>
       </DivMobile>
