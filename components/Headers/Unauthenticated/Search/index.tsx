@@ -5,9 +5,7 @@ import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Col } from 'react-bootstrap'
 import AnimeService from '../../../../services/animes/getAnimes'
 
-export const Search = ({ setAnimes, setLoading }) => {
-
-  const [search, setSearch] = React.useState("")
+export const Search = ({ setAnimes, setLoading, search, setSearch }) => {
 
   const searchAnime = async () => {
     setLoading(true)

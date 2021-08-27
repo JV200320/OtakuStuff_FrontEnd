@@ -15,6 +15,7 @@ interface Props {
 export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
+  const [search, setSearch] = React.useState("")
 
   return (
     <Navbar>
@@ -32,7 +33,12 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
         </Col>
         {/* Open Menu Icon */}
         {/* Search */}
-        <Search setAnimes={setAnimes} setLoading={setLoading} />
+        <Search
+          setAnimes={setAnimes}
+          setLoading={setLoading}
+          search={search}
+          setSearch={setSearch}
+        />
         {/* Search */}
         {/* Entrar e Cadastrar/Username */}
         <Navigator />
@@ -40,7 +46,14 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
       </Row>
 
       {/*Mobile Menu*/}
-      <MobileMenu showMenu={showMenu} setShowMenu={setShowMenu} />
+      <MobileMenu
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+        setAnimes={setAnimes}
+        setLoading={setLoading}
+        setSearch={setSearch}
+        search={search}
+      />
       {/*Mobile Menu*/}
     </Navbar>
   )
