@@ -6,6 +6,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { MobileMenu } from './MobileMenu'
 import { Search } from './Search'
 import { Navigator } from './Navigator'
+import { FilterModal } from './FilterModal'
 
 interface Props {
   setLoading: Function,
@@ -15,10 +16,13 @@ interface Props {
 export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
+  const [filterModalShow, setFilterModalShow] = React.useState(false)
   const [search, setSearch] = React.useState("")
+
 
   return (
     <Navbar>
+      <FilterModal onHide={() => setFilterModalShow(false)} show={filterModalShow} />
       <Row>
         {/* Brand */}
         <Col lg={3} md={11} sm={11} xs={10} className="justify-content-center d-flex">
@@ -38,6 +42,7 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
           setLoading={setLoading}
           search={search}
           setSearch={setSearch}
+          setFilterModalShow={setFilterModalShow}
         />
         {/* Search */}
         {/* Entrar e Cadastrar/Username */}
@@ -53,6 +58,7 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
         setLoading={setLoading}
         setSearch={setSearch}
         search={search}
+        setFilterModalShow={setFilterModalShow}
       />
       {/*Mobile Menu*/}
     </Navbar>

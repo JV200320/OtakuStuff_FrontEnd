@@ -26,3 +26,8 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.modal-content{
+  background-color: #1B1B1B !important;
+  color: white;
+}

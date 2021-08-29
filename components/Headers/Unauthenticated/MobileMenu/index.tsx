@@ -4,8 +4,12 @@ import { DivMobile, Toggle, BotaoMobile, SearchMobile } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import AnimeService from '../../../../services/animes/getAnimes'
+import { useSelector } from 'react-redux'
 
-export const MobileMenu = ({ showMenu, setShowMenu, setAnimes, setSearch, setLoading, search }) => {
+export const MobileMenu = ({ showMenu, setShowMenu, setAnimes, setSearch, setLoading, search,
+  setFilterModalShow }) => {
+
+  const filter = useSelector(state => state.filter)
 
   const searchAnime = async () => {
     setLoading(true)
@@ -37,10 +41,10 @@ export const MobileMenu = ({ showMenu, setShowMenu, setAnimes, setSearch, setLoa
         </BotaoMobile>
       </Link>
       <div className="d-lg-none d-flex justify-content-center z-index-3">
-        <BotaoMobile>
+        <BotaoMobile onClick={() => setFilterModalShow(true)}>
           <FontAwesomeIcon icon={faFilter} color="#FF6B4F" className="me-2" />
         </BotaoMobile>
-        <SearchMobile placeholder="Procurar por algo..." value={search}
+        <SearchMobile placeholder={`Procurar por ${filter}...`} value={search}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
         />
         <BotaoMobile onClick={() => searchAnime()}>
