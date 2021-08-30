@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 export const Search = ({ setAnimes, setLoading, search, setSearch, setFilterModalShow }) => {
 
   const filter = useSelector(state => state.filter)
+  const loggedUser = useSelector(state => state.auth)
 
   const searchAnime = async () => {
     setLoading(true)
@@ -29,13 +30,15 @@ export const Search = ({ setAnimes, setLoading, search, setSearch, setFilterModa
     <>
       <Col lg={6} className="justify-content-center d-flex align-items-center">
         <Botao onClick={() => setFilterModalShow(true)}>
-          <FontAwesomeIcon icon={faFilter} color="#FF6B4F" className="me-2" />
+          <FontAwesomeIcon icon={faFilter} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="me-2" />
         </Botao>
         <SearchInput placeholder={`Procurar por ${filter}...`} value={search}
           onChange={e => setSearch(e.target.value)}
-          onKeyPress={e => e.key == "Enter" && searchAnime()} />
+          onKeyPress={e => e.key == "Enter" && searchAnime()}
+          loggedUser={loggedUser}
+        />
         <Botao onClick={() => searchAnime()}>
-          <FontAwesomeIcon icon={faSearch} color="#FF6B4F" className="ms-2" />
+          <FontAwesomeIcon icon={faSearch} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="ms-2" />
         </Botao>
       </Col>
     </>

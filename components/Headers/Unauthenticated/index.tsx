@@ -7,6 +7,7 @@ import { MobileMenu } from './MobileMenu'
 import { Search } from './Search'
 import { Navigator } from './Navigator'
 import { FilterModal } from './FilterModal'
+import { useSelector } from 'react-redux'
 
 interface Props {
   setLoading: Function,
@@ -19,6 +20,7 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
   const [filterModalShow, setFilterModalShow] = React.useState(false)
   const [search, setSearch] = React.useState("")
 
+  const loggedUser = useSelector(state => state.auth)
 
   return (
     <Navbar>
@@ -26,13 +28,13 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
       <Row>
         {/* Brand */}
         <Col lg={3} md={11} sm={11} xs={10} className="justify-content-center d-flex">
-          <Brand>OtakuStuff</Brand>
+          <Brand loggedUser={loggedUser} >OtakuStuff</Brand>
         </Col>
         {/* Brand */}
         {/* Open Menu Icon */}
         <Col md={1} sm={1} xs={2} className="d-lg-none d-flex justify-content-center">
           <Toggle>
-            <FontAwesomeIcon icon={faBars} color="#FF6B4F" onClick={() => setShowMenu("flex")} />
+            <FontAwesomeIcon icon={faBars} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} onClick={() => setShowMenu("flex")} />
           </Toggle>
         </Col>
         {/* Open Menu Icon */}

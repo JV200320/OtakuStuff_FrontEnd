@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Lupa = styled.button`
-color: #FF6B4F;
+color: #4FE3FF;
 background-color: transparent;
 border: 0;
 font-size: 25px;
@@ -15,8 +15,8 @@ font-size: 25px;
 
 export const Search = styled.input`
 width: 75%;
-border: 2px solid #FF6B4F;
-color: #FF6B4F;
+border: 2px solid #4FE3FF;
+color: #4FE3FF;
 background-color: transparent;
 border-radius: 6px;
 padding: 5px;
@@ -24,6 +24,6 @@ padding: 5px;
   outline: none;
 }
 ::placeholder{
-  color: #FF6B4F;
+  color: #4FE3FF;
 }
 `

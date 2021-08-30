@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Botao = styled.button`
-color: #FF6B4F;
+color: ${props => props.loggedUser ? '#4FE3FF' : '#FF6B4F'};
 background-color: transparent;
 border: 0;
 font-size: 25px;

@@ -12,7 +12,7 @@ export const NoFilterSearch: React.FC<SearchProps> = ({ look }) => {
     <div className="w-100 d-flex justify-content-center mt-3">
       <Search placeholder={`Procurar por ${look}...`} />
       <Lupa>
-        <FontAwesomeIcon icon={faSearch} color="#FF6B4F" className="ms-2" />
+        <FontAwesomeIcon icon={faSearch} color="#4FE3FF" className="ms-2" />
       </Lupa>
     </div>
   )
