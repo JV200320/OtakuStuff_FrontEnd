@@ -7,7 +7,7 @@ const authSlice = createSlice({
         setLoggedUser(state, action: PayloadAction<any>) {
             return action.payload;
         },
-        clearLoggedUser(state, action: PayloadAction<any>) {
+        clearLoggedUser(state) {
             return null;
         }
     }
