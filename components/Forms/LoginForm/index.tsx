@@ -4,10 +4,13 @@ import { Row, Col, Form } from "react-bootstrap"
 import UserService from "../../../services/auth/user"
 import { useRouter } from "next/dist/client/router"
 import { toast } from "react-toastify"
+import { useDispatch } from "react-redux"
+import { setLoggedUser } from "../../../store/modules/auth/reducer"
 
 export const LoginForm: React.FC = () => {
 
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
@@ -18,7 +21,8 @@ export const LoginForm: React.FC = () => {
     formData.append('email', email)
     formData.append('password', password)
     try {
-      await UserService.login(formData)
+      let res = await UserService.login(formData)
+      dispatch(setLoggedUser(res.data.data))
       toast.success('Login realizado com sucesso.')
       router.push('/')
     } catch (error) {

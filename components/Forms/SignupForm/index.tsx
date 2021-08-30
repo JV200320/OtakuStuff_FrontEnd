@@ -7,10 +7,13 @@ import { Row, Col, Form } from "react-bootstrap"
 import UserService from "../../../services/auth/user"
 import { useRouter } from "next/dist/client/router"
 import { toast } from "react-toastify"
+import { setLoggedUser } from "../../../store/modules/auth/reducer"
+import { useDispatch } from "react-redux"
 
 export const SignUpForm: React.FC = () => {
 
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const fileField = React.useRef(null)
   const [imageToShow, setImageToShow] = React.useState('https://cdn.myanimelist.net/images/anime/13/17405.jpg');
@@ -30,8 +33,9 @@ export const SignUpForm: React.FC = () => {
     formData.append('password_confirmation', confirmPassword)
     formData.append('image', image)
     try {
-      await UserService.signUp(formData)
+      let res = await UserService.signUp(formData)
       toast.success('Conta criada com sucesso.')
+      dispatch(setLoggedUser(res.data.data))
       router.push('/')
     } catch (error) {
       error.response.data.errors.full_messages.forEach(message => toast.error(message))
