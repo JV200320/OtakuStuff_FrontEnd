@@ -2,12 +2,14 @@ import React from 'react'
 import { Body } from '../Shared/Body'
 import { NoFilterSearch } from '../Shared/NoFilterSearch'
 import { useSelector } from 'react-redux'
+import { RootState } from '../../../store/modules/rootReducer'
+import User from '../../../dtos/User'
 
 export const Favorites = () => {
 
-  const logged = useSelector(state => state.auth)
+  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
 
-  if (logged) {
+  if (loggedUser) {
     return (
       <Body>
         <NoFilterSearch look="animes em favoritos" />

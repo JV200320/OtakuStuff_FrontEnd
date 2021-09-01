@@ -5,12 +5,26 @@ import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Col } from 'react-bootstrap'
 import AnimeService from '../../../../services/animes/getAnimes'
 import { useSelector, useDispatch } from 'react-redux'
-import { setFilter } from '../../../../store/modules/filter/reducer'
+import { setKindOfContentToDisplay } from '../../../../store/modules/kindOfContentToDisplay/reducer'
 import UserService from '../../../../services/users/getUsers'
+import Anime from '../../../../dtos/Animes'
+import User from '../../../../dtos/User'
+import { RootState } from '../../../../store/modules/rootReducer'
 
-export const Search = ({ setContent, setLoading, search, setSearch, setFilterModalShow, confirmedFilter }) => {
+interface Props {
+  setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  search: string,
+  setSearch: React.Dispatch<string>,
+  setFilterModalShow: React.Dispatch<React.SetStateAction<boolean>>,
+  confirmedFilter: string,
+  setConfirmedFilter: React.Dispatch<string>,
+}
 
-  const loggedUser = useSelector(state => state.auth)
+export const Search: React.FC<Props> = ({ setContent, setLoading, search, setSearch,
+  setFilterModalShow, confirmedFilter, setConfirmedFilter }) => {
+
+  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
 
   const searchContent = async () => {
@@ -21,26 +35,28 @@ export const Search = ({ setContent, setLoading, search, setSearch, setFilterMod
         if (search == '') {
           res = await AnimeService.getTopAnime(null)
           setContent(res.data['animes'])
-          dispatch(setFilter('animes'))
+          dispatch(setKindOfContentToDisplay('animes'))
+          setConfirmedFilter('animes')
           setLoading(false)
           return
         }
         res = await AnimeService.searchAnime({ search: { q: search } })
         setContent(res.data['animes'])
+        dispatch(setKindOfContentToDisplay('animes'))
         setLoading(false)
         break;
       case 'usuários':
         if (search == '') {
           res = await AnimeService.getTopAnime(null)
           setContent(res.data['animes'])
-          dispatch(setFilter('animes'))
+          dispatch(setKindOfContentToDisplay('animes'))
+          setConfirmedFilter('animes')
           setLoading(false)
           return
         }
         res = await UserService.searchUser({ search })
-        console.log(res)
         setContent(res.data['results'])
-        dispatch(setFilter('usuários'))
+        dispatch(setKindOfContentToDisplay('usuários'))
         setLoading(false)
         break;
 

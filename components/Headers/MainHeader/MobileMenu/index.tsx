@@ -8,15 +8,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown } from 'react-bootstrap'
 import { clearLoggedUser } from '../../../../store/modules/auth/reducer'
 import { toast } from 'react-toastify'
-import { useRouter } from 'next/dist/client/router'
+import { RootState } from '../../../../store/modules/rootReducer'
+import User from '../../../../dtos/User'
 
 export const MobileMenu = ({ showMenu, setShowMenu, setContent, setSearch, setLoading, search,
   setFilterModalShow }) => {
 
-  const filter = useSelector(state => state.filter)
-  const loggedUser = useSelector(state => state.auth)
+  const kindOfContentToDisplay: string = useSelector((state: RootState) => state.kindOfContentToDisplay)
+  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
-  const router = useRouter()
 
   const searchAnime = async () => {
     setLoading(true)
@@ -35,11 +35,12 @@ export const MobileMenu = ({ showMenu, setShowMenu, setContent, setSearch, setLo
   const logOut = () => {
     toast.info('Você encerrou sua sessão.')
     dispatch(clearLoggedUser())
-    router.reload()
   }
 
   return (
-    <DivMobile className={`d-lg-none d-${showMenu} flex-column justify-content-center position-absolute top-0 w-100 p-2 bg-dark`}>
+    <DivMobile
+      className={`d-lg-none d-${showMenu} flex-column justify-content-center position-absolute top-0 w-100 p-2 bg-dark`}
+    >
       <Toggle className="position-absolute top-0 end-0" onClick={() => setShowMenu("none")}>
         <FontAwesomeIcon icon={faTimes} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} />
       </Toggle>
@@ -73,14 +74,18 @@ export const MobileMenu = ({ showMenu, setShowMenu, setContent, setSearch, setLo
       }
       <div className="d-lg-none d-flex justify-content-center z-index-3">
         <BotaoMobile onClick={() => setFilterModalShow(true)}>
-          <FontAwesomeIcon icon={faFilter} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="me-2" />
+          <FontAwesomeIcon
+            icon={faFilter} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="me-2"
+          />
         </BotaoMobile>
-        <SearchMobile placeholder={`Procurar por ${filter}...`} value={search}
+        <SearchMobile placeholder={`Procurar por ${kindOfContentToDisplay}...`} value={search}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
           loggedUser={loggedUser}
         />
         <BotaoMobile onClick={() => searchAnime()}>
-          <FontAwesomeIcon icon={faSearch} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="ms-2" />
+          <FontAwesomeIcon
+            icon={faSearch} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="ms-2"
+          />
         </BotaoMobile>
       </div>
     </DivMobile>

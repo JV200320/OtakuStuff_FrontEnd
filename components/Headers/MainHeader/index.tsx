@@ -8,26 +8,29 @@ import { Search } from './Search'
 import { Navigator } from './Navigator'
 import { useFilterModal } from './FilterModal'
 import { useSelector } from 'react-redux'
+import User from '../../../dtos/User'
+import Anime from '../../../dtos/Animes'
+import { RootState } from '../../../store/modules/rootReducer'
 
 interface Props {
-  setLoading: Function,
-  setContent: Function
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>
 }
 
-export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setContent }) => {
+export const Header: React.FC<Props> = ({ setLoading, setContent }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
   const [filterModalShow, setFilterModalShow] = React.useState(false)
   const [search, setSearch] = React.useState("")
 
-  const loggedUser = useSelector(state => state.auth)
+  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
 
-  const hideModal = () => {
+  const hideModal = (): void => {
     setFilterModalShow(false)
-    setConfirmedFilter('animes')
+    setSelectedFilter('animes')
   }
 
-  const { renderFilterModal, setConfirmedFilter, confirmedFilter } = useFilterModal({ onHide: () => hideModal(), show: filterModalShow })
+  const { renderFilterModal, setConfirmedFilter, setSelectedFilter, confirmedFilter } = useFilterModal({ onHide: () => hideModal(), show: filterModalShow })
 
   return (
     <Navbar>
@@ -47,7 +50,7 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setContent 
         {/* Open Menu Icon */}
         {/* Search */}
         <Search
-          {...{ setContent, setLoading, setFilterModalShow, setSearch, search, confirmedFilter }}
+          {...{ setContent, setLoading, setFilterModalShow, setSearch, search, confirmedFilter, setConfirmedFilter }}
         />
         {/* Search */}
         {/* Entrar e Cadastrar/Username */}

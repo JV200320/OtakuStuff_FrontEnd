@@ -3,11 +3,12 @@ import AnimeService from '../../../services/animes/getAnimes'
 import { AnimeComponent } from './AnimeComponent'
 import { Spinner } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
+import { RootState } from '../../../store/modules/rootReducer'
 
 
 export const ContentList = ({ Loading, setLoading, content, setContent }) => {
 
-  const filter = useSelector(state => state.filter)
+  const kindOfContentToDisplay: string = useSelector((state: RootState) => state.kindOfContentToDisplay)
 
   // TopAnime data
 
@@ -20,7 +21,7 @@ export const ContentList = ({ Loading, setLoading, content, setContent }) => {
 
   const renderContent = () => {
     return content != null ? content.map((content) => {
-      switch (filter) {
+      switch (kindOfContentToDisplay) {
         case 'animes':
           return <AnimeComponent
             title={content['title']} key={content['mal_id']}

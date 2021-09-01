@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
 import auth from './auth/reducer'
-import filter from './filter/reducer'
+import kindOfContentToDisplay from './kindOfContentToDisplay/reducer'
 
-export default combineReducers({
+export const rootReducer = combineReducers({
     auth,
-    filter
+    kindOfContentToDisplay
 });
+
+export type RootState = ReturnType<typeof rootReducer>

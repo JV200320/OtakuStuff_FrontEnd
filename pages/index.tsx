@@ -1,17 +1,17 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { UnauthenticatedHeader as Header } from '../components/Headers/Unauthenticated'
+import { Header } from '../components/Headers/MainHeader'
 import { Main } from '../components/Main'
-import { setFilter } from '../store/modules/filter/reducer'
+import { setKindOfContentToDisplay } from '../store/modules/kindOfContentToDisplay/reducer'
 
-export default function Home() {
+const Home: React.FC = () => {
 
   const [content, setContent] = React.useState(null)
   const [Loading, setLoading] = React.useState(true)
   const dispatch = useDispatch()
 
   React.useEffect(() => {
-    dispatch(setFilter('animes'))
+    dispatch(setKindOfContentToDisplay('animes'))
   }, [])
 
   return (
@@ -21,3 +21,4 @@ export default function Home() {
     </>
   )
 }
+export default Home;

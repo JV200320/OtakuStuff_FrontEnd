@@ -2,10 +2,12 @@ import React from 'react'
 import { Modal, Form } from 'react-bootstrap'
 import { ConfirmButton } from './styles'
 import { useSelector } from 'react-redux'
+import User from '../../../../dtos/User'
+import { RootState } from '../../../../store/modules/rootReducer'
 
 export const useFilterModal = (props) => {
 
-  const loggedUser = useSelector(state => state.auth)
+  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
   const [selectedFilter, setSelectedFilter] = React.useState('animes')
   const [confirmedFilter, setConfirmedFilter] = React.useState('animes')
 
@@ -20,7 +22,7 @@ export const useFilterModal = (props) => {
   }, [])
 
   return {
-    setConfirmedFilter, confirmedFilter, renderFilterModal: (
+    setConfirmedFilter, confirmedFilter, setSelectedFilter, renderFilterModal: (
       <Modal
         {...props}
         size="lg"
@@ -36,25 +38,36 @@ export const useFilterModal = (props) => {
           <Form className="d-flex justify-content-center">
             <Form.Group className="mx-2" controlId="formBasicRadio1">
               <Form.Check type="radio" value="páginas" label="Páginas" name='searchFor'
-                onClick={(e) => setSelectedFilter(e.target.value)}
+                onClick={
+                  (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+                    setSelectedFilter(e.currentTarget.value)
+                  }}
               />
             </Form.Group>
 
             <Form.Group className="mx-2" controlId="formBasicRadio2">
               <Form.Check type="radio" value="usuários" label="Usuários" name='searchFor'
-                onClick={(e) => setSelectedFilter(e.target.value)}
+                onClick={
+                  (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+                    setSelectedFilter(e.currentTarget.value)
+                  }}
               />
             </Form.Group>
 
             <Form.Group className="mx-2" controlId="formBasicRadio3">
               <Form.Check type="radio" value="animes" label="Animes" name='searchFor'
-                onClick={(e) => setSelectedFilter(e.target.value)}
+                onClick={
+                  (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+                    setSelectedFilter(e.currentTarget.value)
+                  }}
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer className='d-flex justify-content-center'>
-          <ConfirmButton loggedUser={loggedUser} onClick={() => confirmFilter()}>Confirmar</ConfirmButton>
+          <ConfirmButton loggedUser={loggedUser} onClick={() => confirmFilter()}>
+            Confirmar
+          </ConfirmButton>
         </Modal.Footer>
       </Modal>
     )
