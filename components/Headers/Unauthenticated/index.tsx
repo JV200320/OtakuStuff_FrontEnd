@@ -6,7 +6,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { MobileMenu } from './MobileMenu'
 import { Search } from './Search'
 import { Navigator } from './Navigator'
-import { FilterModal } from './FilterModal'
+import { useFilterModal } from './FilterModal'
 import { useSelector } from 'react-redux'
 
 interface Props {
@@ -22,9 +22,16 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
 
   const loggedUser = useSelector(state => state.auth)
 
+  const { renderFilterModal, setSelectedFilter } = useFilterModal({ onHide: () => hideModal(), show: filterModalShow })
+
+  const hideModal = () => {
+    setFilterModalShow(false)
+    setSelectedFilter('animes')
+  }
+
   return (
     <Navbar>
-      <FilterModal onHide={() => setFilterModalShow(false)} show={filterModalShow} />
+      {renderFilterModal}
       <Row>
         {/* Brand */}
         <Col lg={3} md={11} sm={11} xs={10} className="justify-content-center d-flex">
