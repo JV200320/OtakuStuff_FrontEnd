@@ -1,13 +1,14 @@
 import React from 'react'
 import { Modal, Form } from 'react-bootstrap'
 import { ConfirmButton } from './styles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../../../../store/modules/filter/reducer'
 
 export const FilterModal = (props) => {
 
+  const loggedUser = useSelector(state => state.auth)
   const dispatch = useDispatch();
-  const [selectedFilter, setSelectedFilter] = React.useState(null)
+  const [selectedFilter, setSelectedFilter] = React.useState('animes')
 
   const confirmFilter = () => {
     props.onHide()
@@ -49,7 +50,7 @@ export const FilterModal = (props) => {
         </Form>
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-center'>
-        <ConfirmButton onClick={() => confirmFilter()}>Confirmar</ConfirmButton>
+        <ConfirmButton loggedUser={loggedUser} onClick={() => confirmFilter()}>Confirmar</ConfirmButton>
       </Modal.Footer>
     </Modal>
   )
