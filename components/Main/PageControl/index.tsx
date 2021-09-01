@@ -3,7 +3,7 @@ import AnimeService from '../../../services/animes/getAnimes'
 import styles from './styles.module.css'
 import { Botao } from './styles'
 
-export const PageControl = ({ setLoading, setAnimes, animes }) => {
+export const PageControl = ({ setLoading, setContent, content }) => {
 
   const [page, setPage] = React.useState(1)
 
@@ -16,7 +16,7 @@ export const PageControl = ({ setLoading, setAnimes, animes }) => {
       setLoading(false)
       return
     }
-    setAnimes(res.data['animes'])
+    setContent(res.data['animes'])
     setLoading(false)
   }
 
@@ -28,7 +28,7 @@ export const PageControl = ({ setLoading, setAnimes, animes }) => {
       setLoading(false)
       return
     }
-    setAnimes(res.data['animes'])
+    setContent(res.data['animes'])
     setLoading(false)
     document.getElementById("mainView").scrollTo(0, 0)
     setPage(page + 1)
@@ -43,16 +43,16 @@ export const PageControl = ({ setLoading, setAnimes, animes }) => {
         setLoading(false)
         return
       }
-      setAnimes(res.data['animes'])
+      setContent(res.data['animes'])
       setLoading(false)
       document.getElementById("mainView").scrollTo(0, 0)
       setPage(page - 1)
     }
   }
 
-  if (animes == null) return null
-  if (animes.length >= 1) {
-    if (animes[0]['rank'] == 1) {
+  if (content == null) return null
+  if (content.length >= 1) {
+    if (content[0]['rank'] == 1) {
       return (
         <div className="fixed-bottom offset-3 col-6 text-center text-light" style={{ backgroundColor: '#303030' }}>
           <Botao onClick={() => updateAnimesNext()}>Próximo</Botao>

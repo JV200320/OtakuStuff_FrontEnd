@@ -10,7 +10,7 @@ import { clearLoggedUser } from '../../../../store/modules/auth/reducer'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/dist/client/router'
 
-export const MobileMenu = ({ showMenu, setShowMenu, setAnimes, setSearch, setLoading, search,
+export const MobileMenu = ({ showMenu, setShowMenu, setContent, setSearch, setLoading, search,
   setFilterModalShow }) => {
 
   const filter = useSelector(state => state.filter)
@@ -23,12 +23,12 @@ export const MobileMenu = ({ showMenu, setShowMenu, setAnimes, setSearch, setLoa
     let res;
     if (search == '') {
       res = await AnimeService.getTopAnime(null)
-      setAnimes(res.data['animes'])
+      setContent(res.data['animes'])
       setLoading(false)
       return
     }
     res = await AnimeService.searchAnime({ search: { q: search } })
-    setAnimes(res.data['animes'])
+    setContent(res.data['animes'])
     setLoading(false)
   }
 

@@ -11,10 +11,10 @@ import { useSelector } from 'react-redux'
 
 interface Props {
   setLoading: Function,
-  setAnimes: Function
+  setContent: Function
 }
 
-export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }) => {
+export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setContent }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
   const [filterModalShow, setFilterModalShow] = React.useState(false)
@@ -22,12 +22,12 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
 
   const loggedUser = useSelector(state => state.auth)
 
-  const { renderFilterModal, setSelectedFilter } = useFilterModal({ onHide: () => hideModal(), show: filterModalShow })
-
   const hideModal = () => {
     setFilterModalShow(false)
-    setSelectedFilter('animes')
+    setConfirmedFilter('animes')
   }
+
+  const { renderFilterModal, setConfirmedFilter, confirmedFilter } = useFilterModal({ onHide: () => hideModal(), show: filterModalShow })
 
   return (
     <Navbar>
@@ -47,11 +47,7 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
         {/* Open Menu Icon */}
         {/* Search */}
         <Search
-          setAnimes={setAnimes}
-          setLoading={setLoading}
-          search={search}
-          setSearch={setSearch}
-          setFilterModalShow={setFilterModalShow}
+          {...{ setContent, setLoading, setFilterModalShow, setSearch, search, confirmedFilter }}
         />
         {/* Search */}
         {/* Entrar e Cadastrar/Username */}
@@ -61,13 +57,7 @@ export const UnauthenticatedHeader: React.FC<Props> = ({ setLoading, setAnimes }
 
       {/*Mobile Menu*/}
       <MobileMenu
-        showMenu={showMenu}
-        setShowMenu={setShowMenu}
-        setAnimes={setAnimes}
-        setLoading={setLoading}
-        setSearch={setSearch}
-        search={search}
-        setFilterModalShow={setFilterModalShow}
+        {...{ showMenu, setShowMenu, setFilterModalShow, setSearch, search, setLoading, setContent }}
       />
       {/*Mobile Menu*/}
     </Navbar>

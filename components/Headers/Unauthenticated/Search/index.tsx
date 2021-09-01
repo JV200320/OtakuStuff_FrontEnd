@@ -4,26 +4,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Col } from 'react-bootstrap'
 import AnimeService from '../../../../services/animes/getAnimes'
-import { FilterModal } from '../FilterModal'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setFilter } from '../../../../store/modules/filter/reducer'
+import UserService from '../../../../services/users/getUsers'
 
-export const Search = ({ setAnimes, setLoading, search, setSearch, setFilterModalShow }) => {
+export const Search = ({ setContent, setLoading, search, setSearch, setFilterModalShow, confirmedFilter }) => {
 
-  const filter = useSelector(state => state.filter)
   const loggedUser = useSelector(state => state.auth)
+  const dispatch = useDispatch()
 
-  const searchAnime = async () => {
+  const searchContent = async () => {
     setLoading(true)
     let res;
-    if (search == '') {
-      res = await AnimeService.getTopAnime(null)
-      setAnimes(res.data['animes'])
-      setLoading(false)
-      return
+    switch (confirmedFilter) {
+      case 'animes':
+        if (search == '') {
+          res = await AnimeService.getTopAnime(null)
+          setContent(res.data['animes'])
+          dispatch(setFilter('animes'))
+          setLoading(false)
+          return
+        }
+        res = await AnimeService.searchAnime({ search: { q: search } })
+        setContent(res.data['animes'])
+        setLoading(false)
+        break;
+      case 'usuários':
+        if (search == '') {
+          res = await AnimeService.getTopAnime(null)
+          setContent(res.data['animes'])
+          dispatch(setFilter('animes'))
+          setLoading(false)
+          return
+        }
+        res = await UserService.searchUser({ search })
+        console.log(res)
+        setContent(res.data['results'])
+        dispatch(setFilter('usuários'))
+        setLoading(false)
+        break;
+
+      default:
+        break;
     }
-    res = await AnimeService.searchAnime({ search: { q: search } })
-    setAnimes(res.data['animes'])
-    setLoading(false)
   }
 
   return (
@@ -32,12 +55,12 @@ export const Search = ({ setAnimes, setLoading, search, setSearch, setFilterModa
         <Botao onClick={() => setFilterModalShow(true)}>
           <FontAwesomeIcon icon={faFilter} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="me-2" />
         </Botao>
-        <SearchInput placeholder={`Procurar por ${filter}...`} value={search}
+        <SearchInput placeholder={`Procurar por ${confirmedFilter}...`} value={search}
           onChange={e => setSearch(e.target.value)}
-          onKeyPress={e => e.key == "Enter" && searchAnime()}
+          onKeyPress={e => e.key == "Enter" && searchContent()}
           loggedUser={loggedUser}
         />
-        <Botao onClick={() => searchAnime()}>
+        <Botao onClick={() => searchContent()}>
           <FontAwesomeIcon icon={faSearch} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="ms-2" />
         </Botao>
       </Col>

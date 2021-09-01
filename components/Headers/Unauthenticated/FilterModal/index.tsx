@@ -1,18 +1,17 @@
 import React from 'react'
 import { Modal, Form } from 'react-bootstrap'
 import { ConfirmButton } from './styles'
-import { useDispatch, useSelector } from 'react-redux'
-import { setFilter } from '../../../../store/modules/filter/reducer'
+import { useSelector } from 'react-redux'
 
 export const useFilterModal = (props) => {
 
   const loggedUser = useSelector(state => state.auth)
-  const dispatch = useDispatch();
   const [selectedFilter, setSelectedFilter] = React.useState('animes')
+  const [confirmedFilter, setConfirmedFilter] = React.useState('animes')
 
   const confirmFilter = () => {
     props.onHide()
-    dispatch(setFilter(selectedFilter))
+    setConfirmedFilter(selectedFilter)
     setSelectedFilter('animes')
   }
 
@@ -21,7 +20,7 @@ export const useFilterModal = (props) => {
   }, [])
 
   return {
-    setSelectedFilter, renderFilterModal: (
+    setConfirmedFilter, confirmedFilter, renderFilterModal: (
       <Modal
         {...props}
         size="lg"

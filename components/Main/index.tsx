@@ -2,7 +2,7 @@ import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { Favorites } from './Favorites'
 import { Friends } from './Friends'
-import { AnimeList } from './AnimeList'
+import { ContentList } from './ContentList'
 import styles from './styles.module.css'
 import { MainCol } from './styles'
 import Anime from '../../dtos/Animes'
@@ -12,11 +12,11 @@ import { PageControl } from './PageControl'
 interface Props {
   Loading: boolean;
   setLoading: Function;
-  animes: Array<Anime>,
-  setAnimes: Function
+  content: Array<Anime>,
+  setContent: Function
 }
 
-export const Main: React.FC<Props> = ({ Loading, setLoading, animes, setAnimes }) => {
+export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent }) => {
 
   // Aparece ou não
   const show = ['d-none', '']
@@ -30,22 +30,18 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, animes, setAnimes }
   return (
     <>
       <MobileViewChange
-        setDisplayFav={setDisplayFav}
-        setDisplayFeed={setDisplayFeed}
-        setDisplayFriends={setDisplayFriends}
-        show={show}
-        hide={hide}
-        displayFav={displayFav}
-        displayFeed={displayFeed}
-        displayFriends={displayFriends}
+        {...{
+          setDisplayFav, setDisplayFeed, setDisplayFriends, show, hide, displayFav,
+          displayFeed, displayFriends
+        }}
       />
       <Row className="flex-grow-1" >
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFav[1]}`}>
           <Favorites />
         </Col>
         <MainCol lg={6} id="mainView" className={`d-flex align-items-center ${Loading ? 'justify-content-center' : ''} flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`}>
-          <AnimeList Loading={Loading} setLoading={setLoading} animes={animes} setAnimes={setAnimes} />
-          <PageControl setLoading={setLoading} setAnimes={setAnimes} animes={animes} />
+          <ContentList {...{ Loading, setLoading, content, setContent }} />
+          <PageControl {...{ setLoading, setContent, content }} />
         </MainCol>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>
           <Friends />
