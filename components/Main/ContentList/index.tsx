@@ -1,6 +1,7 @@
-import React, { SetStateAction } from 'react'
+import React from 'react'
 import AnimeService from '../../../services/animes/getAnimes'
 import { AnimeComponent } from './AnimeComponent'
+import { UserComponent } from './UserComponent'
 import { Spinner } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
@@ -36,17 +37,20 @@ export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, set
           />
 
         case 'usuários':
-          console.log('AQUI')
-          return <AnimeComponent
-            title={content['nickname']} key={content['id']}
-            image_url={content['image']} rank={content['rank']}
-            score={content['score']}
+          return <UserComponent
+            nickname={content['nickname']} key={content['id']}
+            image={content['image']} bio={content['bio']}
+            recentFavorites={reverseWithoutChangingArray(content.favorites)}
           />
 
         default:
           break;
       }
     }) : null
+  }
+
+  const reverseWithoutChangingArray = (arrayToReverse: string[]): string[] => {
+    return arrayToReverse?.slice().reverse().slice(0, 3)
   }
 
   return (
