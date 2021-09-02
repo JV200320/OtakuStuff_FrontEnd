@@ -8,12 +8,13 @@ interface Props {
   title: string;
   rank: string;
   score: string;
-  key: string
+  key: string;
+  id: string
 }
 
 export const AnimeComponent: React.FC<Props> = (props) => {
   return (
-    <AnimeDiv id={props.key}>
+    <AnimeDiv id={props.id}>
       <Row>
         <Col lg={4} className="d-flex justify-content-center">
           <Image src={props.image_url} alt={`${props.title} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />

@@ -26,30 +26,45 @@ export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, set
     setLoading(false)
   }, [])
 
-  const renderContent = () => {
-    return content != null ? content.map((content) => {
-      switch (kindOfContentToDisplay) {
-        case 'animes':
-          return <AnimeComponent
-            title={content['title']} key={content['mal_id']}
-            image_url={content['image_url']} rank={content['rank']}
-            score={content['score']}
-          />
-
-        case 'usuários':
-          return <UserComponent
-            nickname={content['nickname']} key={content['id']}
-            image={content['image']} bio={content['bio']}
-            recentFavorites={reverseWithoutChangingArray(content.favorites)}
-          />
-
-        default:
-          break;
-      }
-    }) : null
+  const renderContent = (): JSX.Element[] => {
+    if (content == null) return null
+    if (isContentAnimes()) {
+      return displayAnimeComponents()
+    }
+    if (isContentUsers()) {
+      return displayUserComponents()
+    }
   }
 
-  const reverseWithoutChangingArray = (arrayToReverse: string[]): string[] => {
+  const isContentAnimes = (): boolean => {
+    return kindOfContentToDisplay == 'animes'
+  }
+
+  const displayAnimeComponents = (): JSX.Element[] => {
+    return content.map((anime) => {
+      return (<AnimeComponent
+        title={anime['title']} key={anime['mal_id']} id={anime['mal_id']}
+        image_url={anime['image_url']} rank={anime['rank']}
+        score={anime['score']}
+      />)
+    })
+  }
+
+  const isContentUsers = (): boolean => {
+    return kindOfContentToDisplay == 'usuários'
+  }
+
+  const displayUserComponents = (): JSX.Element[] => {
+    return content.map((user) => {
+      return (<UserComponent
+        nickname={user['nickname']} key={user['id']} id={user['id']}
+        image={user['image']} bio={user['bio']}
+        recentFavorites={createArrayWithThreeMostRecentFavorites(user.favorites)}
+      />)
+    })
+  }
+
+  const createArrayWithThreeMostRecentFavorites = (arrayToReverse: string[]): string[] => {
     return arrayToReverse?.slice().reverse().slice(0, 3)
   }
 
