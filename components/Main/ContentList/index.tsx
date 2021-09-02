@@ -2,6 +2,7 @@ import React from 'react'
 import AnimeService from '../../../services/animes/getAnimes'
 import { AnimeComponent } from './AnimeComponent'
 import { UserComponent } from './UserComponent'
+import { PageComponent } from './PageComponent'
 import { Spinner } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
@@ -33,6 +34,9 @@ export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, set
     }
     if (isContentUsers()) {
       return displayUserComponents()
+    }
+    if (isContentPages()) {
+      return displayPageComponents()
     }
   }
 
@@ -66,6 +70,20 @@ export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, set
 
   const createArrayWithThreeMostRecentFavorites = (arrayToReverse: string[]): string[] => {
     return arrayToReverse?.slice().reverse().slice(0, 3)
+  }
+
+  const isContentPages = (): boolean => {
+    return kindOfContentToDisplay == 'páginas'
+  }
+
+  const displayPageComponents = (): JSX.Element[] => {
+    return content.map((page) => {
+      return (<PageComponent
+        title={page['title']} key={page['id']} id={page['id']}
+        image={page['image']} description={page['description']}
+        user_id={page['user_id']} creator={page['owner_nickname']}
+      />)
+    })
   }
 
   return (

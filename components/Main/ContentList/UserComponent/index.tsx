@@ -14,6 +14,12 @@ interface Props {
 
 export const UserComponent: React.FC<Props> = (props) => {
 
+  const defaultImgPath = '/images/pageImage/default.jpg'
+
+  const hasImage = () => {
+    return props.image != null && props.image != ''
+  }
+
   const isRecentFavoritesEmpty = (): boolean => {
     return props.recentFavorites.length === 0
   }
@@ -33,7 +39,7 @@ export const UserComponent: React.FC<Props> = (props) => {
     <UserDiv id={props.id}>
       <Row>
         <Col lg={4} className="d-flex justify-content-center">
-          <Image src={props.image} alt={`${props.nickname} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />
+          <Image src={hasImage() ? props.image : defaultImgPath} alt={`${props.nickname} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />
         </Col>
         <Col lg={8} className="text-center d-flex flex-column justify-content-center">
           <h5 className="text-light">

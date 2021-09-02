@@ -10,6 +10,7 @@ import UserService from '../../../../services/users/getUsers'
 import Anime from '../../../../dtos/Animes'
 import User from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
+import PageService from '../../../../services/pages/getPages'
 
 interface Props {
   setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
@@ -34,6 +35,7 @@ export const Search: React.FC<Props> = ({
     if (isSearchEmpty()) return searchForTopAnimeInstead()
     if (shouldSearchForAnimes()) return searchForAnimes()
     if (shouldSearchForUsers()) return searchForUsers()
+    if (shouldSearchForPages()) return searchForPages()
   }
 
   const isSearchEmpty = (): boolean => {
@@ -56,6 +58,10 @@ export const Search: React.FC<Props> = ({
     return confirmedFilter == 'usuários'
   }
 
+  const shouldSearchForPages = (): boolean => {
+    return confirmedFilter == 'páginas'
+  }
+
   const searchForAnimes = async () => {
     let res = await AnimeService.searchAnime({ search: { q: search } })
     setContent(res.data['animes'])
@@ -67,6 +73,13 @@ export const Search: React.FC<Props> = ({
     let res = await UserService.searchUser({ search })
     setContent(res.data['results'])
     dispatch(setKindOfContentToDisplay('usuários'))
+    setLoading(false)
+  }
+
+  const searchForPages = async () => {
+    let res = await PageService.searchPage({ search })
+    setContent(res.data['results'])
+    dispatch(setKindOfContentToDisplay('páginas'))
     setLoading(false)
   }
 
