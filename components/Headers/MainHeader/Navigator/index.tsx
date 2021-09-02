@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Dropdown } from 'react-bootstrap'
 import Link from 'next/link'
-import { Botao } from './styles'
+import { Botao, CustomDropdown } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearLoggedUser } from '../../../../store/modules/auth/reducer'
 import { toast } from 'react-toastify'
@@ -22,7 +22,7 @@ export const Navigator = () => {
     return (
       <Col lg={3} className="justify-content-center d-flex">
         <Col className="d-flex align-items-center justify-content-center" lg={6}>
-          <Dropdown className='text-center py-3'>
+          <CustomDropdown className='py-3'>
             <Dropdown.Toggle variant="info" id="dropdown-basic">
               {loggedUser['nickname']}
             </Dropdown.Toggle>
@@ -32,7 +32,7 @@ export const Navigator = () => {
               <Dropdown.Item className='text-light' >Configurações</Dropdown.Item>
               <Dropdown.Item className='text-light' onClick={() => logOut()}>Sair</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </CustomDropdown>
         </Col>
       </Col>
     )
