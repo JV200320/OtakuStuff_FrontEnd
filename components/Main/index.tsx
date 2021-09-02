@@ -13,14 +13,14 @@ import { PageControl } from './PageControl'
 interface Props {
   Loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  content: Array<Anime>,
+  content: Anime[],
   setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>
 }
 
 export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent }) => {
 
-  const show = ['d-none', '']
-  const hide = ['d-block d-sm-block d-lg-none', 'd-none d-lg-flex']
+  const show: string[] = ['d-none', '']
+  const hide: string[] = ['d-block d-sm-block d-lg-none', 'd-none d-lg-flex']
 
   const [displayFavorites, setDisplayFavorites] = React.useState(hide)
   const [displayFriends, setDisplayFriends] = React.useState(hide)

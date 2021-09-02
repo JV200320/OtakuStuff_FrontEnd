@@ -11,7 +11,7 @@ export const useFilterModal = (props) => {
   const [selectedFilter, setSelectedFilter] = React.useState('animes')
   const [confirmedFilter, setConfirmedFilter] = React.useState('animes')
 
-  const confirmFilter = () => {
+  const confirmFilter = (): void => {
     props.onHide()
     setConfirmedFilter(selectedFilter)
     setSelectedFilter('animes')

@@ -30,7 +30,10 @@ export const Header: React.FC<Props> = ({ setLoading, setContent }) => {
     setSelectedFilter('animes')
   }
 
-  const { renderFilterModal, setConfirmedFilter, setSelectedFilter, confirmedFilter } = useFilterModal({ onHide: () => hideModal(), show: filterModalShow })
+  const {
+    renderFilterModal, setConfirmedFilter,
+    setSelectedFilter, confirmedFilter
+  } = useFilterModal({ onHide: () => hideModal(), show: filterModalShow })
 
   return (
     <Navbar>

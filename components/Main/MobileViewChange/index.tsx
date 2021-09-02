@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
 import { Row } from 'react-bootstrap'
 import { FavoriteButton } from './FavoriteButton'
 import { FeedButton } from './FeedButton'
 import { FriendsButton } from './FriendsButton'
 
-export const MobileViewChange = (props) => {
+interface Props {
+  setDisplayFavorites: React.Dispatch<SetStateAction<string[]>>,
+  setDisplayFeed: React.Dispatch<SetStateAction<string[]>>,
+  setDisplayFriends: React.Dispatch<SetStateAction<string[]>>,
+  show: string[],
+  hide: string[],
+  displayFavorites: string[],
+  displayFeed: string[],
+  displayFriends: string[]
+}
 
-  // Funções para troca de views
+export const MobileViewChange: React.FC<Props> = (props) => {
+
   const showFriends = () => {
     props.setDisplayFriends(props.show)
     props.setDisplayFavorites(props.hide)
@@ -27,7 +37,7 @@ export const MobileViewChange = (props) => {
 
   return (
     <Row style={{ height: 30 }}>
-      <FavoriteButton showFav={showFavorites} displayFavorites={props.displayFavorites} />
+      <FavoriteButton showFavorites={showFavorites} displayFavorites={props.displayFavorites} />
       <FeedButton showFeed={showFeed} displayFeed={props.displayFeed} />
       <FriendsButton showFriends={showFriends} displayFriends={props.displayFriends} />
     </Row>

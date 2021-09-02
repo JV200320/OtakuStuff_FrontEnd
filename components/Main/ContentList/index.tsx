@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
 import AnimeService from '../../../services/animes/getAnimes'
 import { AnimeComponent } from './AnimeComponent'
 import { Spinner } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
+import Anime from '../../../dtos/Animes'
+import User from '../../../dtos/User'
 
+interface Props {
+  Loading: boolean,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  content: Anime[] | User[],
+  setContent: React.Dispatch<React.SetStateAction<Anime[] | User[]>>
+}
 
-export const ContentList = ({ Loading, setLoading, content, setContent }) => {
+export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, setContent }) => {
 
   const kindOfContentToDisplay: string = useSelector((state: RootState) => state.kindOfContentToDisplay)
-
-  // TopAnime data
 
   React.useEffect(() => {
     AnimeService.getTopAnime(null).then(res => {
