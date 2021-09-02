@@ -53,7 +53,10 @@ export const Header: React.FC<Props> = ({ setLoading, setContent }) => {
         {/* Open Menu Icon */}
         {/* Search */}
         <Search
-          {...{ setContent, setLoading, setFilterModalShow, setSearch, search, confirmedFilter, setConfirmedFilter }}
+          {...{
+            setContent, setLoading, setFilterModalShow, setSearch, search,
+            confirmedFilter, setConfirmedFilter
+          }}
         />
         {/* Search */}
         {/* Entrar e Cadastrar/Username */}
@@ -63,7 +66,10 @@ export const Header: React.FC<Props> = ({ setLoading, setContent }) => {
 
       {/*Mobile Menu*/}
       <MobileMenu
-        {...{ showMenu, setShowMenu, setFilterModalShow, setSearch, search, setLoading, setContent }}
+        {...{
+          showMenu, setShowMenu, setFilterModalShow, setSearch, search,
+          setLoading, setContent, confirmedFilter, setConfirmedFilter
+        }}
       />
       {/*Mobile Menu*/}
     </Navbar>

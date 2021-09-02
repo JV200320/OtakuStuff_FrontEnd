@@ -4,31 +4,75 @@ import { DivMobile, Toggle, BotaoMobile, SearchMobile } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import AnimeService from '../../../../services/animes/getAnimes'
+import UserService from '../../../../services/users/getUsers'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown } from 'react-bootstrap'
 import { clearLoggedUser } from '../../../../store/modules/auth/reducer'
 import { toast } from 'react-toastify'
 import { RootState } from '../../../../store/modules/rootReducer'
 import User from '../../../../dtos/User'
+import Anime from '../../../../dtos/Animes'
+import { setKindOfContentToDisplay } from '../../../../store/modules/kindOfContentToDisplay/reducer'
 
-export const MobileMenu = ({ showMenu, setShowMenu, setContent, setSearch, setLoading, search,
-  setFilterModalShow }) => {
+interface Props {
+  setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  search: string,
+  setSearch: React.Dispatch<string>,
+  setFilterModalShow: React.Dispatch<React.SetStateAction<boolean>>,
+  confirmedFilter: string,
+  setConfirmedFilter: React.Dispatch<string>,
+  showMenu: string,
+  setShowMenu: React.Dispatch<string>
+}
 
-  const kindOfContentToDisplay: string = useSelector((state: RootState) => state.kindOfContentToDisplay)
+export const MobileMenu: React.FC<Props> = ({
+  showMenu, setShowMenu, setContent,
+  setSearch, setLoading, search, setFilterModalShow, confirmedFilter,
+  setConfirmedFilter
+}) => {
+
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
 
-  const searchAnime = async () => {
+  const searchContent = async () => {
     setLoading(true)
-    let res;
-    if (search == '') {
-      res = await AnimeService.getTopAnime(null)
-      setContent(res.data['animes'])
-      setLoading(false)
-      return
-    }
-    res = await AnimeService.searchAnime({ search: { q: search } })
+    if (isSearchEmpty()) return searchForTopAnimeInstead()
+    if (shouldSearchForAnimes()) return searchForAnimes()
+    if (shouldSearchForUsers()) return searchForUsers()
+  }
+
+  const isSearchEmpty = (): boolean => {
+    return search == '' || search == null
+  }
+
+  const searchForTopAnimeInstead = async () => {
+    let res = await AnimeService.getTopAnime(null)
     setContent(res.data['animes'])
+    dispatch(setKindOfContentToDisplay('animes'))
+    setConfirmedFilter('animes')
+    setLoading(false)
+  }
+
+  const shouldSearchForAnimes = (): boolean => {
+    return confirmedFilter == 'animes'
+  }
+
+  const shouldSearchForUsers = (): boolean => {
+    return confirmedFilter == 'usuários'
+  }
+
+  const searchForAnimes = async () => {
+    let res = await AnimeService.searchAnime({ search: { q: search } })
+    setContent(res.data['animes'])
+    dispatch(setKindOfContentToDisplay('animes'))
+    setLoading(false)
+  }
+
+  const searchForUsers = async () => {
+    let res = await UserService.searchUser({ search })
+    setContent(res.data['results'])
+    dispatch(setKindOfContentToDisplay('usuários'))
     setLoading(false)
   }
 
@@ -78,11 +122,11 @@ export const MobileMenu = ({ showMenu, setShowMenu, setContent, setSearch, setLo
             icon={faFilter} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="me-2"
           />
         </BotaoMobile>
-        <SearchMobile placeholder={`Procurar por ${kindOfContentToDisplay}...`} value={search}
+        <SearchMobile placeholder={`Procurar por ${confirmedFilter}...`} value={search}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
           loggedUser={loggedUser}
         />
-        <BotaoMobile onClick={() => searchAnime()}>
+        <BotaoMobile onClick={() => searchContent()}>
           <FontAwesomeIcon
             icon={faSearch} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="ms-2"
           />

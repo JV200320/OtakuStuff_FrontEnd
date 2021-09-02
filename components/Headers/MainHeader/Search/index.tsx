@@ -21,48 +21,53 @@ interface Props {
   setConfirmedFilter: React.Dispatch<string>,
 }
 
-export const Search: React.FC<Props> = ({ setContent, setLoading, search, setSearch,
-  setFilterModalShow, confirmedFilter, setConfirmedFilter }) => {
+export const Search: React.FC<Props> = ({
+  setContent, setLoading, search, setSearch,
+  setFilterModalShow, confirmedFilter, setConfirmedFilter
+}) => {
 
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch()
 
   const searchContent = async () => {
     setLoading(true)
-    let res;
-    switch (confirmedFilter) {
-      case 'animes':
-        if (search == '') {
-          res = await AnimeService.getTopAnime(null)
-          setContent(res.data['animes'])
-          dispatch(setKindOfContentToDisplay('animes'))
-          setConfirmedFilter('animes')
-          setLoading(false)
-          return
-        }
-        res = await AnimeService.searchAnime({ search: { q: search } })
-        setContent(res.data['animes'])
-        dispatch(setKindOfContentToDisplay('animes'))
-        setLoading(false)
-        break;
-      case 'usuários':
-        if (search == '') {
-          res = await AnimeService.getTopAnime(null)
-          setContent(res.data['animes'])
-          dispatch(setKindOfContentToDisplay('animes'))
-          setConfirmedFilter('animes')
-          setLoading(false)
-          return
-        }
-        res = await UserService.searchUser({ search })
-        setContent(res.data['results'])
-        dispatch(setKindOfContentToDisplay('usuários'))
-        setLoading(false)
-        break;
+    if (isSearchEmpty()) return searchForTopAnimeInstead()
+    if (shouldSearchForAnimes()) return searchForAnimes()
+    if (shouldSearchForUsers()) return searchForUsers()
+  }
 
-      default:
-        break;
-    }
+  const isSearchEmpty = (): boolean => {
+    return search == '' || search == null
+  }
+
+  const searchForTopAnimeInstead = async () => {
+    let res = await AnimeService.getTopAnime(null)
+    setContent(res.data['animes'])
+    dispatch(setKindOfContentToDisplay('animes'))
+    setConfirmedFilter('animes')
+    setLoading(false)
+  }
+
+  const shouldSearchForAnimes = (): boolean => {
+    return confirmedFilter == 'animes'
+  }
+
+  const shouldSearchForUsers = (): boolean => {
+    return confirmedFilter == 'usuários'
+  }
+
+  const searchForAnimes = async () => {
+    let res = await AnimeService.searchAnime({ search: { q: search } })
+    setContent(res.data['animes'])
+    dispatch(setKindOfContentToDisplay('animes'))
+    setLoading(false)
+  }
+
+  const searchForUsers = async () => {
+    let res = await UserService.searchUser({ search })
+    setContent(res.data['results'])
+    dispatch(setKindOfContentToDisplay('usuários'))
+    setLoading(false)
   }
 
   return (
