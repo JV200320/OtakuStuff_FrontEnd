@@ -26,12 +26,20 @@ export const SignUpForm: React.FC = () => {
   const handleSubmit = async () => {
     if (confirmPassword != password) return toast.error('A senha e a confirmação de senha são diferentes.')
 
-    const formData = new FormData();
+    const formData: FormData = new FormData();
+    appendDataToForm(formData)
+    doHTTPRequest(formData)
+  }
+
+  const appendDataToForm = (formData: FormData) => {
     formData.append('nickname', nickname)
     formData.append('email', email)
     formData.append('password', password)
     formData.append('password_confirmation', confirmPassword)
     formData.append('image', image)
+  }
+
+  const doHTTPRequest = async (formData: FormData) => {
     try {
       let res = await UserService.signUp(formData)
       toast.success('Conta criada com sucesso.')
@@ -43,11 +51,15 @@ export const SignUpForm: React.FC = () => {
   }
 
   const handleSetImage = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (evt.target.files.length == 0) return
-    const file = evt.target.files[0];
+    if (areFilesEmpty(evt)) return
 
+    const file = evt.target.files[0];
     setImage(file);
     setImageToShow(URL.createObjectURL(file))
+  }
+
+  const areFilesEmpty = (evt: React.ChangeEvent<HTMLInputElement>): boolean => {
+    return evt.target.files.length == 0
   }
 
   return (

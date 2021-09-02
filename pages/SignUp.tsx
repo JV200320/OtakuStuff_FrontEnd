@@ -18,7 +18,7 @@ const SignUp: React.FC = () => {
 
   return (
     <>
-      <Header link={['/Login', 'Entrar']} />
+      <Header link='/Login' buttonName='Entrar' />
       <SignUpForm />
     </>
   )

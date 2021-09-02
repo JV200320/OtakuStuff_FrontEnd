@@ -16,10 +16,17 @@ export const LoginForm: React.FC = () => {
   const [password, setPassword] = React.useState(null);
 
   const handleSubmit = async () => {
+    const formData: FormData = new FormData();
+    appendDataToForm(formData)
+    doHTTPRequest(formData)
+  }
 
-    const formData = new FormData();
+  const appendDataToForm = (formData: FormData) => {
     formData.append('email', email)
     formData.append('password', password)
+  }
+
+  const doHTTPRequest = async (formData: FormData) => {
     try {
       let res = await UserService.login(formData)
       dispatch(setLoggedUser(res.data.data))

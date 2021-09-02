@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
-  link: string[]
+  link: string,
+  buttonName: string
 }
 
-export const LoginAndSingupHeader: React.FC<Props> = ({ link }) => {
+export const LoginAndSingupHeader: React.FC<Props> = ({ link, buttonName }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
 
@@ -31,9 +32,9 @@ export const LoginAndSingupHeader: React.FC<Props> = ({ link }) => {
         {/* Entrar e Cadastrar */}
         <Col lg={4} className="justify-content-center d-flex">
           <Col className="d-flex align-items-center justify-content-center" lg={{ span: 6, offset: 6 }}>
-            <Link href={link[0]}>
+            <Link href={link}>
               <Botao>
-                {link[1]}
+                {buttonName}
               </Botao>
             </Link>
           </Col>
@@ -46,9 +47,9 @@ export const LoginAndSingupHeader: React.FC<Props> = ({ link }) => {
         <Toggle className="position-absolute top-0 end-0">
           <FontAwesomeIcon icon={faTimes} color="#FF6B4F" onClick={() => setShowMenu("none")} />
         </Toggle>
-        <Link href={link[0]}>
+        <Link href={link}>
           <BotaoMobile>
-            {link[1]}
+            {buttonName}
           </BotaoMobile>
         </Link>
       </DivMobile>
