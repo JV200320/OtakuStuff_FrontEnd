@@ -11,6 +11,7 @@ import Anime from '../../../../dtos/Animes'
 import User from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
 import PageService from '../../../../services/pages/getPages'
+import { clearContentPageToDisplay } from '../../../../store/modules/contentPageToDisplay/reducer'
 
 interface Props {
   setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
@@ -46,6 +47,7 @@ export const Search: React.FC<Props> = ({
     let res = await AnimeService.getTopAnime(null)
     setContent(res.data['animes'])
     dispatch(setKindOfContentListToDisplay('animes'))
+    dispatch(clearContentPageToDisplay())
     setConfirmedFilter('animes')
     setLoading(false)
   }
@@ -66,6 +68,7 @@ export const Search: React.FC<Props> = ({
     let res = await AnimeService.searchAnime({ search: { q: search } })
     setContent(res.data['animes'])
     dispatch(setKindOfContentListToDisplay('animes'))
+    dispatch(clearContentPageToDisplay())
     setLoading(false)
   }
 
@@ -73,6 +76,7 @@ export const Search: React.FC<Props> = ({
     let res = await UserService.searchUser({ search })
     setContent(res.data['results'])
     dispatch(setKindOfContentListToDisplay('usuários'))
+    dispatch(clearContentPageToDisplay())
     setLoading(false)
   }
 
@@ -80,6 +84,7 @@ export const Search: React.FC<Props> = ({
     let res = await PageService.searchPage({ search })
     setContent(res.data['results'])
     dispatch(setKindOfContentListToDisplay('páginas'))
+    dispatch(clearContentPageToDisplay())
     setLoading(false)
   }
 

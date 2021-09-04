@@ -9,6 +9,10 @@ import Anime from '../../dtos/Animes'
 import User from '../../dtos/User'
 import { MobileViewChange } from './MobileViewChange'
 import { PageControl } from './PageControl'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store/modules/rootReducer'
+import { ContentPage } from './ContentPage'
+import AnimeService from '../../services/animes/getAnimes'
 
 interface Props {
   Loading: boolean;
@@ -26,6 +30,19 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
   const [displayFriends, setDisplayFriends] = React.useState(hide)
   const [displayFeed, setDisplayFeed] = React.useState(show)
 
+  const contentPageToDisplay = useSelector((state: RootState) => state.contentPageToDisplay)
+
+  const isContentPageToDisplayNull = (): boolean => {
+    return contentPageToDisplay == null
+  }
+
+  React.useEffect(() => {
+    AnimeService.getTopAnime(null).then(res => {
+      setContent(res.data['animes'])
+    })
+    setLoading(false)
+  }, [])
+
   return (
     <>
       <MobileViewChange
@@ -39,8 +56,16 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
           <Favorites />
         </Col>
         <MainCol lg={6} id="mainView" className={`d-flex align-items-center ${Loading ? 'justify-content-center' : ''} flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`}>
-          <ContentList {...{ Loading, setLoading, content, setContent }} />
-          <PageControl {...{ setLoading, setContent, content }} />
+          {
+            isContentPageToDisplayNull()
+              ?
+              <>
+                <ContentList {...{ Loading, setLoading, content, setContent }} />
+                <PageControl {...{ setLoading, setContent, content }} />
+              </>
+              :
+              <ContentPage />
+          }
         </MainCol>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>
           <Friends />

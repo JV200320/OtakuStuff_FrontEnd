@@ -13,19 +13,11 @@ interface Props {
   Loading: boolean,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   content: Anime[] | User[],
-  setContent: React.Dispatch<React.SetStateAction<Anime[] | User[]>>
 }
 
-export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, setContent }) => {
+export const ContentList: React.FC<Props> = ({ Loading, setLoading, content }) => {
 
   const kindOfContentListToDisplay: string = useSelector((state: RootState) => state.kindOfContentListToDisplay)
-
-  React.useEffect(() => {
-    AnimeService.getTopAnime(null).then(res => {
-      setContent(res.data['animes'])
-    })
-    setLoading(false)
-  }, [])
 
   const renderContent = (): JSX.Element[] => {
     if (content == null) return null
