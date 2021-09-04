@@ -38,11 +38,7 @@ export const ContentList: React.FC<Props> = ({ Loading, content }) => {
 
   const displayAnimeComponents = (): JSX.Element[] => {
     return content.map((anime) => {
-      return (<AnimeComponent
-        title={anime['title']} key={anime['mal_id']} id={anime['mal_id']}
-        image_url={anime['image_url']} rank={anime['rank']}
-        score={anime['score']}
-      />)
+      return <AnimeComponent {...{ anime }} />
     })
   }
 
@@ -70,11 +66,7 @@ export const ContentList: React.FC<Props> = ({ Loading, content }) => {
 
   const displayPageComponents = (): JSX.Element[] => {
     return content.map((page) => {
-      return (<PageComponent
-        title={page['title']} key={page['id']} id={page['id']}
-        image={page['image']} description={page['description']}
-        user_id={page['user_id']} creator={page['owner_nickname']}
-      />)
+      return <PageComponent {...{ page }} />
     })
   }
 

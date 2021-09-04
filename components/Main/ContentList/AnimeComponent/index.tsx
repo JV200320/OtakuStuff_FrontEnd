@@ -6,40 +6,70 @@ import { useDispatch } from 'react-redux'
 import { setContentPageToDisplay } from '../../../../store/modules/contentPageToDisplay/reducer'
 
 interface Props {
-  image_url: string;
-  title: string;
-  rank: string;
-  score: string;
-  key: string;
-  id: string
+  anime: {
+    image_url: string;
+    title: string;
+    rank: string;
+    score: string;
+    key: string;
+    id: string;
+    rated: string;
+    airing: boolean;
+    episodes: string;
+  }
 }
 
-export const AnimeComponent: React.FC<Props> = (props) => {
+export const AnimeComponent: React.FC<Props> = ({ anime }) => {
 
   const dispatch = useDispatch()
 
   const displayAnimePage = () => {
     const info = {
-      id: props.id,
+      id: anime.id,
       kind: 'animes'
     }
     dispatch(setContentPageToDisplay(info))
   }
 
-  return (
-    <AnimeDiv id={props.id} onClick={() => displayAnimePage()}>
-      <Row>
-        <Col lg={4} className="d-flex justify-content-center">
-          <Image src={props.image_url} alt={`${props.title} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />
-        </Col>
-        <Col lg={8} className="text-center d-flex flex-column justify-content-center">
-          <h5 className="text-light">
-            {props.title}
-          </h5>
-          <span className="text-light">Rank: {props.rank}</span>
-          <span className="text-light">Score: {props.score}</span>
-        </Col>
-      </Row>
-    </AnimeDiv>
-  )
+  if (anime.rank) {
+    return (
+      <AnimeDiv id={anime.id} onClick={() => displayAnimePage()}>
+        <Row>
+          <Col lg={4} className="d-flex justify-content-center">
+            <Image src={anime.image_url} alt={`${anime.title} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />
+          </Col>
+          <Col lg={8} className="text-center d-flex flex-column justify-content-center">
+            <h5 className="text-light">
+              {anime.title}
+            </h5>
+            <span className="text-light">Rank: {anime.rank}</span>
+            <span className="text-light">Score: {anime.score}</span>
+            <span className="text-light">Episódios: {anime.episodes}</span>
+          </Col>
+        </Row>
+      </AnimeDiv>
+    )
+  } else {
+    return (
+      <AnimeDiv id={anime.id} onClick={() => displayAnimePage()}>
+        <Row>
+          <Col lg={4} className="d-flex justify-content-center">
+            <Image src={anime.image_url} alt={`${anime.title} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />
+          </Col>
+          <Col lg={8} className="text-center d-flex flex-column justify-content-center">
+            <h5 className="text-light">
+              {anime.title}
+            </h5>
+            <span className="text-light">Classificação: {anime.rated}</span>
+            <span className="text-light">
+              {anime.airing
+                ? `Em lançamento, episódios: ${anime.episodes}`
+                : `Concluído, episódios: ${anime.episodes}`}
+            </span>
+          </Col>
+        </Row>
+      </AnimeDiv>
+    )
+  }
+
 }
