@@ -4,7 +4,7 @@ const KindOfContentListToDisplaySlice = createSlice({
     name: 'KindOfContentListToDisplay',
     initialState: 'animes',
     reducers: {
-        setKindOfContentListToDisplay(state, action: PayloadAction<any>) {
+        setKindOfContentListToDisplay(state, action: PayloadAction<string>) {
             return action.payload;
         }
     }
