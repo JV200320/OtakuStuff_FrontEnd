@@ -15,7 +15,7 @@ interface Props {
   content: Anime[] | User[],
 }
 
-export const ContentList: React.FC<Props> = ({ Loading, setLoading, content }) => {
+export const ContentList: React.FC<Props> = ({ Loading, content }) => {
 
   const kindOfContentListToDisplay: string = useSelector((state: RootState) => state.kindOfContentListToDisplay)
 

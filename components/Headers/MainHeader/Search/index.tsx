@@ -33,6 +33,7 @@ export const Search: React.FC<Props> = ({
 
   const searchContent = async () => {
     setLoading(true)
+    dispatch(clearContentPageToDisplay())
     if (isSearchEmpty()) return searchForTopAnimeInstead()
     if (shouldSearchForAnimes()) return searchForAnimes()
     if (shouldSearchForUsers()) return searchForUsers()

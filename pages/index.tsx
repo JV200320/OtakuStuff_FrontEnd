@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Header } from '../components/Headers/MainHeader'
 import { Main } from '../components/Main'
+import { setContentPageToDisplay } from '../store/modules/contentPageToDisplay/reducer'
 import { setKindOfContentListToDisplay } from '../store/modules/kindOfContentListToDisplay/reducer'
 
 const Home: React.FC = () => {
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(setKindOfContentListToDisplay('animes'))
+    dispatch(setContentPageToDisplay(null))
   }, [])
 
   return (

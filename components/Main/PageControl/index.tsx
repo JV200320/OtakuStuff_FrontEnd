@@ -54,13 +54,13 @@ export const PageControl = ({ setLoading, setContent, content }) => {
   if (content.length >= 1) {
     if (content[0]['rank'] == 1) {
       return (
-        <div className="fixed-bottom offset-3 col-6 text-center text-light" style={{ backgroundColor: '#303030' }}>
+        <div className="fixed-bottom offset-lg-3 col-lg-6 col-12 text-center text-light" style={{ backgroundColor: '#303030' }}>
           <Botao onClick={() => updateAnimesNext()}>Próximo</Botao>
         </div>
       )
     } else {
       return (
-        <div className="fixed-bottom offset-3 col-6 text-center text-light" style={{ backgroundColor: '#303030' }}>
+        <div className="fixed-bottom offset-lg-3 col-lg-6 col-12 text-center text-light" style={{ backgroundColor: '#303030' }}>
           <Botao onClick={() => updateAnimesBefore()}>Anterior</Botao> |
           <input type="number" id="page_input" value={page} onChange={e => setPage(Number(e.target.value))}
             onKeyPress={(e) => e.key === 'Enter' && getPageAnime(page)}

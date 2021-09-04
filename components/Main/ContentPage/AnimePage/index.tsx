@@ -1,7 +1,33 @@
 import React from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Spinner } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import AnimeService from '../../../../services/animes/getAnimes'
+import { RootState } from '../../../../store/modules/rootReducer'
 
-export const AnimePage: React.FC = (props) => {
+interface Props {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const AnimePage: React.FC<Props> = ({ setLoading }) => {
+
+  const [animeContent, setAnimeContent] = React.useState(null)
+
+  const { id } = useSelector((state: RootState) => state.contentPageToDisplay)
+
+  const getAnimePageContent = async () => {
+    setLoading(true)
+    let res = await AnimeService.getAnimePageContent(id)
+    setAnimeContent(res.data.anime)
+    setLoading(false)
+  }
+
+  React.useEffect(() => {
+    getAnimePageContent()
+  }, [])
+
+  if (animeContent == null)
+    return <Spinner animation="border" variant="light" />
+
   return (
     <div className="w-100 h-100">
       <Row className="bg-light">
@@ -16,7 +42,7 @@ export const AnimePage: React.FC = (props) => {
         </Col>
       </Row>
       <iframe
-        src={props.trailer_url}
+        src={animeContent.trailer_url}
         frameBorder="0"
         allowFullScreen={true}
         width='100%'

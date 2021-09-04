@@ -64,7 +64,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
                 <PageControl {...{ setLoading, setContent, content }} />
               </>
               :
-              <ContentPage />
+              <ContentPage {...{ setLoading, Loading }} />
           }
         </MainCol>
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>
