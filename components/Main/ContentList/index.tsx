@@ -18,7 +18,7 @@ interface Props {
 
 export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, setContent }) => {
 
-  const kindOfContentToDisplay: string = useSelector((state: RootState) => state.kindOfContentToDisplay)
+  const kindOfContentListToDisplay: string = useSelector((state: RootState) => state.kindOfContentListToDisplay)
 
   React.useEffect(() => {
     AnimeService.getTopAnime(null).then(res => {
@@ -41,7 +41,7 @@ export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, set
   }
 
   const isContentAnimes = (): boolean => {
-    return kindOfContentToDisplay == 'animes'
+    return kindOfContentListToDisplay == 'animes'
   }
 
   const displayAnimeComponents = (): JSX.Element[] => {
@@ -55,7 +55,7 @@ export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, set
   }
 
   const isContentUsers = (): boolean => {
-    return kindOfContentToDisplay == 'usuários'
+    return kindOfContentListToDisplay == 'usuários'
   }
 
   const displayUserComponents = (): JSX.Element[] => {
@@ -73,7 +73,7 @@ export const ContentList: React.FC<Props> = ({ Loading, setLoading, content, set
   }
 
   const isContentPages = (): boolean => {
-    return kindOfContentToDisplay == 'páginas'
+    return kindOfContentListToDisplay == 'páginas'
   }
 
   const displayPageComponents = (): JSX.Element[] => {

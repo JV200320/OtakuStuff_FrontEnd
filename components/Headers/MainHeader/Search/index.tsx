@@ -5,7 +5,7 @@ import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Col } from 'react-bootstrap'
 import AnimeService from '../../../../services/animes/getAnimes'
 import { useSelector, useDispatch } from 'react-redux'
-import { setKindOfContentToDisplay } from '../../../../store/modules/kindOfContentToDisplay/reducer'
+import { setKindOfContentListToDisplay } from '../../../../store/modules/kindOfContentListToDisplay/reducer'
 import UserService from '../../../../services/users/getUsers'
 import Anime from '../../../../dtos/Animes'
 import User from '../../../../dtos/User'
@@ -45,7 +45,7 @@ export const Search: React.FC<Props> = ({
   const searchForTopAnimeInstead = async () => {
     let res = await AnimeService.getTopAnime(null)
     setContent(res.data['animes'])
-    dispatch(setKindOfContentToDisplay('animes'))
+    dispatch(setKindOfContentListToDisplay('animes'))
     setConfirmedFilter('animes')
     setLoading(false)
   }
@@ -65,21 +65,21 @@ export const Search: React.FC<Props> = ({
   const searchForAnimes = async () => {
     let res = await AnimeService.searchAnime({ search: { q: search } })
     setContent(res.data['animes'])
-    dispatch(setKindOfContentToDisplay('animes'))
+    dispatch(setKindOfContentListToDisplay('animes'))
     setLoading(false)
   }
 
   const searchForUsers = async () => {
     let res = await UserService.searchUser({ search })
     setContent(res.data['results'])
-    dispatch(setKindOfContentToDisplay('usuários'))
+    dispatch(setKindOfContentListToDisplay('usuários'))
     setLoading(false)
   }
 
   const searchForPages = async () => {
     let res = await PageService.searchPage({ search })
     setContent(res.data['results'])
-    dispatch(setKindOfContentToDisplay('páginas'))
+    dispatch(setKindOfContentListToDisplay('páginas'))
     setLoading(false)
   }
 

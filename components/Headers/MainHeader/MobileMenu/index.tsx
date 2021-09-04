@@ -12,7 +12,7 @@ import { toast } from 'react-toastify'
 import { RootState } from '../../../../store/modules/rootReducer'
 import User from '../../../../dtos/User'
 import Anime from '../../../../dtos/Animes'
-import { setKindOfContentToDisplay } from '../../../../store/modules/kindOfContentToDisplay/reducer'
+import { setKindOfContentListToDisplay } from '../../../../store/modules/kindOfContentListToDisplay/reducer'
 
 interface Props {
   setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
@@ -49,7 +49,7 @@ export const MobileMenu: React.FC<Props> = ({
   const searchForTopAnimeInstead = async () => {
     let res = await AnimeService.getTopAnime(null)
     setContent(res.data['animes'])
-    dispatch(setKindOfContentToDisplay('animes'))
+    dispatch(setKindOfContentListToDisplay('animes'))
     setConfirmedFilter('animes')
     setLoading(false)
   }
@@ -65,14 +65,14 @@ export const MobileMenu: React.FC<Props> = ({
   const searchForAnimes = async () => {
     let res = await AnimeService.searchAnime({ search: { q: search } })
     setContent(res.data['animes'])
-    dispatch(setKindOfContentToDisplay('animes'))
+    dispatch(setKindOfContentListToDisplay('animes'))
     setLoading(false)
   }
 
   const searchForUsers = async () => {
     let res = await UserService.searchUser({ search })
     setContent(res.data['results'])
-    dispatch(setKindOfContentToDisplay('usuários'))
+    dispatch(setKindOfContentListToDisplay('usuários'))
     setLoading(false)
   }
 
