@@ -12,7 +12,7 @@ interface Props {
     rank: string;
     score: string;
     key: string;
-    id: string;
+    mal_id: string;
     rated: string;
     airing: boolean;
     episodes: string;
@@ -25,7 +25,7 @@ export const AnimeComponent: React.FC<Props> = ({ anime }) => {
 
   const displayAnimePage = () => {
     const info = {
-      id: anime.id,
+      id: anime.mal_id,
       kind: 'animes'
     }
     dispatch(setContentPageToDisplay(info))
@@ -33,7 +33,7 @@ export const AnimeComponent: React.FC<Props> = ({ anime }) => {
 
   if (anime.rank) {
     return (
-      <AnimeDiv id={anime.id} onClick={() => displayAnimePage()}>
+      <AnimeDiv id={anime.mal_id} onClick={() => displayAnimePage()}>
         <Row>
           <Col lg={4} className="d-flex justify-content-center">
             <Image src={anime.image_url} alt={`${anime.title} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />
@@ -51,7 +51,7 @@ export const AnimeComponent: React.FC<Props> = ({ anime }) => {
     )
   } else {
     return (
-      <AnimeDiv id={anime.id} onClick={() => displayAnimePage()}>
+      <AnimeDiv id={anime.mal_id} onClick={() => displayAnimePage()}>
         <Row>
           <Col lg={4} className="d-flex justify-content-center">
             <Image src={anime.image_url} alt={`${anime.title} image`} width={150} height={150} className="rounded-circle pb-2 pt-2" />
