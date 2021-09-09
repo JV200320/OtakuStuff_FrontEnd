@@ -7,10 +7,11 @@ import Image from 'next/image'
 import { SynopsisRow } from './style'
 
 interface Props {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  Loading: boolean
 }
 
-export const AnimePage: React.FC<Props> = ({ setLoading }) => {
+export const AnimePage: React.FC<Props> = ({ setLoading, Loading }) => {
 
   const [animeContent, setAnimeContent] = React.useState(null)
 
@@ -48,7 +49,7 @@ export const AnimePage: React.FC<Props> = ({ setLoading }) => {
     getAnimePageContent()
   }, [id])
 
-  if (animeContent == null)
+  if (animeContent == null || Loading)
     return <Spinner animation="border" variant="light" />
 
   return (

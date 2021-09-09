@@ -24,7 +24,7 @@ export const ContentPage: React.FC<Props> = ({ setLoading, Loading }) => {
 
   const renderAnimePage = (): JSX.Element => {
     return (
-      <AnimePage {...{ setLoading }} />
+      <AnimePage {...{ setLoading, Loading }} />
     )
   }
 
@@ -51,7 +51,6 @@ export const ContentPage: React.FC<Props> = ({ setLoading, Loading }) => {
   return (
     <>
       {PageComponentToRender()}
-      {/* {Loading ? <Spinner animation="border" variant="light" /> : PageComponentToRender()} */}
     </>
   )
 }
