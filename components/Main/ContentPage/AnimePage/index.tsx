@@ -5,6 +5,7 @@ import AnimeService from '../../../../services/animes/getAnimes'
 import { RootState } from '../../../../store/modules/rootReducer'
 import Image from 'next/image'
 import { SynopsisRow } from './style'
+import { FollowAndUnfollowButton } from './FollowAndUnfollowButton'
 
 interface Props {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
@@ -72,11 +73,7 @@ export const AnimePage: React.FC<Props> = ({ setLoading, Loading }) => {
           {
             loggedUser
               ?
-              <Row className="d-flex justify-content-center py-2">
-                <Button className="w-50" variant='info'>
-                  Seguir
-                </Button>
-              </Row>
+              <FollowAndUnfollowButton {...animeContent} />
               :
               null
           }
