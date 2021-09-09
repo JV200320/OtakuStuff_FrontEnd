@@ -38,7 +38,7 @@ export const ContentList: React.FC<Props> = ({ Loading, content }) => {
 
   const displayAnimeComponents = (): JSX.Element[] => {
     return content.map((anime) => {
-      return <AnimeComponent {...{ anime }} />
+      return <AnimeComponent {...{ anime }} key={anime.mal_id} />
     })
   }
 
@@ -66,7 +66,7 @@ export const ContentList: React.FC<Props> = ({ Loading, content }) => {
 
   const displayPageComponents = (): JSX.Element[] => {
     return content.map((page) => {
-      return <PageComponent {...{ page }} />
+      return <PageComponent {...{ page }} key={page.id} />
     })
   }
 
