@@ -21,7 +21,6 @@ export const AnimePage: React.FC<Props> = ({ setLoading }) => {
     setLoading(true)
     let res = await AnimeService.getAnimePageContent(id)
     setAnimeContent(res.data.anime)
-    console.log(res.data.anime)
     setLoading(false)
   }
 
@@ -47,7 +46,7 @@ export const AnimePage: React.FC<Props> = ({ setLoading }) => {
 
   React.useEffect(() => {
     getAnimePageContent()
-  }, [])
+  }, [id])
 
   if (animeContent == null)
     return <Spinner animation="border" variant="light" />

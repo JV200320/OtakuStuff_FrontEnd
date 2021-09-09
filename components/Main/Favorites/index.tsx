@@ -6,7 +6,11 @@ import { RootState } from '../../../store/modules/rootReducer'
 import User from '../../../dtos/User'
 import { FavoriteAnimeComponent } from './FavoriteAnimeComponent'
 
-export const Favorites = () => {
+interface Props {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const Favorites: React.FC<Props> = ({ setLoading }) => {
 
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
 
@@ -17,7 +21,7 @@ export const Favorites = () => {
         {
           loggedUser.favorites.map((anime, index) => {
             return (
-              <FavoriteAnimeComponent {...anime} key={index} />
+              <FavoriteAnimeComponent {...anime} key={index} setLoading={setLoading} />
             )
           })
         }

@@ -53,7 +53,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
       />
       <Row className="flex-grow-1" >
         <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFavorites[1]}`}>
-          <Favorites />
+          <Favorites {...{ setLoading }} />
         </Col>
         <MainCol lg={6} id="mainView" className={`d-flex align-items-center ${Loading ? 'justify-content-center' : ''} flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`}>
           {

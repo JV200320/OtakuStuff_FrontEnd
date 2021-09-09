@@ -2,12 +2,14 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
 import { AnimePage } from './AnimePage'
+import { Spinner } from 'react-bootstrap'
 
 interface Props {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  Loading: boolean
 }
 
-export const ContentPage: React.FC<Props> = ({ setLoading }) => {
+export const ContentPage: React.FC<Props> = ({ setLoading, Loading }) => {
 
   const { kind } = useSelector((state: RootState) => state.contentPageToDisplay)
 
@@ -49,6 +51,7 @@ export const ContentPage: React.FC<Props> = ({ setLoading }) => {
   return (
     <>
       {PageComponentToRender()}
+      {/* {Loading ? <Spinner animation="border" variant="light" /> : PageComponentToRender()} */}
     </>
   )
 }

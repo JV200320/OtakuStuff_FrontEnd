@@ -9,7 +9,7 @@ interface SearchProps {
 
 export const NoFilterSearch: React.FC<SearchProps> = ({ look }) => {
   return (
-    <div className="w-100 d-flex justify-content-center mt-3">
+    <div className="w-100 d-flex justify-content-center my-3">
       <Search placeholder={`Procurar ${look}...`} />
       <Lupa>
         <FontAwesomeIcon icon={faSearch} color="#4FE3FF" className="ms-2" />
