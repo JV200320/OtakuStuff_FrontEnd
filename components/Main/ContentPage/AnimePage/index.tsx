@@ -33,6 +33,18 @@ export const AnimePage: React.FC<Props> = ({ setLoading }) => {
     return genreNamesList.slice(0, -2) + '.'
   }
 
+  const formatDate = (date) => {
+    if (date == null) return '---'
+
+    date = date.slice(0, 10).split('-')
+    date.reverse()
+    return date.join('/')
+  }
+
+  const hasTrailer = () => {
+    return animeContent.trailer_url != null
+  }
+
   React.useEffect(() => {
     getAnimePageContent()
   }, [])
@@ -72,27 +84,39 @@ export const AnimePage: React.FC<Props> = ({ setLoading }) => {
       </Row>
       <Row>
         <Col>
-          <p>Status: {animeContent.status}</p>
+          <p>Status: {animeContent.status == 'Currently Airing' ? 'em lançamento' : 'concluído'}</p>
           <p>Fonte: {animeContent.source}</p>
           <p>Avaliado por {animeContent.scored_by} pessoas</p>
           <p>Rank: {animeContent.rank}</p>
+          <p>Data de lançamento: {formatDate(animeContent.aired.from)}</p>
         </Col>
         <Col>
           <p>Nota: {animeContent.score}</p>
           <p>Classificação: {animeContent.rating}</p>
           <p>Episódios: {animeContent.episodes}</p>
           <p>Duração por episódio: {animeContent.duration.slice(0, 7)}</p>
+          <p>Data de conclusão: {formatDate(animeContent.aired.to)}</p>
         </Col>
       </Row>
       <p>Gêneros: {buildGenreNamesList()}</p>
-      <p className='text-center'>TRAILER</p>
-      <iframe
-        src={animeContent.trailer_url}
-        frameBorder="0"
-        allowFullScreen={true}
-        width='100%'
-        height={500}
-      />
+      {
+        hasTrailer()
+          ?
+          <>
+            <p className='text-center'>TRAILER</p>
+            <iframe
+              src={animeContent.trailer_url}
+              frameBorder="0"
+              allowFullScreen={true}
+              width='100%'
+              height={500}
+            />
+          </>
+          :
+          <div className='w-100 d-flex align-items-center' style={{ height: 150 }}>
+            <p className='text-center w-100'>Não encontramos o trailer para esse anime.</p>
+          </div>
+      }
     </div>
   )
 }
