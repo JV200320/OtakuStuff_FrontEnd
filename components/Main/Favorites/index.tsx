@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
 import User from '../../../dtos/User'
 import { FavoriteAnimeComponent } from './FavoriteAnimeComponent'
+import { ScrollableDiv } from './style'
 
 interface Props {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -18,13 +19,15 @@ export const Favorites: React.FC<Props> = ({ setLoading }) => {
     return (
       <Body>
         <NoFilterSearch look="animes em favoritos" />
-        {
-          loggedUser.favorites.map((anime, index) => {
-            return (
-              <FavoriteAnimeComponent {...anime} key={index} setLoading={setLoading} />
-            )
-          })
-        }
+        <ScrollableDiv>
+          {
+            loggedUser.favorites.map((anime, index) => {
+              return (
+                <FavoriteAnimeComponent {...anime} key={index} setLoading={setLoading} />
+              )
+            })
+          }
+        </ScrollableDiv>
       </Body>
     )
   }

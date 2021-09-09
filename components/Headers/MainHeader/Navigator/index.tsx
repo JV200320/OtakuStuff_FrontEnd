@@ -7,6 +7,7 @@ import { clearLoggedUser } from '../../../../store/modules/auth/reducer'
 import { toast } from 'react-toastify'
 import { RootState } from '../../../../store/modules/rootReducer'
 import User from '../../../../dtos/User'
+import Cookies from 'js-cookie'
 
 export const Navigator = () => {
 
@@ -15,6 +16,7 @@ export const Navigator = () => {
 
   const logOut = () => {
     toast.info('Você encerrou sua sessão.')
+    Cookies.remove('@api-data')
     dispatch(clearLoggedUser())
   }
 

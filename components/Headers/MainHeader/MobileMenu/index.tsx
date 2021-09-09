@@ -13,6 +13,7 @@ import { RootState } from '../../../../store/modules/rootReducer'
 import User from '../../../../dtos/User'
 import Anime from '../../../../dtos/Animes'
 import { setKindOfContentListToDisplay } from '../../../../store/modules/kindOfContentListToDisplay/reducer'
+import Cookies from 'js-cookie'
 
 interface Props {
   setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
@@ -78,6 +79,7 @@ export const MobileMenu: React.FC<Props> = ({
 
   const logOut = () => {
     toast.info('Você encerrou sua sessão.')
+    Cookies.remove('@api-data')
     dispatch(clearLoggedUser())
   }
 

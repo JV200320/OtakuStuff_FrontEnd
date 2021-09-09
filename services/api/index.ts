@@ -19,4 +19,19 @@ Api.interceptors.response.use(function (res) {
   console.log(error)
 })
 
+// Api.interceptors.request.use(function (res) {
+//   if(res.headers['access-token'] && res.headers['access-token'] != '') return res
+//   console.log(res)
+
+//   let headers;
+//   if(Cookie.get('@api-data')) {
+//     headers = JSON.parse(Cookie.get('@api-data'))
+//   }
+
+//   Api.defaults.headers = headers
+//   return res
+// }, function (error) {
+//   console.log(error)
+// })
+
 export default Api
