@@ -4,6 +4,7 @@ import { NoFilterSearch } from '../Shared/NoFilterSearch'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
 import User from '../../../dtos/User'
+import { FavoriteAnimeComponent } from './FavoriteAnimeComponent'
 
 export const Favorites = () => {
 
@@ -13,6 +14,13 @@ export const Favorites = () => {
     return (
       <Body>
         <NoFilterSearch look="animes em favoritos" />
+        {
+          loggedUser.favorites.map((anime, index) => {
+            return (
+              <FavoriteAnimeComponent {...anime} key={index} />
+            )
+          })
+        }
       </Body>
     )
   }

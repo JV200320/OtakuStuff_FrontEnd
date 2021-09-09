@@ -29,12 +29,19 @@ export const LoginForm: React.FC = () => {
   const doHTTPRequest = async (formData: FormData) => {
     try {
       let res = await UserService.login(formData)
+      res.data.data.favorites = parseStringsInArrayToJSON(res.data.data.favorites)
       dispatch(setLoggedUser(res.data.data))
       toast.success('Login realizado com sucesso.')
       router.push('/')
     } catch (error) {
       error.response.data.errors.full_messages.forEach(message => toast.error(message))
     }
+  }
+
+  const parseStringsInArrayToJSON = (favoritesStringArray) => {
+    return favoritesStringArray.map(stringToParse => {
+      return JSON.parse(stringToParse)
+    });
   }
 
   return (
