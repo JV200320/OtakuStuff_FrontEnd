@@ -12,7 +12,7 @@ export const Friends = () => {
   if (loggedUser) {
     return (
       <Body>
-        <NoFilterSearch look="amigos" />
+        <NoFilterSearch look="Amigos" />
       </Body>
     )
   }

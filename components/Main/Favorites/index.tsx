@@ -6,6 +6,7 @@ import { RootState } from '../../../store/modules/rootReducer'
 import User from '../../../dtos/User'
 import { FavoriteAnimeComponent } from './FavoriteAnimeComponent'
 import { ScrollableDiv } from './style'
+import styles from '../styles.module.css'
 
 interface Props {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -18,8 +19,8 @@ export const Favorites: React.FC<Props> = ({ setLoading }) => {
   if (loggedUser) {
     return (
       <Body>
-        <NoFilterSearch look="animes em favoritos" />
-        <ScrollableDiv>
+        <NoFilterSearch look="Animes favoritos" />
+        <ScrollableDiv className={styles.hide_scrollbar}>
           {
             loggedUser.favorites.map((anime, index) => {
               return (

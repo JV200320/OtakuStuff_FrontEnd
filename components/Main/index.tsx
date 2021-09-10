@@ -4,7 +4,7 @@ import { Favorites } from './Favorites'
 import { Friends } from './Friends'
 import { ContentList } from './ContentList'
 import styles from './styles.module.css'
-import { MainCol } from './styles'
+import { MainCol, SideCol } from './styles'
 import Anime from '../../dtos/Animes'
 import User from '../../dtos/User'
 import { MobileViewChange } from './MobileViewChange'
@@ -52,9 +52,10 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
         }}
       />
       <Row className="flex-grow-1" >
-        <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFavorites[1]}`}>
+        <SideCol lg={3} className={`d-flex justify-content-center align-items-center ${displayFavorites[1]} ${styles.hide_scrollbar}`}
+          style={{ maxHeight: '100%' }}>
           <Favorites {...{ setLoading }} />
-        </Col>
+        </SideCol>
         <MainCol lg={6} id="mainView" className={`d-flex align-items-center ${Loading ? 'justify-content-center' : ''} flex-column overflow-scroll ${displayFeed[1]} ${styles.hide_scrollbar}`}>
           {
             isContentPageToDisplayNull()
@@ -67,7 +68,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
               <ContentPage {...{ setLoading, Loading }} />
           }
         </MainCol>
-        <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]}`}>
+        <Col lg={3} className={`d-flex justify-content-center align-items-center ${displayFriends[1]} ${styles.hide_scrollbar}`}>
           <Friends />
         </Col>
       </Row>

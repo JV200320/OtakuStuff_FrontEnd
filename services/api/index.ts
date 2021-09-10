@@ -1,5 +1,6 @@
 import Cookie from 'js-cookie'
 import axios from "axios";
+
 const Api = axios.create({baseURL: "http://localhost:3000"})
 
 Api.interceptors.response.use(function (res) {
@@ -19,19 +20,20 @@ Api.interceptors.response.use(function (res) {
   console.log(error)
 })
 
-// Api.interceptors.request.use(function (res) {
-//   if(res.headers['access-token'] && res.headers['access-token'] != '') return res
-//   console.log(res)
+Api.interceptors.request.use(function (res) {
+  if(res.headers['access-token'] && res.headers['access-token'] != '') return res
 
-//   let headers;
-//   if(Cookie.get('@api-data')) {
-//     headers = JSON.parse(Cookie.get('@api-data'))
-//   }
+  let headers;
+  if(Cookie.get('@api-data')) {
+    headers = JSON.parse(Cookie.get('@api-data'))
+  }
 
-//   Api.defaults.headers = headers
-//   return res
-// }, function (error) {
-//   console.log(error)
-// })
+  if(!headers) return res
+
+  Api.defaults.headers = headers
+  return res
+}, function (error) {
+  console.log(error)
+})
 
 export default Api

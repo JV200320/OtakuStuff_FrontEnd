@@ -6,5 +6,6 @@ flex-direction: column;
 background-color: #303030;
 border-radius: 17px;
 height: 95%;
+max-height: 95%;
 width: 75%;
 `

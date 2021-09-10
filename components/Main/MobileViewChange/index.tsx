@@ -36,7 +36,7 @@ export const MobileViewChange: React.FC<Props> = (props) => {
   }
 
   return (
-    <Row style={{ height: 30 }}>
+    <Row style={{ height: 30 }} className='d-lg-none'>
       <FavoriteButton showFavorites={showFavorites} displayFavorites={props.displayFavorites} />
       <FeedButton showFeed={showFeed} displayFeed={props.displayFeed} />
       <FriendsButton showFriends={showFriends} displayFriends={props.displayFriends} />

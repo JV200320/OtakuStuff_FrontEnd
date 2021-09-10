@@ -81,7 +81,7 @@ export const AnimePage: React.FC<Props> = ({ setLoading, Loading }) => {
       </Row>
       <Row>
         <Col>
-          <p>Status: {animeContent.status == 'Currently Airing' ? 'em lançamento' : 'concluído'}</p>
+          <p>Status: {animeContent.status == 'Currently Airing' ? 'Em lançamento' : 'Concluído'}</p>
           <p>Fonte: {animeContent.source}</p>
           <p>Avaliado por {animeContent.scored_by} pessoas</p>
           <p>Rank: {animeContent.rank}</p>
