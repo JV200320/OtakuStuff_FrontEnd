@@ -51,13 +51,9 @@ export const ContentList: React.FC<Props> = ({ Loading, content }) => {
       return (<UserComponent
         nickname={user['nickname']} key={user['id']} id={user['id']}
         image={user['image']} bio={user['bio']}
-        recentFavorites={createArrayWithThreeMostRecentFavorites(user.favorites)}
+        recentFavorites={user.favorites.slice(0, 3)}
       />)
     })
-  }
-
-  const createArrayWithThreeMostRecentFavorites = (arrayToReverse: string[]): string[] => {
-    return arrayToReverse?.slice().reverse().slice(0, 3)
   }
 
   const isContentPages = (): boolean => {
