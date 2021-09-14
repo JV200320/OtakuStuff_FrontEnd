@@ -14,6 +14,7 @@ import { RootState } from '../../store/modules/rootReducer'
 import { ContentPage } from './ContentPage'
 import AnimeService from '../../services/animes/getAnimes'
 import Page from '../../dtos/Page'
+import { NoContent } from './NoContent'
 
 interface Props {
   Loading: boolean;
@@ -44,6 +45,20 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
     setLoading(false)
   }, [])
 
+  const renderContentList = () => {
+    if (!content || content?.length == 0) {
+      return (
+        <NoContent />
+      )
+    }
+    return (
+      <>
+        <ContentList {...{ Loading, setLoading, content, setContent }} />
+        <PageControl {...{ setLoading, setContent, content }} />
+      </>
+    )
+  }
+
   return (
     <>
       <MobileViewChange
@@ -61,10 +76,7 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
           {
             isContentPageToDisplayNull()
               ?
-              <>
-                <ContentList {...{ Loading, setLoading, content, setContent }} />
-                <PageControl {...{ setLoading, setContent, content }} />
-              </>
+              renderContentList()
               :
               <ContentPage {...{ setLoading, Loading }} />
           }

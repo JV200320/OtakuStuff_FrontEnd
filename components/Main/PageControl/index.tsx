@@ -50,7 +50,6 @@ export const PageControl = ({ setLoading, setContent, content }) => {
     }
   }
 
-  if (content == null) return null
   if (content.length >= 1) {
     if (content[0]['rank'] == 1) {
       return (
