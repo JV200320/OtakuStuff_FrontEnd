@@ -12,9 +12,10 @@ import User from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
 import PageService from '../../../../services/pages/getPages'
 import { clearContentPageToDisplay } from '../../../../store/modules/contentPageToDisplay/reducer'
+import Page from '../../../../dtos/Page'
 
 interface Props {
-  setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
+  setContent: React.Dispatch<Anime[] | User[] | Page[]>,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   search: string,
   setSearch: React.Dispatch<string>,
@@ -45,8 +46,8 @@ export const Search: React.FC<Props> = ({
   }
 
   const searchForTopAnimeInstead = async () => {
-    let res = await AnimeService.getTopAnime(null)
-    setContent(res.data['animes'])
+    let animes = await AnimeService.getTopAnime(null)
+    setContent(animes)
     dispatch(setKindOfContentListToDisplay('animes'))
     dispatch(clearContentPageToDisplay())
     setConfirmedFilter('animes')
@@ -66,24 +67,24 @@ export const Search: React.FC<Props> = ({
   }
 
   const searchForAnimes = async () => {
-    let res = await AnimeService.searchAnime({ search: { q: search } })
-    setContent(res.data['animes'])
+    let animes = await AnimeService.searchAnime({ search: { q: search } })
+    setContent(animes)
     dispatch(setKindOfContentListToDisplay('animes'))
     dispatch(clearContentPageToDisplay())
     setLoading(false)
   }
 
   const searchForUsers = async () => {
-    let res = await UserService.searchUser({ search })
-    setContent(res.data['results'])
+    let users = await UserService.searchUser({ search })
+    setContent(users)
     dispatch(setKindOfContentListToDisplay('usuários'))
     dispatch(clearContentPageToDisplay())
     setLoading(false)
   }
 
   const searchForPages = async () => {
-    let res = await PageService.searchPage({ search })
-    setContent(res.data['results'])
+    let pages = await PageService.searchPage({ search })
+    setContent(pages)
     dispatch(setKindOfContentListToDisplay('páginas'))
     dispatch(clearContentPageToDisplay())
     setLoading(false)

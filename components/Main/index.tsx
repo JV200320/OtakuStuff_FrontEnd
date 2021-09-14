@@ -13,12 +13,13 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store/modules/rootReducer'
 import { ContentPage } from './ContentPage'
 import AnimeService from '../../services/animes/getAnimes'
+import Page from '../../dtos/Page'
 
 interface Props {
   Loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   content: Anime[],
-  setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>
+  setContent: React.Dispatch<Anime[] | User[] | Page[]>
 }
 
 export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent }) => {
@@ -37,8 +38,8 @@ export const Main: React.FC<Props> = ({ Loading, setLoading, content, setContent
   }
 
   React.useEffect(() => {
-    AnimeService.getTopAnime(null).then(res => {
-      setContent(res.data['animes'])
+    AnimeService.getTopAnime(null).then(animes => {
+      setContent(animes)
     })
     setLoading(false)
   }, [])

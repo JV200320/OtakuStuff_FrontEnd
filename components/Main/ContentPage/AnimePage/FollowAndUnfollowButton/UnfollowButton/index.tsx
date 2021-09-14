@@ -14,7 +14,6 @@ export const UnfollowButton = () => {
 
   const handleRemoveFromFavorite = async () => {
     let res = await FavoriteService.removeFromFavorite(id, anime_id)
-    console.log(res)
     res.data.favorites = parseStringsInArrayToJSON(res.data.favorites)
     dispatch(updateFavorites(res.data.favorites))
   }

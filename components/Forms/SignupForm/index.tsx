@@ -9,6 +9,7 @@ import { useRouter } from "next/dist/client/router"
 import { toast } from "react-toastify"
 import { setLoggedUser } from "../../../store/modules/auth/reducer"
 import { useDispatch } from "react-redux"
+import User from "../../../dtos/User"
 
 export const SignUpForm: React.FC = () => {
 
@@ -23,15 +24,27 @@ export const SignUpForm: React.FC = () => {
   const [password, setPassword] = React.useState(null);
   const [confirmPassword, setConfirmPassword] = React.useState(null);
 
+  const formData: FormData = new FormData();
+
   const handleSubmit = async () => {
     if (confirmPassword != password) return toast.error('A senha e a confirmação de senha são diferentes.')
 
-    const formData: FormData = new FormData();
-    appendDataToForm(formData)
-    doHTTPRequest(formData)
+    try {
+      signUpUser()
+      toast.success('Conta criada com sucesso.')
+      router.push('/')
+    } catch (error) {
+      error.response.data.errors.full_messages.forEach(message => toast.error(message))
+    }
   }
 
-  const appendDataToForm = (formData: FormData) => {
+  const signUpUser = async () => {
+    appendDataToForm()
+    let user: User = await getUser()
+    dispatch(setLoggedUser(user))
+  }
+
+  const appendDataToForm = () => {
     formData.append('nickname', nickname)
     formData.append('email', email)
     formData.append('password', password)
@@ -39,16 +52,10 @@ export const SignUpForm: React.FC = () => {
     formData.append('image', image)
   }
 
-  const doHTTPRequest = async (formData: FormData) => {
-    try {
-      let res = await UserService.signUp(formData)
-      res.data.data.favorites = parseStringsInArrayToJSON(res.data.data.favorites)
-      dispatch(setLoggedUser(res.data.data))
-      toast.success('Conta criada com sucesso.')
-      router.push('/')
-    } catch (error) {
-      error.response.data.errors.full_messages.forEach(message => toast.error(message))
-    }
+  const getUser = async (): Promise<User> => {
+    let user: User = await UserService.signUp(formData)
+    user.favorites = parseStringsInArrayToJSON(user.favorites)
+    return user
   }
 
   const parseStringsInArrayToJSON = (favoritesStringArray) => {

@@ -14,9 +14,10 @@ import User from '../../../../dtos/User'
 import Anime from '../../../../dtos/Animes'
 import { setKindOfContentListToDisplay } from '../../../../store/modules/kindOfContentListToDisplay/reducer'
 import Cookies from 'js-cookie'
+import Page from '../../../../dtos/Page'
 
 interface Props {
-  setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>,
+  setContent: React.Dispatch<Anime[] | User[] | Page[]>,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   search: string,
   setSearch: React.Dispatch<string>,
@@ -38,18 +39,19 @@ export const MobileMenu: React.FC<Props> = ({
 
   const searchContent = async () => {
     setLoading(true)
-    if (isSearchEmpty()) return searchForTopAnimeInstead()
-    if (shouldSearchForAnimes()) return searchForAnimes()
-    if (shouldSearchForUsers()) return searchForUsers()
-  }
-
-  const isSearchEmpty = (): boolean => {
-    return search == '' || search == null
+    try {
+      if (!search) return searchForTopAnimeInstead()
+      if (shouldSearchForAnimes()) return searchForAnimes()
+      if (shouldSearchForUsers()) return searchForUsers()
+    } catch (error) {
+      error.response.data.errors.full_messages.forEach(message => toast.error(message))
+      return null
+    }
   }
 
   const searchForTopAnimeInstead = async () => {
-    let res = await AnimeService.getTopAnime(null)
-    setContent(res.data['animes'])
+    let animes: Anime[] = await AnimeService.getTopAnime(null)
+    setContent(animes)
     dispatch(setKindOfContentListToDisplay('animes'))
     setConfirmedFilter('animes')
     setLoading(false)
@@ -64,15 +66,15 @@ export const MobileMenu: React.FC<Props> = ({
   }
 
   const searchForAnimes = async () => {
-    let res = await AnimeService.searchAnime({ search: { q: search } })
-    setContent(res.data['animes'])
+    let animes: Anime[] = await AnimeService.searchAnime({ search: { q: search } })
+    setContent(animes)
     dispatch(setKindOfContentListToDisplay('animes'))
     setLoading(false)
   }
 
   const searchForUsers = async () => {
-    let res = await UserService.searchUser({ search })
-    setContent(res.data['results'])
+    let users: User[] = await UserService.searchUser({ search })
+    setContent(users)
     dispatch(setKindOfContentListToDisplay('usuários'))
     setLoading(false)
   }

@@ -21,8 +21,8 @@ export const AnimePage: React.FC<Props> = ({ setLoading, Loading }) => {
 
   const getAnimePageContent = async () => {
     setLoading(true)
-    let res = await AnimeService.getAnimePageContent(id)
-    setAnimeContent(res.data.anime)
+    let anime = await AnimeService.getAnimePageContent(id)
+    setAnimeContent(anime)
     setLoading(false)
   }
 

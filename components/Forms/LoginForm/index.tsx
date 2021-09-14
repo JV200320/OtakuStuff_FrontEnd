@@ -6,6 +6,7 @@ import { useRouter } from "next/dist/client/router"
 import { toast } from "react-toastify"
 import { useDispatch } from "react-redux"
 import { setLoggedUser } from "../../../store/modules/auth/reducer"
+import User from "../../../dtos/User"
 
 export const LoginForm: React.FC = () => {
 
@@ -15,22 +16,11 @@ export const LoginForm: React.FC = () => {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
 
-  const handleSubmit = async () => {
-    const formData: FormData = new FormData();
-    appendDataToForm(formData)
-    doHTTPRequest(formData)
-  }
+  const formData: FormData = new FormData();
 
-  const appendDataToForm = (formData: FormData) => {
-    formData.append('email', email)
-    formData.append('password', password)
-  }
-
-  const doHTTPRequest = async (formData: FormData) => {
+  const handleSubmit = () => {
     try {
-      let res = await UserService.login(formData)
-      res.data.data.favorites = parseStringsInArrayToJSON(res.data.data.favorites)
-      dispatch(setLoggedUser(res.data.data))
+      loginUser()
       toast.success('Login realizado com sucesso.')
       router.push('/')
     } catch (error) {
@@ -38,8 +28,25 @@ export const LoginForm: React.FC = () => {
     }
   }
 
-  const parseStringsInArrayToJSON = (favoritesStringArray) => {
-    return favoritesStringArray.map(stringToParse => {
+  const loginUser = async () => {
+    appendDataToForm()
+    let user: User = await getUser()
+    dispatch(setLoggedUser(user))
+  }
+
+  const appendDataToForm = () => {
+    formData.append('email', email)
+    formData.append('password', password)
+  }
+
+  const getUser = async (): Promise<User> => {
+    let user: User = await UserService.login(formData)
+    user.favorites = formatFavoritesToJSON(user.favorites)
+    return user
+  }
+
+  const formatFavoritesToJSON = (favorites) => {
+    return favorites.map(stringToParse => {
       return JSON.parse(stringToParse)
     });
   }

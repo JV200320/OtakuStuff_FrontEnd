@@ -10,25 +10,25 @@ export const PageControl = ({ setLoading, setContent, content }) => {
   const getPageAnime = async (page) => {
     document.getElementById('page_input').blur()
     setLoading(true)
-    let res = await AnimeService.getTopAnime({ page: page })
-    if (res.data['animes'].length == 0) {
+    let animes = await AnimeService.getTopAnime({ page: page })
+    if (animes.length == 0) {
       alert("Erro ao se comunicar com o servidor, tente novamente.")
       setLoading(false)
       return
     }
-    setContent(res.data['animes'])
+    setContent(animes)
     setLoading(false)
   }
 
   const updateAnimesNext = async () => {
     setLoading(true)
-    let res = await AnimeService.getTopAnime({ page: page + 1 })
-    if (res.data['animes'].length == 0) {
+    let animes = await AnimeService.getTopAnime({ page: page + 1 })
+    if (animes.length == 0) {
       alert("Erro ao se comunicar com o servidor, tente novamente.")
       setLoading(false)
       return
     }
-    setContent(res.data['animes'])
+    setContent(animes)
     setLoading(false)
     document.getElementById("mainView").scrollTo(0, 0)
     setPage(page + 1)
@@ -37,13 +37,13 @@ export const PageControl = ({ setLoading, setContent, content }) => {
   const updateAnimesBefore = async () => {
     if (page > 1) {
       setLoading(true)
-      let res = await AnimeService.getTopAnime({ page: page - 1 })
-      if (res.data['animes'].length == 0) {
+      let animes = await AnimeService.getTopAnime({ page: page - 1 })
+      if (animes.length == 0) {
         alert("Erro ao se comunicar com o servidor, tente novamente.")
         setLoading(false)
         return
       }
-      setContent(res.data['animes'])
+      setContent(animes)
       setLoading(false)
       document.getElementById("mainView").scrollTo(0, 0)
       setPage(page - 1)
