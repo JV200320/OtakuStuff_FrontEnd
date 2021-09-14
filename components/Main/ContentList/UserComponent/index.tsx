@@ -25,14 +25,15 @@ export const UserComponent: React.FC<Props> = (props) => {
   }
 
   const joinRecentFavoritesTitlesIntoString = (favoritesArray: string[]): string => {
-    let recentFavoritesString = ''
+    let recentFavoritesString: string = ''
     favoritesArray.map((string) => recentFavoritesString += JSON.parse(string)['title'] + ', ')
-    removeLastCommaAndSpaceFromString(recentFavoritesString)
+    recentFavoritesString = formatStringPunctuation(recentFavoritesString)
     return recentFavoritesString
   }
 
-  const removeLastCommaAndSpaceFromString = (selectedString): void => {
+  const formatStringPunctuation = (selectedString): string => {
     selectedString = selectedString.slice(0, selectedString.length - 2)
+    return selectedString + '.'
   }
 
   return (
