@@ -4,17 +4,19 @@ import { AnimeComponent } from '../Components/AnimeComponent'
 import { CenterSpinner } from '../../../Shared/CenterSpinner'
 import { useRouter } from 'next/dist/client/router'
 import { toast } from 'react-toastify'
+import { NoContent } from '../../NoContent'
 
 
 export const SearchAnimes: React.FC = () => {
 
   const router = useRouter()
   const [searchedAnimes, setSearchedAnimes] = React.useState(null)
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     try {
-      setSearchedAnimes(null)
       getSearchedAnimes()
+      setLoading(false)
     } catch (error) {
       error.response.data.errors.full_messages.forEach(message => toast.error(message))
     }
@@ -29,6 +31,13 @@ export const SearchAnimes: React.FC = () => {
 
 
   const renderContent = () => {
+    let noAnimeFound = !searchedAnimes || searchedAnimes.length < 1
+
+    if (noAnimeFound) {
+      return <NoContent />
+    }
+
+
     return searchedAnimes.map((anime, i) => {
       return (
         <AnimeComponent anime={anime} key={i} />
@@ -38,7 +47,7 @@ export const SearchAnimes: React.FC = () => {
 
   return (
     <>
-      {searchedAnimes ? renderContent() : <CenterSpinner />}
+      {loading ? <CenterSpinner /> : renderContent()}
     </>
   )
 }
