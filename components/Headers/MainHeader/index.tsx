@@ -9,8 +9,8 @@ import { Navigator } from './Navigator'
 import { useFilterModal } from './FilterModal'
 import { useSelector } from 'react-redux'
 import User from '../../../dtos/User'
-import Anime from '../../../dtos/Animes'
 import { RootState } from '../../../store/modules/rootReducer'
+import Link from 'next/link'
 
 
 export const Header: React.FC = () => {
@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
       <Row>
         {/* Brand */}
         <Col lg={3} md={11} sm={11} xs={10} className="justify-content-center d-flex">
-          <Brand loggedUser={loggedUser} >OtakuStuff</Brand>
+          <Link href='/'><Brand loggedUser={loggedUser} >OtakuStuff</Brand></Link>
         </Col>
         {/* Brand */}
         {/* Open Menu Icon */}
