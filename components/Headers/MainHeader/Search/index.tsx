@@ -3,38 +3,27 @@ import { Botao, SearchInput } from "./styles"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Col } from 'react-bootstrap'
-import AnimeService from '../../../../services/animes/getAnimes'
-import { useSelector, useDispatch } from 'react-redux'
-import { setKindOfContentListToDisplay } from '../../../../store/modules/kindOfContentListToDisplay/reducer'
-import UserService from '../../../../services/users/getUsers'
-import Anime from '../../../../dtos/Animes'
+import { useSelector } from 'react-redux'
 import User from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
-import PageService from '../../../../services/pages/getPages'
-import { clearContentPageToDisplay } from '../../../../store/modules/contentPageToDisplay/reducer'
-import Page from '../../../../dtos/Page'
+import { useRouter } from 'next/dist/client/router'
 
 interface Props {
-  setContent: React.Dispatch<Anime[] | User[] | Page[]>,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   search: string,
   setSearch: React.Dispatch<string>,
   setFilterModalShow: React.Dispatch<React.SetStateAction<boolean>>,
-  confirmedFilter: string,
-  setConfirmedFilter: React.Dispatch<string>,
+  confirmedFilter: string
 }
 
 export const Search: React.FC<Props> = ({
-  setContent, setLoading, search, setSearch,
-  setFilterModalShow, confirmedFilter, setConfirmedFilter
+  search, setSearch,
+  setFilterModalShow, confirmedFilter
 }) => {
 
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
-  const dispatch = useDispatch()
+  const router = useRouter()
 
   const searchContent = async () => {
-    setLoading(true)
-    dispatch(clearContentPageToDisplay())
     if (isSearchEmpty()) return searchForTopAnimeInstead()
     if (shouldSearchForAnimes()) return searchForAnimes()
     if (shouldSearchForUsers()) return searchForUsers()
@@ -46,12 +35,7 @@ export const Search: React.FC<Props> = ({
   }
 
   const searchForTopAnimeInstead = async () => {
-    let animes = await AnimeService.getTopAnime(null)
-    setContent(animes)
-    dispatch(setKindOfContentListToDisplay('animes'))
-    dispatch(clearContentPageToDisplay())
-    setConfirmedFilter('animes')
-    setLoading(false)
+    router.push('/')
   }
 
   const shouldSearchForAnimes = (): boolean => {
@@ -67,27 +51,15 @@ export const Search: React.FC<Props> = ({
   }
 
   const searchForAnimes = async () => {
-    let animes = await AnimeService.searchAnime({ search: { q: search } })
-    setContent(animes)
-    dispatch(setKindOfContentListToDisplay('animes'))
-    dispatch(clearContentPageToDisplay())
-    setLoading(false)
+    router.push(`/search/anime?q=${search}`)
   }
 
   const searchForUsers = async () => {
-    let users = await UserService.searchUser({ search })
-    setContent(users)
-    dispatch(setKindOfContentListToDisplay('usuários'))
-    dispatch(clearContentPageToDisplay())
-    setLoading(false)
+    router.push(`/search/user?q=${search}`)
   }
 
   const searchForPages = async () => {
-    let pages = await PageService.searchPage({ search })
-    setContent(pages)
-    dispatch(setKindOfContentListToDisplay('páginas'))
-    dispatch(clearContentPageToDisplay())
-    setLoading(false)
+    router.push(`/search/page?q=${search}`)
   }
 
   return (

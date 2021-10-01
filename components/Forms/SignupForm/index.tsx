@@ -4,7 +4,7 @@ import {
   HoverableImage, ImageFilter, ResponsiveRow
 } from "./styles"
 import { Row, Col, Form } from "react-bootstrap"
-import UserService from "../../../services/auth/user"
+import AuthService from "../../../services/auth"
 import { useRouter } from "next/dist/client/router"
 import { toast } from "react-toastify"
 import { setLoggedUser } from "../../../store/modules/auth/reducer"
@@ -53,15 +53,8 @@ export const SignUpForm: React.FC = () => {
   }
 
   const getUser = async (): Promise<User> => {
-    let user: User = await UserService.signUp(formData)
-    user.favorites = parseStringsInArrayToJSON(user.favorites)
+    let user: User = await AuthService.signUp(formData)
     return user
-  }
-
-  const parseStringsInArrayToJSON = (favoritesStringArray) => {
-    return favoritesStringArray.map(stringToParse => {
-      return JSON.parse(stringToParse)
-    });
   }
 
   const handleSetImage = (evt: React.ChangeEvent<HTMLInputElement>) => {

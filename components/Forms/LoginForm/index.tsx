@@ -1,7 +1,7 @@
 import React from "react"
 import { MainDiv, Center, FormDiv, SubmitButton, StyledInput, HoverableImage, ImageFilter } from "./styles"
 import { Row, Col, Form } from "react-bootstrap"
-import UserService from "../../../services/auth/user"
+import AuthService from "../../../services/auth"
 import { useRouter } from "next/dist/client/router"
 import { toast } from "react-toastify"
 import { useDispatch } from "react-redux"
@@ -40,15 +40,8 @@ export const LoginForm: React.FC = () => {
   }
 
   const getUser = async (): Promise<User> => {
-    let user: User = await UserService.login(formData)
-    user.favorites = formatFavoritesToJSON(user.favorites)
+    let user: User = await AuthService.login(formData)
     return user
-  }
-
-  const formatFavoritesToJSON = (favorites) => {
-    return favorites.map(stringToParse => {
-      return JSON.parse(stringToParse)
-    });
   }
 
   return (

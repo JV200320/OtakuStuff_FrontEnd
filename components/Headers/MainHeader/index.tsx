@@ -12,12 +12,8 @@ import User from '../../../dtos/User'
 import Anime from '../../../dtos/Animes'
 import { RootState } from '../../../store/modules/rootReducer'
 
-interface Props {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setContent: React.Dispatch<Anime[]> | React.Dispatch<User[]>
-}
 
-export const Header: React.FC<Props> = ({ setLoading, setContent }) => {
+export const Header: React.FC = () => {
 
   const [showMenu, setShowMenu] = React.useState("none")
   const [filterModalShow, setFilterModalShow] = React.useState(false)
@@ -54,7 +50,7 @@ export const Header: React.FC<Props> = ({ setLoading, setContent }) => {
         {/* Search */}
         <Search
           {...{
-            setContent, setLoading, setFilterModalShow, setSearch, search,
+            setFilterModalShow, setSearch, search,
             confirmedFilter, setConfirmedFilter
           }}
         />
@@ -68,7 +64,7 @@ export const Header: React.FC<Props> = ({ setLoading, setContent }) => {
       <MobileMenu
         {...{
           showMenu, setShowMenu, setFilterModalShow, setSearch, search,
-          setLoading, setContent, confirmedFilter, setConfirmedFilter
+          confirmedFilter, setConfirmedFilter
         }}
       />
       {/*Mobile Menu*/}

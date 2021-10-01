@@ -1,25 +1,21 @@
+import { useRouter } from 'next/dist/client/router'
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import Anime from '../../../../dtos/Animes'
-import { setContentPageToDisplay } from '../../../../store/modules/contentPageToDisplay/reducer'
 import { FavoriteAnimeDiv, ImageFilter } from './style'
 
-interface Props extends Anime {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-}
 
-export const FavoriteAnimeComponent: React.FC<Props> = (props) => {
+export const FavoriteAnimeComponent: React.FC<Anime> = ({ image_url, title, mal_id }) => {
 
-  const dispatch = useDispatch()
+  const router = useRouter()
 
   const displayFavoriteAnimePage = () => {
-    dispatch(setContentPageToDisplay({ id: String(props.mal_id), kind: 'animes' }))
+    router.push(`/anime/${mal_id}`)
   }
 
   return (
-    <FavoriteAnimeDiv src={props.image_url} onClick={() => displayFavoriteAnimePage()}>
+    <FavoriteAnimeDiv src={image_url} onClick={() => displayFavoriteAnimePage()}>
       <ImageFilter>
-        {props.title}
+        {title}
       </ImageFilter>
     </FavoriteAnimeDiv>
   )

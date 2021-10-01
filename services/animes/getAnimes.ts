@@ -10,13 +10,13 @@ interface AnimeResponse {
 }
 
 const AnimeService = {
-  getTopAnime: async (params) => {
-    let res =  await Api.get<AnimesResponse>("/animes", {params: params})
+  getTopAnime: async (page: string) => {
+    let res =  await Api.get<AnimesResponse>("/animes", {params: {page: page}})
     let animes = res.data.animes
     return animes
   },
-  searchAnime: async (params) => {
-    let res =  await Api.get<AnimesResponse>("/animes/search", {params: params})
+  searchAnime: async (search) => {
+    let res =  await Api.get<AnimesResponse>("/animes/search", {params: {search: search}})
     let animes = res.data.animes
     return animes
   },

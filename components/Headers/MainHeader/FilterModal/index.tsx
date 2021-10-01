@@ -4,9 +4,11 @@ import { ConfirmButton } from './styles'
 import { useSelector } from 'react-redux'
 import User from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
+import { useRouter } from 'next/dist/client/router'
 
 export const useFilterModal = (props) => {
 
+  const router = useRouter()
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
   const [selectedFilter, setSelectedFilter] = React.useState('animes')
   const [confirmedFilter, setConfirmedFilter] = React.useState('animes')
@@ -18,7 +20,23 @@ export const useFilterModal = (props) => {
   }
 
   React.useEffect(() => {
-    setSelectedFilter('animes')
+    switch (router.pathname) {
+      case '/search/user':
+        setConfirmedFilter('usuário')
+        break;
+
+      case '/search/anime':
+        setConfirmedFilter('animes')
+        break;
+
+      case '/search/page':
+        setConfirmedFilter('páginas')
+        break;
+
+      default:
+        setConfirmedFilter('animes')
+        break;
+    }
   }, [])
 
   return {

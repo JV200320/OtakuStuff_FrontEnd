@@ -8,11 +8,8 @@ import { FavoriteAnimeComponent } from './FavoriteAnimeComponent'
 import { ScrollableDiv } from './style'
 import styles from '../styles.module.css'
 
-interface Props {
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-}
 
-export const Favorites: React.FC<Props> = ({ setLoading }) => {
+export const Favorites: React.FC = () => {
 
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
 
@@ -24,7 +21,7 @@ export const Favorites: React.FC<Props> = ({ setLoading }) => {
           {
             loggedUser.favorites.map((anime, index) => {
               return (
-                <FavoriteAnimeComponent {...anime} key={index} setLoading={setLoading} />
+                <FavoriteAnimeComponent {...anime} key={index} />
               )
             })
           }

@@ -3,22 +3,16 @@ import { faTimes, faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { DivMobile, Toggle, BotaoMobile, SearchMobile } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
-import AnimeService from '../../../../services/animes/getAnimes'
-import UserService from '../../../../services/users/getUsers'
-import { useDispatch, useSelector } from 'react-redux'
+import UserService from '../../../../services/users'
+import { useSelector } from 'react-redux'
 import { Dropdown } from 'react-bootstrap'
-import { clearLoggedUser } from '../../../../store/modules/auth/reducer'
 import { toast } from 'react-toastify'
 import { RootState } from '../../../../store/modules/rootReducer'
 import User from '../../../../dtos/User'
-import Anime from '../../../../dtos/Animes'
-import { setKindOfContentListToDisplay } from '../../../../store/modules/kindOfContentListToDisplay/reducer'
 import Cookies from 'js-cookie'
-import Page from '../../../../dtos/Page'
+import { useRouter } from 'next/dist/client/router'
 
 interface Props {
-  setContent: React.Dispatch<Anime[] | User[] | Page[]>,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   search: string,
   setSearch: React.Dispatch<string>,
   setFilterModalShow: React.Dispatch<React.SetStateAction<boolean>>,
@@ -29,60 +23,37 @@ interface Props {
 }
 
 export const MobileMenu: React.FC<Props> = ({
-  showMenu, setShowMenu, setContent,
-  setSearch, setLoading, search, setFilterModalShow, confirmedFilter,
-  setConfirmedFilter
+  showMenu, setShowMenu, setSearch,
+  search, setFilterModalShow, confirmedFilter
 }) => {
 
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
-  const dispatch = useDispatch()
+  const router = useRouter()
 
   const searchContent = async () => {
-    setLoading(true)
-    try {
-      if (!search) return searchForTopAnimeInstead()
-      if (shouldSearchForAnimes()) return searchForAnimes()
-      if (shouldSearchForUsers()) return searchForUsers()
-    } catch (error) {
-      error.response.data.errors.full_messages.forEach(message => toast.error(message))
-      return null
-    }
+    let shouldSearchForAnimes = confirmedFilter == 'animes'
+    let shouldSearchForUsers = confirmedFilter == 'usuários'
+
+    if (!search) return searchForTopAnimeInstead()
+    if (shouldSearchForAnimes) return searchForAnimes()
+    if (shouldSearchForUsers) return searchForUsers()
   }
 
   const searchForTopAnimeInstead = async () => {
-    let animes: Anime[] = await AnimeService.getTopAnime(null)
-    setContent(animes)
-    dispatch(setKindOfContentListToDisplay('animes'))
-    setConfirmedFilter('animes')
-    setLoading(false)
-  }
-
-  const shouldSearchForAnimes = (): boolean => {
-    return confirmedFilter == 'animes'
-  }
-
-  const shouldSearchForUsers = (): boolean => {
-    return confirmedFilter == 'usuários'
+    router.push('/')
   }
 
   const searchForAnimes = async () => {
-    let animes: Anime[] = await AnimeService.searchAnime({ search: { q: search } })
-    setContent(animes)
-    dispatch(setKindOfContentListToDisplay('animes'))
-    setLoading(false)
+    router.push(`/search/anime?q=${search}`)
   }
 
   const searchForUsers = async () => {
-    let users: User[] = await UserService.searchUser({ search })
-    setContent(users)
-    dispatch(setKindOfContentListToDisplay('usuários'))
-    setLoading(false)
+    router.push(`/search/user?q=${search}`)
   }
 
   const logOut = () => {
     toast.info('Você encerrou sua sessão.')
     Cookies.remove('@api-data')
-    dispatch(clearLoggedUser())
   }
 
   return (
