@@ -1,30 +1,46 @@
 import React from 'react'
 import { Body } from '../Shared/Body'
-import { NoFilterSearch } from '../Shared/NoFilterSearch'
+import { NoFilterFavoritesSearch } from './NoFilterFavoritesSearch'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
 import User from '../../../dtos/User'
 import { FavoriteAnimeComponent } from './FavoriteAnimeComponent'
 import { ScrollableDiv } from './style'
 import styles from '../styles.module.css'
+import Anime from '../../../dtos/Animes'
 
 
 export const Favorites: React.FC = () => {
 
   const loggedUser: null | User = useSelector((state: RootState) => state.auth)
+  const [favorites, setFavorites] = React.useState<Anime[]>(loggedUser?.favorites)
+
+  React.useEffect(() => {
+    setFavorites(loggedUser?.favorites)
+  }, [loggedUser?.favorites])
+
+
+  const renderFavorites = () => {
+    const favoritesNotAvailable = !favorites
+
+    if (favoritesNotAvailable) {
+      return null
+    }
+
+    return favorites.map((anime, index) => {
+      return (
+        <FavoriteAnimeComponent {...anime} key={index} />
+      )
+    })
+  }
+
 
   if (loggedUser) {
     return (
       <Body>
-        <NoFilterSearch look="Animes favoritos" />
+        <NoFilterFavoritesSearch look="Animes favoritos" setFavorites={setFavorites} favorites={favorites} />
         <ScrollableDiv className={styles.hide_scrollbar}>
-          {
-            loggedUser.favorites.map((anime, index) => {
-              return (
-                <FavoriteAnimeComponent {...anime} key={index} />
-              )
-            })
-          }
+          {renderFavorites()}
         </ScrollableDiv>
       </Body>
     )

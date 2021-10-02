@@ -1,6 +1,6 @@
 import React from 'react'
 import { Body } from '../Shared/Body'
-import { NoFilterSearch } from '../Shared/NoFilterSearch'
+import { NoFilterFriendsSearch } from './NoFilterFriendsSearch'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
 import User from '../../../dtos/User'
@@ -12,7 +12,7 @@ export const Friends = () => {
   if (loggedUser) {
     return (
       <Body>
-        <NoFilterSearch look="Amigos" />
+        <NoFilterFriendsSearch look="Seguindo" />
       </Body>
     )
   }
