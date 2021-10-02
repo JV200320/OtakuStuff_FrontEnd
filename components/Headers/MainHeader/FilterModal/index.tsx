@@ -22,7 +22,7 @@ export const useFilterModal = (props) => {
   React.useEffect(() => {
     switch (router.pathname) {
       case '/search/user':
-        setConfirmedFilter('usuário')
+        setConfirmedFilter('usuários')
         break;
 
       case '/search/anime':

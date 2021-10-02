@@ -5,6 +5,7 @@ import { useRouter } from 'next/dist/client/router'
 import UserService from '../../../../../services/users'
 import { toast } from 'react-toastify'
 import { NoContent } from '../../NoContent'
+import { Pagination } from '../../Pagination'
 
 
 export const SearchUsers: React.FC = () => {
@@ -38,11 +39,16 @@ export const SearchUsers: React.FC = () => {
     }
 
 
-    return searchedUsers.map((user, i) => {
-      return (
-        <UserComponent image={user.image} recentFavorites={getRecentFavorites(user.favorites)} id={user.id} nickname={user.nickname} bio={user.bio} key={i} />
-      )
-    })
+    return (
+      <>
+        {
+          searchedUsers.map((user, i) => (
+            <UserComponent image={user.image} recentFavorites={getRecentFavorites(user.favorites)} id={user.id} nickname={user.nickname} bio={user.bio} key={i} />
+          ))
+        }
+        <Pagination basePath={'/search/user' + `?q=${router.query['q']}`} />
+      </>
+    )
   }
 
   const getRecentFavorites = (favorites) => {

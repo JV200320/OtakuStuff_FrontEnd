@@ -5,18 +5,18 @@ import { CenterSpinner } from '../../../Shared/CenterSpinner'
 import { useRouter } from 'next/dist/client/router'
 import { toast } from 'react-toastify'
 import { NoContent } from '../../NoContent'
+import { Pagination } from '../../Pagination'
 
 
 export const SearchAnimes: React.FC = () => {
 
   const router = useRouter()
   const [searchedAnimes, setSearchedAnimes] = React.useState(null)
-  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     try {
+      setSearchedAnimes(null)
       getSearchedAnimes()
-      setLoading(false)
     } catch (error) {
       error.response.data.errors.full_messages.forEach(message => toast.error(message))
     }
@@ -38,16 +38,21 @@ export const SearchAnimes: React.FC = () => {
     }
 
 
-    return searchedAnimes.map((anime, i) => {
-      return (
-        <AnimeComponent anime={anime} key={i} />
-      )
-    })
+    return (
+      <>
+        {
+          searchedAnimes.map((anime, i) => (
+            <AnimeComponent anime={anime} key={i} />
+          ))
+        }
+        <Pagination basePath={'/search/anime' + `?q=${router.query['q']}`} />
+      </>
+    )
   }
 
   return (
     <>
-      {loading ? <CenterSpinner /> : renderContent()}
+      {searchedAnimes ? renderContent() : <CenterSpinner />}
     </>
   )
 }

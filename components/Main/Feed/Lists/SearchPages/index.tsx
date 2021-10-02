@@ -5,18 +5,18 @@ import { PageComponent } from '../Components/PageComponent'
 import PageService from '../../../../../services/pages/getPages'
 import { toast } from 'react-toastify'
 import { NoContent } from '../../NoContent'
+import { Pagination } from '../../Pagination'
 
 
 export const SearchPages: React.FC = () => {
 
   const router = useRouter()
   const [searchedPages, setSearchedPages] = React.useState(null)
-  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     try {
+      setSearchedPages(null)
       getSearchedPages()
-      setLoading(false)
     } catch (error) {
       error.response.data.errors.full_messages.forEach(message => toast.error(message))
     }
@@ -38,11 +38,16 @@ export const SearchPages: React.FC = () => {
     }
 
 
-    return searchedPages.map((page, i) => {
-      return (
-        <PageComponent page={page} key={i} />
-      )
-    })
+    return (
+      <>
+        {
+          searchedPages.map((page, i) => (
+            <PageComponent page={page} key={i} />
+          ))
+        }
+        <Pagination basePath={'/search/page' + `?q=${router.query['q']}`} />
+      </>
+    )
   }
 
   return (
