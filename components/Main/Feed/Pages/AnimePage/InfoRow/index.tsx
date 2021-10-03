@@ -35,8 +35,6 @@ interface Props {
 
 export const InfoRow: React.FC<Props> = (props) => {
 
-  console.log(props)
-
   const formatDate = (date) => {
     if (date == null) return '---'
 

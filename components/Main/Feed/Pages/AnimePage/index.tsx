@@ -38,7 +38,6 @@ export const AnimePage: React.FC = () => {
   const getAnimePageContent = async () => {
     let anime = await AnimeService.getAnimePageContent(anime_id as string)
     setAnimeContent(anime)
-    console.log(animeContent)
   }
 
   const renderFollowOrUnfollowButton = () => {
