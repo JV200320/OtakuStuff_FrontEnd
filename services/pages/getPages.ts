@@ -7,7 +7,7 @@ interface PagesResponse {
 
 const PageService = {
   searchPage: async (params) => {
-    let res = await Api.get<PagesResponse>("/pages/search", {params: params})
+    let res = await Api.get<PagesResponse>("/pages/search.json", {params: params})
     let pages = res.data.results
     return pages
   }

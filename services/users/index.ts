@@ -8,7 +8,7 @@ interface Response {
 
 const UserService = {
   searchUser: async (search) => {
-    let res = await Api.get<Response>("/users/search", {params: search})
+    let res = await Api.get<Response>("/users/search.json", {params: search})
     let users = res.data.results
     users.forEach(user => {
       user.favorites = parseFavoritesToJSON(user.favorites)

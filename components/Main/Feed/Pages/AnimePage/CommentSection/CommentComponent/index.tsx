@@ -3,6 +3,12 @@ import { Row, Container, Col } from 'react-bootstrap'
 import { AnimePost } from '../../../../../../../dtos/Posts'
 import { ContentContainer, UserCol, UserImage, UserNickname, TimeCol } from './styles'
 import moment from 'moment/min/moment-with-locales'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as solidHeart, faReply } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../../../store/modules/rootReducer'
+import User from '../../../../../../../dtos/User'
 
 
 
@@ -14,7 +20,17 @@ interface Props {
 export const CommentComponent: React.FC<Props> = ({ post, owner }) => {
 
   moment.locale('pt-br')
+  const loggedUser: User = useSelector((state: RootState) => state.auth)
 
+  const hasLoggedUserLiked = (): boolean => {
+    let filter_result = post.likes.filter((like) => {
+      return like.user_id == loggedUser.id
+    })
+    if (filter_result.length != 0) {
+      return true
+    }
+    return false
+  }
 
   const renderEditAndDelete = () => {
     if (owner) {
@@ -49,10 +65,12 @@ export const CommentComponent: React.FC<Props> = ({ post, owner }) => {
       </Row>
       <Row>
         <Col className='text-center mt-2'>
-          Curtir {post.likes}
+          <span><FontAwesomeIcon
+            icon={hasLoggedUserLiked() ? solidHeart : regularHeart} />
+            {' ' + post.likes.length}</span>
         </Col>
         <Col className='text-center mt-2'>
-          Responder {post.replies}
+          <span><FontAwesomeIcon icon={faReply} /> {post.replies}</span>
         </Col>
       </Row>
       <hr />

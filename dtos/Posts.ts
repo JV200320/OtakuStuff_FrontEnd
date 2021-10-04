@@ -1,3 +1,5 @@
+import { Like } from "./Likes";
+
 export interface AnimePost {
   anime_id: number,
   content: string,
@@ -8,6 +10,6 @@ export interface AnimePost {
   user_id: number,
   user_nickname: string,
   user_image_url: string,
-  likes: number,
+  likes: Like[],
   replies: number
 }
