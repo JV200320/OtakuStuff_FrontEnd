@@ -2,10 +2,11 @@ import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import { NoComment } from './NoComment'
 import { AnimePost } from '../../../../../../dtos/Posts'
-import AnimePostService from '../../../../../../services/posts/getAnimePosts'
+import AnimePostService from '../../../../../../services/posts/AnimePosts'
 import { CommentComponent } from './CommentComponent'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../../../store/modules/rootReducer'
+import { AddComment } from './AddComment'
 
 
 export const CommentSection = () => {
@@ -21,6 +22,7 @@ export const CommentSection = () => {
   const getComments = async () => {
     let { anime_id } = router.query
     let posts = await AnimePostService.getAnimePost(anime_id as string)
+    posts.reverse()
     setAnimePosts(posts)
   }
 
@@ -43,8 +45,17 @@ export const CommentSection = () => {
     ))
   }
 
+  const renderAddComment = (): JSX.Element | null => {
+    if (loggedUser) {
+      return <AddComment updateComments={getComments} />
+    }
+
+    return null
+  }
+
   return (
     <>
+      {renderAddComment()}
       {renderComments()}
     </>
   )

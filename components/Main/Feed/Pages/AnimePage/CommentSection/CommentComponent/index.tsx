@@ -23,6 +23,8 @@ export const CommentComponent: React.FC<Props> = ({ post, owner }) => {
   const loggedUser: User = useSelector((state: RootState) => state.auth)
 
   const hasLoggedUserLiked = (): boolean => {
+    if (!loggedUser) return null
+
     let filter_result = post.likes.filter((like) => {
       return like.user_id == loggedUser.id
     })
@@ -47,6 +49,7 @@ export const CommentComponent: React.FC<Props> = ({ post, owner }) => {
 
   return (
     <>
+      <hr />
       <Row>
         <UserCol lg={3}>
           <UserImage src={post.user_image_url} width={60} height={60} />
@@ -73,7 +76,6 @@ export const CommentComponent: React.FC<Props> = ({ post, owner }) => {
           <span><FontAwesomeIcon icon={faReply} /> {post.replies}</span>
         </Col>
       </Row>
-      <hr />
     </>
   )
 }

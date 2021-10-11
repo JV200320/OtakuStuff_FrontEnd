@@ -70,7 +70,7 @@ export const Search: React.FC<Props> = ({
         </Botao>
         <SearchInput placeholder={`Procurar por ${confirmedFilter}...`} value={search}
           onChange={e => setSearch(e.target.value)}
-          onKeyPress={e => e.key == "Enter" && searchContent()}
+          onKeyPress={(e: React.KeyboardEvent) => e.key == "Enter" && searchContent()}
           loggedUser={loggedUser}
         />
         <Botao onClick={() => searchContent()}>

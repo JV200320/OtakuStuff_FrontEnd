@@ -47,7 +47,6 @@ export const AnimePage: React.FC = () => {
     return null
   }
 
-
   if (animeContent == null)
     return <CenterSpinner />
 

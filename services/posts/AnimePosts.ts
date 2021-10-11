@@ -6,6 +6,10 @@ const AnimePostService = {
     let res = await Api.get(`/anime/posts/${anime_id}.json`)
     let posts: AnimePost[] = res.data.posts
     return posts
+  },
+  createAnimePost: async (anime_id: string, content: string) => {
+    let res = await Api.post(`/interactions/anime/post/${anime_id}`, {content})
+    return res.data.success
   }
 }
 export default AnimePostService

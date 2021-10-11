@@ -64,7 +64,7 @@ export const Pagination: React.FC<Props> = ({ basePath }) => {
       <div className="fixed-bottom offset-lg-3 col-lg-6 col-12 text-center text-light" style={{ backgroundColor: '#303030' }}>
         <Botao onClick={() => previousPage()}>Anterior</Botao> |
         <input type="number" id="page_input" value={page} onChange={e => setPage(Number(e.target.value))}
-          onKeyPress={(e) => e.key === 'Enter' && getPageContent(page)}
+          onKeyPress={(e: React.KeyboardEvent) => e.key === 'Enter' && getPageContent(page)}
           className={`bg-transparent border-0 text-light text-center ${styles.hidden_arrow}`} style={{ width: 30 }} />
         | <Botao onClick={() => nextPage()}>Próximo</Botao>
       </div>
