@@ -3,6 +3,7 @@ import { Header } from '../../../components/Headers/MainHeader'
 import { Main } from '../../../components/Main'
 import { Pagination } from '../../../components/Main/Feed/Pagination'
 import { TopAnimes } from '../../../components/Main/Feed/Lists/TopAnimes'
+import ValidateToken from '../../../components/Auth/ValidateToken'
 
 const TopAnimePage = () => {
 
@@ -16,4 +17,4 @@ const TopAnimePage = () => {
     </>
   )
 }
-export default TopAnimePage
+export default ValidateToken(TopAnimePage)

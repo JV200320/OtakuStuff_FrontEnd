@@ -1,4 +1,5 @@
 import React from 'react'
+import ValidateToken from '../components/Auth/ValidateToken'
 import { Header } from '../components/Headers/MainHeader'
 import { Main } from '../components/Main'
 import { TopAnimes } from '../components/Main/Feed/Lists/TopAnimes'
@@ -16,4 +17,4 @@ const Home: React.FC = () => {
     </>
   )
 }
-export default Home;
+export default ValidateToken(Home);

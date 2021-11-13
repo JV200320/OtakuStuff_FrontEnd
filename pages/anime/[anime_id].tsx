@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router'
 import React from 'react'
+import ValidateToken from '../../components/Auth/ValidateToken'
 import { Header } from '../../components/Headers/MainHeader'
 import { Main } from '../../components/Main'
 import { AnimePage as Page } from '../../components/Main/Feed/Pages/AnimePage'
@@ -22,4 +23,4 @@ const AnimePage = () => {
     </>
   )
 }
-export default AnimePage
+export default ValidateToken(AnimePage)
