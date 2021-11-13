@@ -1,4 +1,4 @@
-export default interface Anime {
+export interface IAnime {
   end_date: string,
   episodes: number,
   image_url: string,

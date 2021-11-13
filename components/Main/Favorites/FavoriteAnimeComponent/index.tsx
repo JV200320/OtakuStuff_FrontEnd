@@ -1,10 +1,10 @@
 import { useRouter } from 'next/dist/client/router'
 import React from 'react'
-import Anime from '../../../../dtos/Animes'
+import { IAnime } from '../../../../dtos/Animes'
 import { FavoriteAnimeDiv, ImageFilter } from './style'
 
 
-export const FavoriteAnimeComponent: React.FC<Anime> = ({ image_url, title, mal_id }) => {
+export const FavoriteAnimeComponent: React.FC<IAnime> = ({ image_url, title, mal_id }) => {
 
   const router = useRouter()
 

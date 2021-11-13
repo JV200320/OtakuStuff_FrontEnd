@@ -3,7 +3,7 @@ import { UserDiv } from './styles'
 import { Col, Row } from 'react-bootstrap'
 import Image from 'next/image'
 
-interface Props {
+interface IProps {
   image: string;
   nickname: string;
   bio: string;
@@ -12,7 +12,7 @@ interface Props {
   id: string
 }
 
-export const UserComponent: React.FC<Props> = (props) => {
+export const UserComponent: React.FC<IProps> = (props) => {
 
   const defaultImgPath = '/images/pageImage/default.jpg'
 

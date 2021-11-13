@@ -2,14 +2,14 @@ import React from 'react'
 import { Modal, Form } from 'react-bootstrap'
 import { ConfirmButton } from './styles'
 import { useSelector } from 'react-redux'
-import User from '../../../../dtos/User'
+import { IUser } from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
 import { useRouter } from 'next/dist/client/router'
 
 export const useFilterModal = (props) => {
 
   const router = useRouter()
-  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
+  const loggedUser: null | IUser = useSelector((state: RootState) => state.auth)
   const [selectedFilter, setSelectedFilter] = React.useState('animes')
   const [confirmedFilter, setConfirmedFilter] = React.useState('animes')
 

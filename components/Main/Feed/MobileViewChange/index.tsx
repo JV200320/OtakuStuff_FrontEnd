@@ -4,7 +4,7 @@ import { FavoriteButton } from './FavoriteButton'
 import { FeedButton } from './FeedButton'
 import { FriendsButton } from './FriendsButton'
 
-interface Props {
+interface IProps {
   setDisplayFavorites: React.Dispatch<SetStateAction<string[]>>,
   setDisplayFeed: React.Dispatch<SetStateAction<string[]>>,
   setDisplayFriends: React.Dispatch<SetStateAction<string[]>>,
@@ -15,7 +15,7 @@ interface Props {
   displayFriends: string[]
 }
 
-export const MobileViewChange: React.FC<Props> = (props) => {
+export const MobileViewChange: React.FC<IProps> = (props) => {
 
   const showFriends = () => {
     props.setDisplayFriends(props.show)

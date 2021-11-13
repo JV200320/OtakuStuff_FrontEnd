@@ -1,4 +1,4 @@
-export interface Cookie {
+export interface ICookie {
   "access-token": string,
   uid: string,
   client: string,

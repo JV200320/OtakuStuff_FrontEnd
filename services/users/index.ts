@@ -1,14 +1,14 @@
-import User from "../../dtos/User";
+import {IUser} from "../../dtos/User";
 import Api from "../api";
 import { parseFavoritesToJSON } from "../helpers/parseFavorites";
 
-interface Response {
-  results: User[]
+interface IResponse {
+  results: IUser[]
 }
 
 const UserService = {
   searchUser: async (search) => {
-    let res = await Api.get<Response>("/users/search.json", {params: search})
+    let res = await Api.get<IResponse>("/users/search.json", {params: search})
     let users = res.data.results
     users.forEach(user => {
       user.favorites = parseFavoritesToJSON(user.favorites)

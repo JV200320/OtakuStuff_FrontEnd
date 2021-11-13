@@ -1,4 +1,4 @@
-interface Page {
+export interface IPage {
   created_at: string,
   description: string,
   id: number,
@@ -8,5 +8,3 @@ interface Page {
   updated_at: string,
   user_id: number,
 }
-
-export default Page

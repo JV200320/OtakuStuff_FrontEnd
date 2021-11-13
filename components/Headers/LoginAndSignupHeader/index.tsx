@@ -5,12 +5,12 @@ import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 
-interface Props {
+interface IProps {
   link: string,
   buttonName: string
 }
 
-export const LoginAndSingupHeader: React.FC<Props> = ({ link, buttonName }) => {
+export const LoginAndSingupHeader: React.FC<IProps> = ({ link, buttonName }) => {
 
   const [showMenu, setShowMenu] = React.useState("none")
 

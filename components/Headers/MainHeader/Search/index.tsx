@@ -4,23 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Col } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import User from '../../../../dtos/User'
+import { IUser } from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
 import { useRouter } from 'next/dist/client/router'
 
-interface Props {
+interface IProps {
   search: string,
   setSearch: React.Dispatch<string>,
   setFilterModalShow: React.Dispatch<React.SetStateAction<boolean>>,
   confirmedFilter: string
 }
 
-export const Search: React.FC<Props> = ({
+export const Search: React.FC<IProps> = ({
   search, setSearch,
   setFilterModalShow, confirmedFilter
 }) => {
 
-  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
+  const loggedUser: null | IUser = useSelector((state: RootState) => state.auth)
   const router = useRouter()
 
   const searchContent = async () => {

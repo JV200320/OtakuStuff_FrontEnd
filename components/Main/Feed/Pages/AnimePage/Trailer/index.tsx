@@ -1,10 +1,10 @@
 import React from 'react'
 
-interface Props {
+interface IProps {
   trailerUrl: string
 }
 
-export const Trailer: React.FC<Props> = ({ trailerUrl }) => {
+export const Trailer: React.FC<IProps> = ({ trailerUrl }) => {
 
   const hasTrailer = () => {
     return trailerUrl != null

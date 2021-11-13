@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Container, Col } from 'react-bootstrap'
-import { AnimePost } from '../../../../../../../dtos/Posts'
+import { IAnimePost } from '../../../../../../../dtos/Posts'
 import { ContentContainer, UserCol, UserImage, UserNickname, TimeCol } from './styles'
 import moment from 'moment/min/moment-with-locales'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,19 +8,19 @@ import { faHeart as solidHeart, faReply } from '@fortawesome/free-solid-svg-icon
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../../../../store/modules/rootReducer'
-import User from '../../../../../../../dtos/User'
+import { IUser } from '../../../../../../../dtos/User'
 
 
 
-interface Props {
-  post: AnimePost,
+interface IProps {
+  post: IAnimePost,
   owner: boolean
 }
 
-export const CommentComponent: React.FC<Props> = ({ post, owner }) => {
+export const CommentComponent: React.FC<IProps> = ({ post, owner }) => {
 
   moment.locale('pt-br')
-  const loggedUser: User = useSelector((state: RootState) => state.auth)
+  const loggedUser: IUser = useSelector((state: RootState) => state.auth)
 
   const hasLoggedUserLiked = (): boolean => {
     if (!loggedUser) return null

@@ -1,16 +1,16 @@
 import React from 'react'
 import { Search } from './styles'
-import Anime from '../../../../dtos/Animes'
+import { IAnime } from '../../../../dtos/Animes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/modules/rootReducer'
 
-interface SearchProps {
+interface ISearchProps {
   look: string,
-  setFavorites: React.Dispatch<React.SetStateAction<Anime[]>>,
-  favorites: Anime[]
+  setFavorites: React.Dispatch<React.SetStateAction<IAnime[]>>,
+  favorites: IAnime[]
 }
 
-export const NoFilterFavoritesSearch: React.FC<SearchProps> = ({ look, setFavorites, favorites }) => {
+export const NoFilterFavoritesSearch: React.FC<ISearchProps> = ({ look, setFavorites, favorites }) => {
 
   const { favorites: allFavorites } = useSelector((state: RootState) => state.auth)
 
@@ -25,8 +25,8 @@ export const NoFilterFavoritesSearch: React.FC<SearchProps> = ({ look, setFavori
     setFavorites(searched_favorites)
   }
 
-  const searchInFavoriteAnimes = (searched: string): Anime[] => {
-    let searched_favorites: Anime[] = []
+  const searchInFavoriteAnimes = (searched: string): IAnime[] => {
+    let searched_favorites: IAnime[] = []
     for (let i = 0; i < allFavorites.length; i++) {
       let lowerTitle = allFavorites[i].title.toLowerCase()
 

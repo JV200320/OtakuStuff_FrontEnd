@@ -1,11 +1,11 @@
 import React from 'react'
 import { SynopsisRow } from './style'
 
-interface Props {
+interface IProps {
   synopsis: string
 }
 
-export const Synopsis: React.FC<Props> = ({ synopsis }) => {
+export const Synopsis: React.FC<IProps> = ({ synopsis }) => {
   return (
     <SynopsisRow>
       {synopsis}

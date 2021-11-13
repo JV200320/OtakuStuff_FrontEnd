@@ -3,11 +3,11 @@ import { Body } from '../Shared/Body'
 import { NoFilterFriendsSearch } from './NoFilterFriendsSearch'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/modules/rootReducer'
-import User from '../../../dtos/User'
+import { IUser } from '../../../dtos/User'
 
 export const Friends = () => {
 
-  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
+  const loggedUser: null | IUser = useSelector((state: RootState) => state.auth)
 
   if (loggedUser) {
     return (

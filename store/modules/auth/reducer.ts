@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface FavoriteAnime {
+interface IFavoriteAnime {
   mal_id: number,
   image_url: string,
   title: string
@@ -16,7 +16,7 @@ const authSlice = createSlice({
         clearLoggedUser(state) {
             return null;
         },
-        updateFavorites(state, action: PayloadAction<FavoriteAnime[]>){
+        updateFavorites(state, action: PayloadAction<IFavoriteAnime[]>){
           return {
             ...state,
             favorites:action.payload

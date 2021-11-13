@@ -4,11 +4,11 @@ import { Container, Row, Col } from 'react-bootstrap'
 import AnimePostService from '../../../../../../../services/posts/AnimePosts'
 import { CommentInput, SubmitCommentButton } from './styles'
 
-interface Props {
+interface IProps {
   updateComments: () => Promise<void>
 }
 
-export const AddComment: React.FC<Props> = ({ updateComments }) => {
+export const AddComment: React.FC<IProps> = ({ updateComments }) => {
 
   const [comment, setComment] = React.useState('')
   const router = useRouter()

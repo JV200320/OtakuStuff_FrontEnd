@@ -1,16 +1,16 @@
 import React from 'react'
 import { Search } from './styles'
-import Anime from '../../../../dtos/Animes'
+import { IAnime } from '../../../../dtos/Animes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/modules/rootReducer'
 
-interface SearchProps {
+interface ISearchProps {
   look: string,
-  setFollowing: React.Dispatch<React.SetStateAction<Anime[]>>,
-  following: Anime[]
+  setFollowing: React.Dispatch<React.SetStateAction<IAnime[]>>,
+  following: IAnime[]
 }
 
-export const NoFilterFriendsSearch: React.FC<SearchProps> = ({ look, setFollowing, following }) => {
+export const NoFilterFriendsSearch: React.FC<ISearchProps> = ({ look, setFollowing, following }) => {
 
   const { following: allFollowing } = useSelector((state: RootState) => state.auth)
 
@@ -25,8 +25,8 @@ export const NoFilterFriendsSearch: React.FC<SearchProps> = ({ look, setFollowin
     setFollowing(searched_following)
   }
 
-  const searchInFavoriteAnimes = (searched: string): Anime[] => {
-    let searched_following: Anime[] = []
+  const searchInFavoriteAnimes = (searched: string): IAnime[] => {
+    let searched_following: IAnime[] = []
     for (let i = 0; i < allFollowing.length; i++) {
       let lowerTitle = allFollowing[i].title.toLowerCase()
 

@@ -9,7 +9,7 @@ import { useRouter } from "next/dist/client/router"
 import { toast } from "react-toastify"
 import { setLoggedUser } from "../../../store/modules/auth/reducer"
 import { useDispatch } from "react-redux"
-import User from "../../../dtos/User"
+import { IUser } from "../../../dtos/User"
 
 export const SignUpForm: React.FC = () => {
 
@@ -40,7 +40,7 @@ export const SignUpForm: React.FC = () => {
 
   const signUpUser = async () => {
     appendDataToForm()
-    let user: User = await getUser()
+    let user: IUser = await getUser()
     dispatch(setLoggedUser(user))
   }
 
@@ -52,8 +52,8 @@ export const SignUpForm: React.FC = () => {
     formData.append('image', image)
   }
 
-  const getUser = async (): Promise<User> => {
-    let user: User = await AuthService.signUp(formData)
+  const getUser = async (): Promise<IUser> => {
+    let user: IUser = await AuthService.signUp(formData)
     return user
   }
 

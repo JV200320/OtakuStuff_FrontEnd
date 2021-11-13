@@ -3,7 +3,7 @@ import { PageDiv } from './styles'
 import { Col, Row } from 'react-bootstrap'
 import Image from 'next/image'
 
-interface Props {
+interface IProps {
   page: {
     image: string;
     title: string;
@@ -15,7 +15,7 @@ interface Props {
   }
 }
 
-export const PageComponent: React.FC<Props> = ({ page }) => {
+export const PageComponent: React.FC<IProps> = ({ page }) => {
 
   const defaultImgPath = '/images/pageImage/default.jpg'
 

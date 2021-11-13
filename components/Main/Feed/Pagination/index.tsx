@@ -3,11 +3,11 @@ import styles from './styles.module.css'
 import { Botao } from './styles'
 import { useRouter } from 'next/dist/client/router'
 
-interface Props {
+interface IProps {
   basePath: string
 }
 
-export const Pagination: React.FC<Props> = ({ basePath }) => {
+export const Pagination: React.FC<IProps> = ({ basePath }) => {
 
   const router = useRouter()
   const [page, setPage] = React.useState(null)

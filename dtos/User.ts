@@ -1,6 +1,6 @@
-import Anime from './Animes'
+import {IAnime} from './Animes'
 
-export default interface User {
+export interface IUser {
   email: string;
   id: number;
   uid: string;
@@ -8,5 +8,5 @@ export default interface User {
   allow_password_change: boolean;
   nickname: string;
   image: string;
-  favorites: Anime[];
+  favorites: IAnime[];
 }

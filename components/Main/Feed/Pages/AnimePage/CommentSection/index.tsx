@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import { NoComment } from './NoComment'
-import { AnimePost } from '../../../../../../dtos/Posts'
+import { IAnimePost } from '../../../../../../dtos/Posts'
 import AnimePostService from '../../../../../../services/posts/AnimePosts'
 import { CommentComponent } from './CommentComponent'
 import { useSelector } from 'react-redux'
@@ -12,7 +12,7 @@ import { AddComment } from './AddComment'
 export const CommentSection = () => {
 
   const router = useRouter()
-  const [animePosts, setAnimePosts] = React.useState<AnimePost[]>()
+  const [animePosts, setAnimePosts] = React.useState<IAnimePost[]>()
   const loggedUser = useSelector((state: RootState) => state.auth)
 
   React.useEffect(() => {
@@ -26,7 +26,7 @@ export const CommentSection = () => {
     setAnimePosts(posts)
   }
 
-  const loggedUserOwnsPost = (post: AnimePost): boolean => {
+  const loggedUserOwnsPost = (post: IAnimePost): boolean => {
     if (!loggedUser) return false
 
 

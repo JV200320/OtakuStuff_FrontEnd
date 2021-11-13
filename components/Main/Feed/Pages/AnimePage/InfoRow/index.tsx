@@ -1,39 +1,39 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 
-interface Genre {
+interface IGenre {
   mal_id: number,
   name: string,
   type: string,
   url: string
 }
 
-interface AiredProp {
+interface IAiredProp {
   from: { day, month, year },
   to: { day, month, year }
 }
 
-interface Aired {
+interface IAired {
   from: string,
   to: string,
   string: string,
-  prop: AiredProp
+  prop: IAiredProp
 }
 
-interface Props {
+interface IProps {
   status: string,
   source: string,
   scored_by: number,
   rank: number,
-  aired: Aired,
+  aired: IAired,
   score: number,
   rating: string,
   episodes: number,
   duration: string,
-  genres: Genre[]
+  genres: IGenre[]
 }
 
-export const InfoRow: React.FC<Props> = (props) => {
+export const InfoRow: React.FC<IProps> = (props) => {
 
   const formatDate = (date) => {
     if (date == null) return '---'

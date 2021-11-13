@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux'
 import { Dropdown } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import { RootState } from '../../../../store/modules/rootReducer'
-import User from '../../../../dtos/User'
+import { IUser } from '../../../../dtos/User'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/dist/client/router'
 
-interface Props {
+interface IProps {
   search: string,
   setSearch: React.Dispatch<string>,
   setFilterModalShow: React.Dispatch<React.SetStateAction<boolean>>,
@@ -21,12 +21,12 @@ interface Props {
   setShowMenu: React.Dispatch<string>
 }
 
-export const MobileMenu: React.FC<Props> = ({
+export const MobileMenu: React.FC<IProps> = ({
   showMenu, setShowMenu, setSearch,
   search, setFilterModalShow, confirmedFilter
 }) => {
 
-  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
+  const loggedUser: null | IUser = useSelector((state: RootState) => state.auth)
   const router = useRouter()
 
   const searchContent = async () => {

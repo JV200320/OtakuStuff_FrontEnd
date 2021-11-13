@@ -4,7 +4,7 @@ import { Col, Row } from 'react-bootstrap'
 import Image from 'next/image'
 import { useRouter } from 'next/dist/client/router'
 
-interface Props {
+interface IProps {
   anime: {
     image_url: string;
     title: string;
@@ -18,7 +18,7 @@ interface Props {
   }
 }
 
-export const AnimeComponent: React.FC<Props> = ({ anime }) => {
+export const AnimeComponent: React.FC<IProps> = ({ anime }) => {
 
   const router = useRouter()
 

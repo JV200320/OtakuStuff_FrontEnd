@@ -1,10 +1,10 @@
-import { AnimePost } from "../../dtos/Posts";
+import { IAnimePost } from "../../dtos/Posts";
 import Api from "../api";
 
 const AnimePostService = {
   getAnimePost: async (anime_id: string) => {
     let res = await Api.get(`/anime/posts/${anime_id}.json`)
-    let posts: AnimePost[] = res.data.posts
+    let posts: IAnimePost[] = res.data.posts
     return posts
   },
   createAnimePost: async (anime_id: string, content: string) => {

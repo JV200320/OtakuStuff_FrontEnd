@@ -4,12 +4,12 @@ import { LoginForm } from '../components/Forms/LoginForm'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/dist/client/router'
 import { RootState } from '../store/modules/rootReducer'
-import User from '../dtos/User'
+import { IUser } from '../dtos/User'
 
 const Login: React.FC = () => {
 
   const router = useRouter()
-  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
+  const loggedUser: null | IUser = useSelector((state: RootState) => state.auth)
 
   if (loggedUser) {
     router.push('/')

@@ -2,12 +2,12 @@ import React from 'react'
 import { Col } from 'react-bootstrap'
 import Image from 'next/image'
 
-interface Props {
+interface IProps {
   image_url: string,
   title: string
 }
 
-export const ProfileCol: React.FC<Props> = ({ image_url, title }) => {
+export const ProfileCol: React.FC<IProps> = ({ image_url, title }) => {
   return (
     <Col lg={5} className="text-center">
       <Image

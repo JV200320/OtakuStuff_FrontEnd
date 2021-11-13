@@ -8,7 +8,7 @@ import { Search } from './Search'
 import { Navigator } from './Navigator'
 import { useFilterModal } from './FilterModal'
 import { useSelector } from 'react-redux'
-import User from '../../../dtos/User'
+import { IUser } from '../../../dtos/User'
 import { RootState } from '../../../store/modules/rootReducer'
 import Link from 'next/link'
 
@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
   const [filterModalShow, setFilterModalShow] = React.useState(false)
   const [search, setSearch] = React.useState("")
 
-  const loggedUser: null | User = useSelector((state: RootState) => state.auth)
+  const loggedUser: null | IUser = useSelector((state: RootState) => state.auth)
 
   const hideModal = (): void => {
     setFilterModalShow(false)
