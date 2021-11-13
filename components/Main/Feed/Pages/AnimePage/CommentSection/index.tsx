@@ -12,7 +12,7 @@ import { AddComment } from './AddComment'
 export const CommentSection = () => {
 
   const router = useRouter()
-  const [animePosts, setAnimePosts] = React.useState<IAnimePost[]>()
+  const [animeComments, setAnimeComments] = React.useState<IAnimePost[]>()
   const loggedUser = useSelector((state: RootState) => state.auth)
 
   React.useEffect(() => {
@@ -23,7 +23,7 @@ export const CommentSection = () => {
     let { anime_id } = router.query
     let posts = await AnimePostService.getAnimePost(anime_id as string)
     posts.reverse()
-    setAnimePosts(posts)
+    setAnimeComments(posts)
   }
 
   const loggedUserOwnsPost = (post: IAnimePost): boolean => {
@@ -37,11 +37,13 @@ export const CommentSection = () => {
   }
 
   const renderComments = (): JSX.Element[] | JSX.Element => {
-    if (!animePosts || animePosts.length == 0) return <NoComment />
+    if (!animeComments || animeComments.length == 0) return <NoComment />
 
 
-    return animePosts.map((post, i) => (
-      <CommentComponent {...{ post }} key={i} owner={loggedUserOwnsPost(post)} />
+    return animeComments.map((comment, i) => (
+      <CommentComponent comment={comment} key={i} owner={loggedUserOwnsPost(comment)}
+        updateComments={getComments}
+      />
     ))
   }
 
@@ -56,7 +58,9 @@ export const CommentSection = () => {
   return (
     <>
       {renderAddComment()}
-      {renderComments()}
+      <div className='pb-2'>
+        {renderComments()}
+      </div>
     </>
   )
 }

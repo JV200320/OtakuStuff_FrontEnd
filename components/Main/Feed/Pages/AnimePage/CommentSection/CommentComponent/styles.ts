@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Image from 'next/image'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container } from 'react-bootstrap'
 
 export const UserImage = styled(Image)`
 border-radius: 50%;
@@ -20,9 +20,21 @@ display: flex;
 align-items: center;
 `
 
-export const ContentContainer = styled(Container)`
+export const ContentContainer = styled.textarea`
 border: 1px solid #707070;
+max-height: 300px;
+min-height: 70px;
 border-radius: 5px;
 padding: 10px;
 margin-top: 10px;
+width: 100%;
+color: white;
+background-color: transparent;
+::placeholder,
+::-webkit-input-placeholder {
+  color: white;
+}
+:-ms-input-placeholder {
+  color: white;
+}
 `

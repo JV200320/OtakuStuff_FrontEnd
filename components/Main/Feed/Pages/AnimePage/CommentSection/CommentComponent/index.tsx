@@ -4,28 +4,38 @@ import { IAnimePost } from '../../../../../../../dtos/Posts'
 import { ContentContainer, UserCol, UserImage, UserNickname, TimeCol } from './styles'
 import moment from 'moment/min/moment-with-locales'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart as solidHeart, faReply } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as solidHeart, faPencilAlt, faReply, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../../../../store/modules/rootReducer'
 import { IUser } from '../../../../../../../dtos/User'
+import { DeleteIcon } from './DeleteIcon'
+import { EditIcon } from './EditIcon'
+import { CustomEditButton } from './CustomEditButton'
+import AnimePostService from '../../../../../../../services/posts/AnimePosts'
+import { toast } from 'react-toastify'
 
 
 
 interface IProps {
-  post: IAnimePost,
-  owner: boolean
+  comment: IAnimePost,
+  owner: boolean,
+  updateComments: () => Promise<void>
 }
 
-export const CommentComponent: React.FC<IProps> = ({ post, owner }) => {
+export const CommentComponent: React.FC<IProps> = ({ comment, owner, updateComments }) => {
 
   moment.locale('pt-br')
   const loggedUser: IUser = useSelector((state: RootState) => state.auth)
 
+  const [editable, setEditable] = React.useState<boolean>(false)
+
+  const [content, setContent] = React.useState<string>(comment.content)
+
   const hasLoggedUserLiked = (): boolean => {
     if (!loggedUser) return null
 
-    let filter_result = post.likes.filter((like) => {
+    let filter_result = comment.likes.filter((like) => {
       return like.user_id == loggedUser.id
     })
     if (filter_result.length != 0) {
@@ -36,44 +46,77 @@ export const CommentComponent: React.FC<IProps> = ({ post, owner }) => {
 
   const renderEditAndDelete = () => {
     if (owner) {
-      let oneHourAfterPostCreated = moment(post.created_at).utc().add(1, 'hours')
+      let oneHourAfterPostCreated = moment(comment.created_at).utc().add(1, 'hours')
       let now = moment().utc()
       if (now.isSameOrAfter(oneHourAfterPostCreated)) {
-        return 'Delete'
+        return (
+          <DeleteIcon comment_id={comment.id} updateComments={updateComments} />
+        )
       }
-      return 'Edit/Delete'
+      return (
+        <>
+          <EditIcon setEditable={setEditable} />
+          <DeleteIcon comment_id={comment.id} updateComments={updateComments} />
+        </>
+      )
     }
     return ''
   }
 
+  const confirmEdit = async () => {
+    setEditable(false)
+    let success = await AnimePostService.editAnimePost(content, comment.id)
+    if (success) {
+      updateComments()
+    } else {
+      toast.error('Erro ao editar seu comentário, tente novamente mais tarde.')
+    }
+  }
 
   return (
     <>
       <hr />
       <Row>
         <UserCol lg={3}>
-          <UserImage src={post.user_image_url} width={60} height={60} />
-          <UserNickname>{post.user_nickname}</UserNickname>
+          <UserImage src={comment.user_image_url} width={60} height={60} />
+          <UserNickname>{comment.user_nickname}</UserNickname>
         </UserCol>
         <TimeCol className='justify-content-end'>
-          Postado {moment(post.created_at).fromNow()} {renderEditAndDelete()}
+          Postado {moment(comment.created_at).fromNow()} {renderEditAndDelete()}
         </TimeCol>
       </Row>
       <Row>
         <Container>
-          <ContentContainer>
-            {post.content}
-          </ContentContainer>
+          <ContentContainer value={content} disabled={!editable} onChange={e => setContent(e.target.value)} />
         </Container>
       </Row>
+      {editable
+        ?
+        <Row className='justify-content-evenly'>
+          <CustomEditButton
+            text='Cancelar'
+            onClick={() => {
+              setContent(comment.content);
+              setEditable(false)
+            }}
+            width='25%'
+          />
+          <CustomEditButton
+            text='Confirmar'
+            onClick={() => confirmEdit()}
+            width='25%'
+          />
+        </Row>
+        :
+        null}
       <Row>
         <Col className='text-center mt-2'>
           <span><FontAwesomeIcon
             icon={hasLoggedUserLiked() ? solidHeart : regularHeart} />
-            {' ' + post.likes.length}</span>
+            {' ' + comment.likes.length}</span>
         </Col>
         <Col className='text-center mt-2'>
-          <span><FontAwesomeIcon icon={faReply} /> {post.replies}</span>
+          <span><FontAwesomeIcon icon={faReply} /> {comment.replies}</span>
         </Col>
       </Row>
     </>

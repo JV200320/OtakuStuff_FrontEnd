@@ -2,7 +2,7 @@ import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import AnimePostService from '../../../../../../../services/posts/AnimePosts'
-import { CommentInput, SubmitCommentButton } from './styles'
+import { CommentTextArea, SubmitCommentButton } from './styles'
 
 interface IProps {
   updateComments: () => Promise<void>
@@ -17,6 +17,7 @@ export const AddComment: React.FC<IProps> = ({ updateComments }) => {
   const handleCommentSubmit = async () => {
     let success = await AnimePostService.createAnimePost(anime_id as string, comment)
     if (success) {
+      setComment('')
       updateComments()
     } else {
       alert('Erro ao criar seu comentário.')
@@ -26,7 +27,7 @@ export const AddComment: React.FC<IProps> = ({ updateComments }) => {
   return (
     <Container className='p-3'>
       <Row>
-        <CommentInput
+        <CommentTextArea
           type="text"
           placeholder='Escreva aqui seu comentário.'
           className='p-2'
