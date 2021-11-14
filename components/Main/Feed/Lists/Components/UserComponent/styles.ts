@@ -2,10 +2,10 @@ import styled from 'styled-components'
 
 export const UserDiv = styled.div`
 width: 100%;
-border-bottom: 1px solid #D0D0D0;
+border-bottom: 1px solid ${props => props.theme.appColors.stroke};
 margin-top: 5px;
 &:hover{
-  background-color: #505050;
+  background-color: ${props => props.theme.appColors.hoverLightBackground};
   cursor: pointer;
 }
 `

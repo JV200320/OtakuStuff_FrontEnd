@@ -6,6 +6,8 @@ import { RootState } from '../../../../../../../store/modules/rootReducer'
 import { clearLoggedUser, updateFavorites } from '../../../../../../../store/modules/auth/reducer'
 import { useRouter } from 'next/dist/client/router'
 import { toast } from 'react-toastify'
+import { Theme } from '../../../../../../../styles/theme'
+import { StyledButton } from '../../../../../../Shared/StyledButton'
 
 
 export const FollowButton = () => {
@@ -42,15 +44,13 @@ export const FollowButton = () => {
 
   return (
     <Row className="d-flex justify-content-center py-2">
-      <Button className="w-50" variant='info' onClick={() => handleAddToFavorite()}>
-        {
-          buttonLoading
-            ?
-            <Spinner animation="border" variant="light" />
-            :
-            'Seguir'
-        }
-      </Button>
+      <StyledButton
+        width='50%'
+        backgroundColor={Theme.appColors.loggedIn}
+        color={'#000'}
+        onClick={() => handleAddToFavorite()}
+        text={buttonLoading ? <Spinner animation="border" variant="light" /> : 'Seguir'}
+      />
     </Row>
   )
 }

@@ -2,6 +2,8 @@ import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import AnimePostService from '../../../../../../../services/posts/AnimePosts'
+import { Theme } from '../../../../../../../styles/theme'
+import { StyledButton } from '../../../../../../Shared/StyledButton'
 import { CommentTextArea, SubmitCommentButton } from './styles'
 
 interface IProps {
@@ -38,9 +40,15 @@ export const AddComment: React.FC<IProps> = ({ updateComments }) => {
       </Row>
       <Row>
         <Col lg={{ offset: 8, span: 4 }} className='p-2 text-end'>
-          <SubmitCommentButton onClick={() => handleCommentSubmit()} className='btn btn-outline-info'>
-            Enviar comentário
-          </SubmitCommentButton>
+          <StyledButton
+            onClick={() => handleCommentSubmit()}
+            outlined
+            backgroundColor={Theme.appColors.loggedIn}
+            text='Enviar comentário'
+            width='55%'
+            margin='0px'
+            color={Theme.appColors.loggedIn}
+          />
         </Col>
       </Row>
     </Container>

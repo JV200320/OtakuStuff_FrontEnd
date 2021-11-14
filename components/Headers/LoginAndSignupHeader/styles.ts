@@ -6,7 +6,7 @@ background-color: transparent;
 `
 
 export const Brand = styled.span`
-color: #FF6B4F;
+color: ${props => props.theme.appColors.loggedOff};
 font-size: 44px;
 font-family: 'Mouse Memoirs', sans-serif;
 &:hover{
@@ -15,7 +15,7 @@ font-family: 'Mouse Memoirs', sans-serif;
 `
 
 export const Botao = styled.button`
-color: #FF6B4F;
+color: ${props => props.theme.appColors.loggedOff};
 background-color: transparent;
 border: 0;
 font-size: 25px;
@@ -28,7 +28,7 @@ font-size: 25px;
 `
 
 export const BotaoMobile = styled.button`
-color: #FF6B4F;
+color: ${props => props.theme.appColors.loggedOff};
 background-color: transparent;
 border: 0;
 font-size: 25px;
@@ -41,7 +41,7 @@ font-size: 25px;
 `
 
 export const Toggle = styled.button`
-color: #FF6B4F;
+color: ${props => props.theme.appColors.loggedOff};
 background-color: transparent;
 border: 0;
 font-size: 25px;
@@ -55,8 +55,8 @@ font-size: 25px;
 
 export const Search = styled.input`
 width: 75%;
-border: 2px solid #FF6B4F;
-color: #FF6B4F;
+border: 2px solid ${props => props.theme.appColors.loggedOff};
+color: ${props => props.theme.appColors.loggedOff};
 background-color: transparent;
 border-radius: 6px;
 padding: 5px;
@@ -64,7 +64,7 @@ padding: 5px;
   outline: none;
 }
 ::placeholder{
-  color: #FF6B4F;
+  color: ${props => props.theme.appColors.loggedOff};
 }
 
 @media(max-width: 1000px) {
@@ -76,15 +76,15 @@ padding: 5px;
 
 export const SearchMobile = styled.input`
 width: 75%;
-border: 2px solid #FF6B4F;
-color: #FF6B4F;
+border: 2px solid ${props => props.theme.appColors.loggedOff};
+color: ${props => props.theme.appColors.loggedOff};
 background-color: transparent;
 border-radius: 6px;
 &:focus{
   outline: none;
 }
 ::placeholder{
-  color: #FF6B4F;
+  color: ${props => props.theme.appColors.loggedOff};
 }
 
 @media(min-width: 1000px) {

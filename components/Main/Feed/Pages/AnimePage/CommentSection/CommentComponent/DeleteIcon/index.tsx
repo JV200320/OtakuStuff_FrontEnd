@@ -2,7 +2,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 import { toast } from 'react-toastify'
 import AnimePostService from '../../../../../../../../services/posts/AnimePosts'
-import { DeleteHoverable } from './styles'
+import { HoverableIcon } from '../../../../../../../Shared/HoverableIcon'
 
 interface IProps {
   comment_id: number,
@@ -22,7 +22,7 @@ export const DeleteIcon: React.FC<IProps> = ({ comment_id, updateComments }) => 
 
   return (
     <div className='ms-3'>
-      <DeleteHoverable icon={faTrash} onClick={() => deleteComment()} />
+      <HoverableIcon icon={faTrash} onClick={() => deleteComment()} hoverColor='red' />
     </div>
   )
 }

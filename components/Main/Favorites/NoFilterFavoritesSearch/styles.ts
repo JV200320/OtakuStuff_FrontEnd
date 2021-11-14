@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const Search = styled.input`
 width: 75%;
-border: 2px solid #4FE3FF;
-color: #4FE3FF;
+border: 2px solid ${props => props.theme.appColors.loggedIn};
+color: ${props => props.theme.appColors.loggedIn};
 background-color: transparent;
 border-radius: 6px;
 padding: 5px;
@@ -12,6 +12,6 @@ text-align: center;
   outline: none;
 }
 ::placeholder{
-  color: #4FE3FF;
+  color: ${props => props.theme.appColors.loggedIn};
 }
 `

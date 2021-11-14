@@ -6,7 +6,7 @@ background-color: transparent;
 `
 
 export const Brand = styled.span`
-color: ${props => props.loggedUser ? '#4FE3FF' : '#FF6B4F'};
+color: ${props => props.loggedUser ? props.theme.appColors.loggedIn : props.theme.appColors.loggedOff};
 font-size: 44px;
 font-family: 'Mouse Memoirs', sans-serif;
 &:hover{

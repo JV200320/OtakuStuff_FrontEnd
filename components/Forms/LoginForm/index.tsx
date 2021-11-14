@@ -1,5 +1,5 @@
 import React from "react"
-import { MainDiv, Center, FormDiv, SubmitButton, StyledInput, HoverableImage, ImageFilter } from "./styles"
+import { MainDiv, Center, FormDiv } from "../styles"
 import { Row, Col, Form } from "react-bootstrap"
 import AuthService from "../../../services/auth"
 import { useRouter } from "next/dist/client/router"
@@ -7,6 +7,9 @@ import { toast } from "react-toastify"
 import { useDispatch } from "react-redux"
 import { setLoggedUser } from "../../../store/modules/auth/reducer"
 import { IUser } from "../../../dtos/User"
+import { StyledButton } from "../../Shared/StyledButton"
+import { Theme } from "../../../styles/theme"
+import { StyledInput } from "../../Shared/StyledInput"
 
 export const LoginForm: React.FC = () => {
 
@@ -18,13 +21,14 @@ export const LoginForm: React.FC = () => {
 
   const formData: FormData = new FormData();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
-      loginUser()
+      await loginUser()
       toast.success('Login realizado com sucesso.')
       router.push('/')
     } catch (error) {
-      error.response.data.errors.full_messages.forEach(message => toast.error(message))
+      error.response.data.errors.full_messages?.forEach(message => toast.error(message))
+      error.response.data.errors?.forEach(message => toast.error(message))
     }
   }
 
@@ -56,12 +60,12 @@ export const LoginForm: React.FC = () => {
               <Form className="w-100 d-flex flex-column justify-content-around">
 
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicEmail">
-                  <StyledInput required type="email" placeholder="Email"
+                  <StyledInput required type="email" placeholder="Email" width='65%'
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicPassword">
-                  <StyledInput required type="password" placeholder="Senha"
+                  <StyledInput required type="password" placeholder="Senha" width='65%'
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
                 </Form.Group>
 
@@ -69,7 +73,15 @@ export const LoginForm: React.FC = () => {
             </Col>
           </Row>
           <Row className="w-100 d-flex justify-content-center">
-            <SubmitButton onClick={() => handleSubmit()}>Entrar</SubmitButton>
+            <StyledButton
+              onClick={() => handleSubmit()}
+              text='Entrar'
+              backgroundColor={Theme.appColors.loggedOff}
+              outlined
+              color={Theme.appColors.loggedOff}
+              hoverTextColor={Theme.appColors.white}
+              width='55%'
+            />
           </Row>
         </FormDiv>
       </Center>

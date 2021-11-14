@@ -11,9 +11,10 @@ import { RootState } from '../../../../../../../store/modules/rootReducer'
 import { IUser } from '../../../../../../../dtos/User'
 import { DeleteIcon } from './DeleteIcon'
 import { EditIcon } from './EditIcon'
-import { CustomEditButton } from './CustomEditButton'
 import AnimePostService from '../../../../../../../services/posts/AnimePosts'
 import { toast } from 'react-toastify'
+import { StyledButton } from '../../../../../../Shared/StyledButton'
+import { Theme } from '../../../../../../../styles/theme'
 
 
 
@@ -90,21 +91,25 @@ export const CommentComponent: React.FC<IProps> = ({ comment, owner, updateComme
           <ContentContainer value={content} disabled={!editable} onChange={e => setContent(e.target.value)} />
         </Container>
       </Row>
-      {editable
+      {editable && owner
         ?
         <Row className='justify-content-evenly'>
-          <CustomEditButton
+          <StyledButton
             text='Cancelar'
             onClick={() => {
               setContent(comment.content);
               setEditable(false)
             }}
             width='25%'
+            outlined
+            color={Theme.appColors.loggedOff}
           />
-          <CustomEditButton
+          <StyledButton
             text='Confirmar'
             onClick={() => confirmEdit()}
             width='25%'
+            outlined
+            color={Theme.appColors.loggedIn}
           />
         </Row>
         :

@@ -6,7 +6,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '../store';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ThemeProvider } from 'styled-components'
 import React from 'react';
+import { Theme } from '../styles/theme';
 
 function MyApp({ Component, pageProps }) {
 
@@ -20,7 +22,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Component {...pageProps} />
+          <ThemeProvider theme={Theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
         </PersistGate>
         <ToastContainer />
       </Provider>

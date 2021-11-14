@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Dropdown } from 'react-bootstrap'
 import Link from 'next/link'
-import { Botao, CustomDropdown } from './styles'
+import { NavigationButton, CustomDropdown } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearLoggedUser } from '../../../../store/modules/auth/reducer'
 import { toast } from 'react-toastify'
@@ -44,16 +44,16 @@ export const Navigator = () => {
     <Col lg={3} className="justify-content-center d-flex">
       <Col className="d-flex align-items-center justify-content-center" lg={6}>
         <Link href="/Login">
-          <Botao>
+          <NavigationButton>
             Entrar
-          </Botao>
+          </NavigationButton>
         </Link>
       </Col>
       <Col className="d-flex align-items-center justify-content-center" lg={6}>
         <Link href="/SignUp">
-          <Botao>
+          <NavigationButton>
             Cadastrar
-          </Botao>
+          </NavigationButton>
         </Link>
       </Col>
     </Col>

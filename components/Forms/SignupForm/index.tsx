@@ -1,8 +1,7 @@
 import React from "react"
 import {
-  MainDiv, Center, FormDiv, SubmitButton, StyledInput,
-  HoverableImage, ImageFilter, ResponsiveRow
-} from "./styles"
+  MainDiv, Center, FormDiv, ResponsiveRow
+} from "../styles"
 import { Row, Col, Form } from "react-bootstrap"
 import AuthService from "../../../services/auth"
 import { useRouter } from "next/dist/client/router"
@@ -10,6 +9,10 @@ import { toast } from "react-toastify"
 import { setLoggedUser } from "../../../store/modules/auth/reducer"
 import { useDispatch } from "react-redux"
 import { IUser } from "../../../dtos/User"
+import { StyledButton } from "../../Shared/StyledButton"
+import { Theme } from "../../../styles/theme"
+import { UserImage } from "./UserImage"
+import { StyledInput } from "../../Shared/StyledInput"
 
 export const SignUpForm: React.FC = () => {
 
@@ -30,7 +33,7 @@ export const SignUpForm: React.FC = () => {
     if (confirmPassword != password) return toast.error('A senha e a confirmação de senha são diferentes.')
 
     try {
-      signUpUser()
+      await signUpUser()
       toast.success('Conta criada com sucesso.')
       router.push('/')
     } catch (error) {
@@ -78,43 +81,74 @@ export const SignUpForm: React.FC = () => {
           </Row>
           <ResponsiveRow className="w-100">
             <Col className="justify-content-center align-items-center d-flex p-2">
-              <HoverableImage src={imageToShow} onClick={() => fileField.current.click()}>
-                <ImageFilter>
-                  {image ? null : <h1>Mudar Avatar</h1>}
-                </ImageFilter>
-              </HoverableImage>
+              <UserImage
+                {...{ image, imageToShow, fileField }}
+              />
             </Col>
             <Col className="d-flex justify-content-center">
               <Form className="w-100 d-flex flex-column justify-content-around">
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicNickname">
-                  <StyledInput required type="text" placeholder="Nickname"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)} />
+                  <StyledInput
+                    required
+                    type="text"
+                    placeholder="Nickname"
+                    width='80%'
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicEmail">
-                  <StyledInput required type="email" placeholder="Email"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
+                  <StyledInput
+                    required
+                    type="email"
+                    placeholder="Email"
+                    width='80%'
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicPassword">
-                  <StyledInput required type="password" placeholder="Senha"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
+                  <StyledInput
+                    required
+                    type="password"
+                    placeholder="Senha"
+                    width='80%'
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicConfirmPassword">
-                  <StyledInput required type="password" placeholder="Confirmar senha"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)} />
+                  <StyledInput
+                    required
+                    type="password"
+                    placeholder="Confirmar
+                  senha" width='80%'
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group hidden controlId="formBasicFile">
-                  <StyledInput type="file" ref={fileField} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)} />
+                  <StyledInput
+                    type="file"
+                    ref={fileField}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
+                    width='80%'
+                  />
                 </Form.Group>
 
               </Form>
             </Col>
           </ResponsiveRow>
           <Row className="w-100 d-flex justify-content-center">
-            <SubmitButton onClick={() => handleSubmit()}>Cadastrar</SubmitButton>
+            <StyledButton
+              onClick={() => handleSubmit()}
+              outlined
+              text='Cadastrar'
+              hoverTextColor={Theme.appColors.white}
+              backgroundColor={Theme.appColors.loggedOff}
+              color={Theme.appColors.loggedOff}
+              width='55%'
+            />
           </Row>
         </FormDiv>
       </Center>

@@ -1,8 +1,8 @@
 import { Dropdown } from 'react-bootstrap'
 import styled from 'styled-components'
 
-export const Botao = styled.button`
-color: ${props => props.loggedUser ? '#4FE3FF' : '#FF6B4F'};
+export const NavigationButton = styled.button`
+color: ${props => props.loggedUser ? props.theme.appColors.loggedIn : props.theme.appColors.loggedOff};
 background-color: transparent;
 border: 0;
 font-size: 25px;

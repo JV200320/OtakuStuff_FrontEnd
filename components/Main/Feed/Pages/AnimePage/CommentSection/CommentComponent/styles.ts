@@ -21,7 +21,7 @@ align-items: center;
 `
 
 export const ContentContainer = styled.textarea`
-border: 1px solid #707070;
+border: 1px solid ${props => props.theme.appColors.commentContentBorder};
 max-height: 300px;
 min-height: 70px;
 border-radius: 5px;

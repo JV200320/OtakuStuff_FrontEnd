@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { Row, Button, Spinner } from 'react-bootstrap'
+import { Row, Spinner } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FavoriteService from '../../../../../../../services/favorites'
 import { RootState } from '../../../../../../../store/modules/rootReducer'
 import { clearLoggedUser, updateFavorites } from '../../../../../../../store/modules/auth/reducer'
 import { useRouter } from 'next/dist/client/router'
 import { toast } from 'react-toastify'
+import { StyledButton } from '../../../../../../Shared/StyledButton'
+import { Theme } from '../../../../../../../styles/theme'
 
 
 export const UnfollowButton = () => {
@@ -42,15 +44,13 @@ export const UnfollowButton = () => {
 
   return (
     <Row className="d-flex justify-content-center py-2">
-      <Button className="w-50" variant='info' onClick={() => handleRemoveFromFavorite()}>
-        {
-          buttonLoading
-            ?
-            <Spinner animation="border" variant="light" />
-            :
-            'Parar de seguir'
-        }
-      </Button>
+      <StyledButton
+        width='50%'
+        backgroundColor={Theme.appColors.loggedIn}
+        color={'#000'}
+        onClick={() => handleRemoveFromFavorite()}
+        text={buttonLoading ? <Spinner animation="border" variant="light" /> : 'Parar de seguir'}
+      />
     </Row>
   )
 }
