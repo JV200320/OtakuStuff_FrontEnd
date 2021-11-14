@@ -1,8 +1,9 @@
 import React from 'react'
-import { Search } from './styles'
 import { IAnime } from '../../../../dtos/Animes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/modules/rootReducer'
+import { StyledInput } from '../../../Shared/StyledInput'
+import { Theme } from '../../../../styles/theme'
 
 interface ISearchProps {
   look: string,
@@ -39,7 +40,12 @@ export const NoFilterFriendsSearch: React.FC<ISearchProps> = ({ look, setFollowi
 
   return (
     <div className="w-100 d-flex justify-content-center my-3">
-      <Search placeholder={`${look}`}
+      <StyledInput
+        width='75%'
+        color={Theme.appColors.loggedIn}
+        borderColor={Theme.appColors.loggedIn}
+        shadow={Theme.appShadows.loggedIn}
+        placeholder={`${look}`}
         onChange={e => handleSearch(e.target.value)}
       />
     </div>

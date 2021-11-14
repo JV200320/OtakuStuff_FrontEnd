@@ -1,8 +1,9 @@
 import React from 'react'
-import { Search } from './styles'
 import { IAnime } from '../../../../dtos/Animes'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../store/modules/rootReducer'
+import { StyledInput } from '../../../Shared/StyledInput'
+import { Theme } from '../../../../styles/theme'
 
 interface ISearchProps {
   look: string,
@@ -39,8 +40,13 @@ export const NoFilterFavoritesSearch: React.FC<ISearchProps> = ({ look, setFavor
 
   return (
     <div className="w-100 d-flex justify-content-center my-3">
-      <Search placeholder={`${look}`}
+      <StyledInput
+        width='75%'
+        placeholder={`${look}`}
         onChange={e => handleSearch(e.target.value)}
+        color={Theme.appColors.loggedIn}
+        borderColor={Theme.appColors.loggedIn}
+        shadow={Theme.appShadows.loggedIn}
       />
     </div>
   )

@@ -3,21 +3,21 @@ import styled from 'styled-components'
 
 export const StyledInput = styled(Form.Control)`
 background-color: transparent;
-border-color: ${props => props.theme.appColors.loggedOff};
+border-color: ${props => props.borderColor};
 text-align: ${props => props.textAlign ?? 'center'};
 width: ${props => props.width ?? '50%'};
-color: ${props => props.theme.appColors.loggedOff};
+color: ${props => props.color};
 &:focus{
-  color: ${props => props.theme.appColors.loggedOff};
+  color: ${props => props.color};
   background-color: transparent;
-  border-color: ${props => props.theme.appColors.loggedOff};
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+  border-color: ${props => props.color};
+  box-shadow: ${props => props.shadow};
 }
 ::placeholder,
 ::-webkit-input-placeholder {
-  color: ${props => props.theme.appColors.loggedOff};
+  color: ${props => props.color};
 }
 :-ms-input-placeholder {
-  color: ${props => props.theme.appColors.loggedOff};
+  color: ${props => props.color};
 }
 `

@@ -1,10 +1,11 @@
 import React from 'react'
 import { Modal, Form } from 'react-bootstrap'
-import { ConfirmButton } from './styles'
 import { useSelector } from 'react-redux'
 import { IUser } from '../../../../dtos/User'
 import { RootState } from '../../../../store/modules/rootReducer'
 import { useRouter } from 'next/dist/client/router'
+import { StyledButton } from '../../../Shared/StyledButton'
+import { Theme } from '../../../../styles/theme'
 
 export const useFilterModal = (props) => {
 
@@ -83,9 +84,14 @@ export const useFilterModal = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer className='d-flex justify-content-center'>
-          <ConfirmButton loggedUser={loggedUser} onClick={() => confirmFilter()}>
-            Confirmar
-          </ConfirmButton>
+          <StyledButton
+            onClick={() => confirmFilter()}
+            width='70%'
+            color={loggedUser ? Theme.appColors.loggedIn : Theme.appColors.loggedOff}
+            backgroundColor={loggedUser ? Theme.appColors.loggedIn : Theme.appColors.loggedOff}
+            text='Confirmar'
+            outlined
+          />
         </Modal.Footer>
       </Modal>
     )
