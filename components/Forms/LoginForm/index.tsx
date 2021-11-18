@@ -60,12 +60,26 @@ export const LoginForm: React.FC = () => {
               <Form className="w-100 d-flex flex-column justify-content-around">
 
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicEmail">
-                  <StyledInput required type="email" placeholder="Email" width='65%'
+                  <StyledInput
+                    required
+                    type="email"
+                    placeholder="Email"
+                    width='65%'
+                    borderColor={Theme.appColors.loggedOff}
+                    color={Theme.appColors.loggedOff}
+                    shadow={Theme.appShadows.loggedOff}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group className="mb-3 justify-content-center d-flex" controlId="formBasicPassword">
-                  <StyledInput required type="password" placeholder="Senha" width='65%'
+                  <StyledInput
+                    required
+                    type="password"
+                    placeholder="Senha"
+                    width='65%'
+                    borderColor={Theme.appColors.loggedOff}
+                    color={Theme.appColors.loggedOff}
+                    shadow={Theme.appShadows.loggedOff}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
                 </Form.Group>
 

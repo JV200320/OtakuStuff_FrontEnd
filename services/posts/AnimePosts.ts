@@ -18,6 +18,14 @@ const AnimePostService = {
   editAnimePost: async (content: string, comment_id: number) => {
     let res  = await Api.patch(`interactions/anime/post/${comment_id}`, {content})
     return res.data.success
+  },
+  likeAnimePost: async (post_id: number) => {
+    let res = await Api.post(`interactions/anime/post/like/${post_id}`)
+    console.log(res)
+  },
+  unlikeAnimePost: async (post_id: number) => {
+    let res = await Api.delete(`interactions/anime/post/like/${post_id}`)
+    console.log(res)
   }
 }
 export default AnimePostService

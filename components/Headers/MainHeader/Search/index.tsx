@@ -1,5 +1,5 @@
 import React from 'react'
-import { Botao } from "./styles"
+import { ButtonDiv } from "./styles"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Col } from 'react-bootstrap'
@@ -67,9 +67,13 @@ export const Search: React.FC<IProps> = ({
   return (
     <>
       <Col lg={6} className="justify-content-center d-flex align-items-center">
-        <Botao onClick={() => setFilterModalShow(true)}>
-          <FontAwesomeIcon icon={faFilter} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="me-2" />
-        </Botao>
+        <ButtonDiv>
+          <FontAwesomeIcon
+            icon={faFilter}
+            color={loggedUser ? '#4FE3FF' : '#FF6B4F'}
+            className="me-3"
+            onClick={() => setFilterModalShow(true)} />
+        </ButtonDiv>
         <StyledInput
           placeholder={`Procurar por ${confirmedFilter}...`}
           value={search}
@@ -81,9 +85,14 @@ export const Search: React.FC<IProps> = ({
           borderColor={loggedUser ? Theme.appColors.loggedIn : Theme.appColors.loggedOff}
           shadow={loggedUser ? Theme.appShadows.loggedIn : Theme.appShadows.loggedOff}
         />
-        <Botao onClick={() => searchContent()}>
-          <FontAwesomeIcon icon={faSearch} color={loggedUser ? '#4FE3FF' : '#FF6B4F'} className="ms-2" />
-        </Botao>
+        <ButtonDiv>
+          <FontAwesomeIcon
+            icon={faSearch}
+            color={loggedUser ? '#4FE3FF' : '#FF6B4F'}
+            className="ms-3"
+            onClick={() => searchContent()}
+          />
+        </ButtonDiv>
       </Col>
     </>
   )

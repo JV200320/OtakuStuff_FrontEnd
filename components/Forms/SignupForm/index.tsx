@@ -93,6 +93,9 @@ export const SignUpForm: React.FC = () => {
                     type="text"
                     placeholder="Nickname"
                     width='80%'
+                    borderColor={Theme.appColors.loggedOff}
+                    color={Theme.appColors.loggedOff}
+                    shadow={Theme.appShadows.loggedOff}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
                   />
                 </Form.Group>
@@ -103,6 +106,9 @@ export const SignUpForm: React.FC = () => {
                     type="email"
                     placeholder="Email"
                     width='80%'
+                    borderColor={Theme.appColors.loggedOff}
+                    color={Theme.appColors.loggedOff}
+                    shadow={Theme.appShadows.loggedOff}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                   />
                 </Form.Group>
@@ -113,6 +119,9 @@ export const SignUpForm: React.FC = () => {
                     type="password"
                     placeholder="Senha"
                     width='80%'
+                    borderColor={Theme.appColors.loggedOff}
+                    color={Theme.appColors.loggedOff}
+                    shadow={Theme.appShadows.loggedOff}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                   />
                 </Form.Group>
@@ -121,8 +130,11 @@ export const SignUpForm: React.FC = () => {
                   <StyledInput
                     required
                     type="password"
-                    placeholder="Confirmar
-                  senha" width='80%'
+                    placeholder="Confirmar senha"
+                    width='80%'
+                    borderColor={Theme.appColors.loggedOff}
+                    color={Theme.appColors.loggedOff}
+                    shadow={Theme.appShadows.loggedOff}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
                   />
                 </Form.Group>

@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
-export const Botao = styled.button`
+export const ButtonDiv = styled.div`
 color: ${props => props.loggedUser ? props.theme.appColors.loggedIn : props.theme.appColors.loggedOff};
-background-color: transparent;
-border: 0;
 font-size: 25px;
+
+&:hover {
+  cursor: pointer;
+}
 
 @media(max-width: 1000px) {
   & {

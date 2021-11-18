@@ -4,17 +4,14 @@ import { IAnimePost } from '../../../../../../../dtos/Posts'
 import { ContentContainer, UserCol, UserImage, UserNickname, TimeCol } from './styles'
 import moment from 'moment/min/moment-with-locales'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart as solidHeart, faPencilAlt, faReply, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../../../../../store/modules/rootReducer'
-import { IUser } from '../../../../../../../dtos/User'
+import { faReply } from '@fortawesome/free-solid-svg-icons'
 import { DeleteIcon } from './DeleteIcon'
 import { EditIcon } from './EditIcon'
 import AnimePostService from '../../../../../../../services/posts/AnimePosts'
 import { toast } from 'react-toastify'
 import { StyledButton } from '../../../../../../Shared/StyledButton'
 import { Theme } from '../../../../../../../styles/theme'
+import { LikeIcon } from './LikeIcon'
 
 
 
@@ -27,23 +24,10 @@ interface IProps {
 export const CommentComponent: React.FC<IProps> = ({ comment, owner, updateComments }) => {
 
   moment.locale('pt-br')
-  const loggedUser: IUser = useSelector((state: RootState) => state.auth)
 
   const [editable, setEditable] = React.useState<boolean>(false)
 
   const [content, setContent] = React.useState<string>(comment.content)
-
-  const hasLoggedUserLiked = (): boolean => {
-    if (!loggedUser) return null
-
-    let filter_result = comment.likes.filter((like) => {
-      return like.user_id == loggedUser.id
-    })
-    if (filter_result.length != 0) {
-      return true
-    }
-    return false
-  }
 
   const renderEditAndDelete = () => {
     if (owner) {
@@ -116,12 +100,10 @@ export const CommentComponent: React.FC<IProps> = ({ comment, owner, updateComme
         null}
       <Row>
         <Col className='text-center mt-2'>
-          <span><FontAwesomeIcon
-            icon={hasLoggedUserLiked() ? solidHeart : regularHeart} />
-            {' ' + comment.likes.length}</span>
+          <LikeIcon comment={comment} />
         </Col>
         <Col className='text-center mt-2'>
-          <span><FontAwesomeIcon icon={faReply} /> {comment.replies}</span>
+          <span><FontAwesomeIcon icon={faReply} onClick={() => alert('teste')} /> {comment.replies}</span>
         </Col>
       </Row>
     </>
